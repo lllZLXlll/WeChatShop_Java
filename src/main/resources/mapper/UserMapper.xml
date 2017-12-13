@@ -3,7 +3,7 @@
 <mapper namespace="com.wechat.shop.mapper.UserMapper">
  
   <select id="findUserInfo" resultType="com.wechat.shop.entity.User">
-    select * from t_test;
+    select * from t_test where id = 1;
   </select>
  
 </mapper>
