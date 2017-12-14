@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<name>微信小程序商城</name>
+	
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>springboot</groupId>
 	<artifactId>springboot-mybatis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-mybatis :: 整合 Mybatis Demo</name>
 
+	<!-- 打包方式为war -->
+	<packaging>war</packaging>
+	
 	<!-- Spring Boot 启动父依赖 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -80,10 +84,29 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+           	<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+			<exclusions>
+		    	<exclusion>
+				    <groupId>*</groupId>
+				    <artifactId>*</artifactId>
+			    </exclusion>
+			</exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.2.1</version>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
-		<finalName>spring-boot-jsp</finalName>
+		<!-- 打包后的项目名称  -->
+		<finalName>/zlx</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
