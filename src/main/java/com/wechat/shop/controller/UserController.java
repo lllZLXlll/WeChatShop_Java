@@ -12,25 +12,30 @@ import com.wechat.shop.service.UserService;
 @Controller
 public class UserController {
 
-    private Logger logger = Logger.getLogger(UserController.class);
+	private Logger logger = Logger.getLogger(UserController.class);
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @RequestMapping("/getUserInfo")
-    @ResponseBody
-    public User getUserInfo() {
-        User user = userService.getUserInfo();
-        if(user!=null){
-            System.out.println("user.getName():"+user.getName());
-            logger.info("user.getAge():"+user.getAge());
-        }
-        return user;
-    }
-    
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
-    }
-    
+	@RequestMapping("/getUserInfo")
+	@ResponseBody
+	public User getUserInfo() {
+		User user = userService.getUserInfo();
+		if (user != null) {
+			System.out.println("user.getName():" + user.getName());
+			logger.info("user.getAge():" + user.getAge());
+		}
+		return user;
+	}
+
+	@RequestMapping("/index")
+	public String index() {
+		return "index";
+	}
+
+	@RequestMapping("/login")
+	@ResponseBody
+	public String login(String jdCode) throws Exception {
+		return userService.login(jdCode);
+	}
 }

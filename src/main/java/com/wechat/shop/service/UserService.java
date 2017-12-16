@@ -8,5 +8,7 @@ import com.wechat.shop.entity.User;
 public interface UserService {
 
 	public User getUserInfo();
+	
+	public String login(String jdCode) throws Exception;
 
 }
