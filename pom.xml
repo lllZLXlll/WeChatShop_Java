@@ -11,7 +11,7 @@
 
 	<!-- 打包方式为war -->
 	<packaging>war</packaging>
-	
+	 
 	<!-- Spring Boot 启动父依赖 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -102,6 +102,8 @@
             <version>2.2.1</version>
             <scope>provided</scope>
         </dependency>
+        
+        
 	</dependencies>
 
 	<build>
