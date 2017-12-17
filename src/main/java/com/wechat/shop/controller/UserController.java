@@ -1,5 +1,7 @@
 package com.wechat.shop.controller;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,17 +19,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/getUserInfo")
-	@ResponseBody
-	public User getUserInfo() {
-		User user = userService.getUserInfo();
-		if (user != null) {
-			System.out.println("user.getName():" + user.getName());
-			logger.info("user.getAge():" + user.getAge());
-		}
-		return user;
-	}
-
 	@RequestMapping("/index")
 	public String index() {
 		return "index";
@@ -35,7 +26,8 @@ public class UserController {
 
 	@RequestMapping("/login")
 	@ResponseBody
-	public String login(String jdCode) throws Exception {
-		return userService.login(jdCode);
+	public Map<String, Object> login(String jdCode, String nickName, Integer gender, String avatarUrl, String country,
+			String province, String city) throws Exception {
+		return userService.login(jdCode, nickName, gender, avatarUrl, country, province, city);
 	}
 }

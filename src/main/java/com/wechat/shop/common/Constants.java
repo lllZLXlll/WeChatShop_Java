@@ -6,8 +6,6 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import com.wechat.shop.controller.LoginController;
-
 /**
  * 
  * @author ZLX

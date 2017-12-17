@@ -1,13 +1,16 @@
 package com.wechat.shop.service.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wechat.shop.common.Constants;
-import com.wechat.shop.controller.UserController;
+import com.wechat.shop.common.ReturnCode;
 import com.wechat.shop.entity.User;
 import com.wechat.shop.mapper.UserMapper;
 import com.wechat.shop.service.UserService;
@@ -21,31 +24,42 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 
-	public User getUserInfo() {
-		User user = userMapper.findUserInfo();
-		return user;
-	}
-
 	@Override
-	public String login(String jdCode) throws Exception {
-		// 获取用户在小程序登录成功后返回的code 拼接api获取session_key ，openid
-		String loginApi = Constants.OPONIDAPI + jdCode;
-		logger.info("用户登录code: " + jdCode);
+	public Map<String, Object> login(String jdCode, String nickName, Integer gender, String avatarUrl, String country,
+			String province, String city) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		long updateCount = -1;
 
-		// 调用api
-		String result = HTTPRequestUtil.sendGet(loginApi);
+		// 调用api 获取oponid session_key
+		String result = HTTPRequestUtil.sendGet(Constants.OPONIDAPI + jdCode);
 
 		if (result != null && result.trim().length() > 0) {
 			JSONObject resultJson = new JSONObject(result);
 			String session_key = resultJson.getString("session_key");
 			String openid = resultJson.getString("openid");
-			System.out.println("session_key: " + session_key);
-			System.out.println("openid: " + openid);
 
-			// 用户数据进行保存
+			// 判断用户是否登录过
+			User user = userMapper.queryUserInfoByOpenid(openid);
 
+			// 用户第一次登录保存用户信息
+			if (user == null) {
+				updateCount = userMapper.addUser(new User(openid, session_key, nickName, gender, avatarUrl, country,
+						province, city, new Date(), new Date()));
+			} else {
+				updateCount = userMapper.updateUser(new User(openid, session_key, nickName, gender, avatarUrl, country,
+						province, city, null, new Date()));
+			}
 		}
-		return null;
+
+		if (updateCount != -1) {
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0001_MESSAGE);
+		} else {
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0001);
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0001_MESSAGE);
+		}
+
+		return resultMap;
 	}
 
 }
