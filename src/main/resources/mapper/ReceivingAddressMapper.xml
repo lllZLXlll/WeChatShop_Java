@@ -21,5 +21,23 @@
 		countyName, detailInfo, nationalCode, status FROM t_receivingAddress
 		WHERE userId = #{0}
 	</select>
+		
+	<update id="setAddressStatusByStatus">
+		UPDATE t_receivingAddress SET status = 0 WHERE userId = #{userId} AND status = 1;
+	</update>
+	
+	<update id="setAddressStatusById">
+		UPDATE t_receivingAddress SET status = 1 WHERE userId = #{userId} AND id = #{id};
+	</update>
+	
+	<delete id="delAddressStatusById">
+		DELETE FROM t_receivingAddress WHERE userId = #{userId} AND id = #{id};
+	</delete>
+	
+	<update id="setAddressStatusDefaultById">
+		UPDATE t_receivingAddress t1, (
+			SELECT id FROM t_receivingAddress WHERE userId = #{userId} ORDER BY addAddressTime LIMIT 0, 1
+		) t2 SET status = 1 WHERE t1.id = t2.id
+	</update>
 
 </mapper>

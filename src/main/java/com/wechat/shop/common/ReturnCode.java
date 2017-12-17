@@ -19,7 +19,7 @@ public class ReturnCode {
 	public static final String MESSAGE = "message";
 
 	/**
-	 * 返回 resultList key
+	 * 返回List数据 key
 	 */
 	public static final String RESULTLIST = "resultList";
 
@@ -51,6 +51,16 @@ public class ReturnCode {
 	 * openid 校验失败
 	 */
 	public static final String RETURN_FAIL_CODE_0004 = "code-0004";
+	
+	/**
+	 * 修改默认地址失败
+	 */
+	public static final String RETURN_FAIL_CODE_0005 = "code-0005";
+	
+	/**
+	 * 删除地址失败
+	 */
+	public static final String RETURN_FAIL_CODE_0006 = "code-0006";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -86,5 +96,15 @@ public class ReturnCode {
 	/**
 	 * openid 校验失败
 	 */
-	public static final String FAIL_0004_MESSAGE = "openid 校验失败";
+	public static final String FAIL_0004_MESSAGE = "ID校验失败";
+	
+	/**
+	 * 修改默认地址失败
+	 */
+	public static final String FAIL_0005_MESSAGE = "修改地址失败";
+	
+	/**
+	 * 删除地址失败
+	 */
+	public static final String FAIL_0006_MESSAGE = "删除地址失败";
 }

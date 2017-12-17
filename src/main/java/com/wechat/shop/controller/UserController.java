@@ -60,4 +60,26 @@ public class UserController {
 	public Map<String, Object> queryReceivingAddressListById(String openid) throws Exception {
 		return userService.queryReceivingAddressListById(openid);
 	}
+	
+	/**
+	 * 修改默认收货地址
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping("/setAddressStatusById")
+	@ResponseBody
+	public Map<String, Object> setAddressStatusById(String openid, Long id) throws Exception {
+		return userService.setAddressStatusById(openid, id);
+	}
+	
+	/**
+	 * 删除收货地址
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping("/delAddressStatusById")
+	@ResponseBody
+	public Map<String, Object> delAddressStatusById(String openid, Long id, Integer status) throws Exception {
+		return userService.delAddressStatusById(openid, id, status);
+	}
 }

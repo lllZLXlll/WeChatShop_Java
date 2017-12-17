@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 
-		if (updateCount != -1) {
+		if (updateCount > -1) {
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0001_MESSAGE);
 		} else {
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
 					.addReceivingAddress(new ReceivingAddress(user.getId(), userName, telNumber, postalCode,
 							provinceName, cityName, countyName, detailInfo, nationalCode, status, new Date()));
 			
-			if (updateCount != -1) {
+			if (updateCount > -1) {
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 				resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0003_MESSAGE);
 			} else {
@@ -120,6 +120,57 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> setAddressStatusById(String openid, Long id) {
+		Map<String, Object> resultMap = new HashMap<>();
+		long updateCount = -1;
+		
+		// 查询数据库是否有此openid
+		User user = userMapper.checkOpenIdMd5(openid);
+		// 校验openid 是否正确
+		if (user != null && user.getOpenidMd5() != null && user.getOpenidMd5().trim().length() > 0
+				&& user.getOpenidMd5().equals(openid)) {
+			// 先修改该用户原有的默认地址
+			updateCount = receivingAddressMapper.setAddressStatusByStatus(user.getId());
+			
+			updateCount = receivingAddressMapper.setAddressStatusById(user.getId(), id);
+		}
+		if (updateCount > -1)
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		else {
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0005);
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0005_MESSAGE);
+		}
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> delAddressStatusById(String openid, Long id, Integer status) {
+		Map<String, Object> resultMap = new HashMap<>();
+		long updateCount = -1;
+		
+		// 查询数据库是否有此openid
+		User user = userMapper.checkOpenIdMd5(openid);
+		// 校验openid 是否正确
+		if (user != null && user.getOpenidMd5() != null && user.getOpenidMd5().trim().length() > 0
+				&& user.getOpenidMd5().equals(openid)) {
+			// 删除地址
+			updateCount = receivingAddressMapper.delAddressStatusById(user.getId(), id);
+			
+			if (updateCount != -1 && status == 1) {
+				// 如果删除的是默认收货地址，就把用户添加时间最近的一条地址设为默认地址
+				updateCount = receivingAddressMapper.setAddressStatusDefaultById(user.getId());
+			}
+		}
+		if (updateCount > 0)
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		else {
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0006);
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0006_MESSAGE);
+		}
 		return resultMap;
 	}
 

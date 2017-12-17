@@ -1,7 +1,8 @@
 package com.wechat.shop.mapper;
 
 import java.util.List;
-import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.wechat.shop.entity.ReceivingAddress;
 
@@ -14,4 +15,12 @@ public interface ReceivingAddressMapper {
 	public Long addReceivingAddress(ReceivingAddress receivingAddress);
 
 	public List<ReceivingAddress> queryReceivingAddressListById(Long userId);
+
+	public Long setAddressStatusById(@Param("userId") Long userId, @Param("id") Long id);
+
+	public long setAddressStatusByStatus(@Param("userId") Long userId);
+
+	public long delAddressStatusById(@Param("userId") Long userId, @Param("id") Long id);
+
+	public long setAddressStatusDefaultById(Long id);
 }

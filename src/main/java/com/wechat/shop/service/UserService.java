@@ -18,4 +18,8 @@ public interface UserService {
 
 	public Map<String, Object> queryReceivingAddressListById(String openid);
 
+	public Map<String, Object> setAddressStatusById(String openid, Long id);
+
+	public Map<String, Object> delAddressStatusById(String openid, Long id, Integer status);
+
 }
