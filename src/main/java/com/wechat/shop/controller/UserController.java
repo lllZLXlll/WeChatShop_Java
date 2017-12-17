@@ -24,10 +24,40 @@ public class UserController {
 		return "index";
 	}
 
+	/**
+	 * 用户登录获取信息保存
+	 * 
+	 * @throws Exception
+	 */
 	@RequestMapping("/login")
 	@ResponseBody
 	public Map<String, Object> login(String jdCode, String nickName, Integer gender, String avatarUrl, String country,
 			String province, String city) throws Exception {
 		return userService.login(jdCode, nickName, gender, avatarUrl, country, province, city);
+	}
+
+	/**
+	 * 用户增加收货地址
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping("/addReceivingAddress")
+	@ResponseBody
+	public Map<String, Object> addReceivingAddress(String openid, String userName, String postalCode,
+			String provinceName, String cityName, String countyName, String detailInfo, String nationalCode,
+			String telNumber) throws Exception {
+		return userService.addReceivingAddress(openid, userName, postalCode, provinceName, cityName, countyName,
+				detailInfo, nationalCode, telNumber);
+	}
+	
+	/**
+	 * 查询用户收货地址
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryReceivingAddressListById")
+	@ResponseBody
+	public Map<String, Object> queryReceivingAddressListById(String openid) throws Exception {
+		return userService.queryReceivingAddressListById(openid);
 	}
 }

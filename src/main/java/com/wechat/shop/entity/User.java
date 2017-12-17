@@ -9,6 +9,9 @@ public class User {
 	// 微信平台用户唯一标示
 	private String openid;
 
+	// 微信平台用户唯一标示 MD5加密后
+	private String openidMd5;
+
 	// 本次登录的会话密钥,刷新登录状态后的密钥会改变
 	private String session_key;
 
@@ -39,9 +42,10 @@ public class User {
 	public User() {
 	}
 
-	public User(String openid, String session_key, String nickName, Integer gender, String avatarUrl, String country,
-			String province, String city, Date firstLoginTime, Date lastLoginTime) {
+	public User(String openid, String openidMd5, String session_key, String nickName, Integer gender, String avatarUrl,
+			String country, String province, String city, Date firstLoginTime, Date lastLoginTime) {
 		this.openid = openid;
+		this.openidMd5 = openidMd5;
 		this.session_key = session_key;
 		this.nickName = nickName;
 		this.gender = gender;
@@ -67,6 +71,14 @@ public class User {
 
 	public void setOpenid(String openid) {
 		this.openid = openid;
+	}
+
+	public String getOpenidMd5() {
+		return openidMd5;
+	}
+
+	public void setOpenidMd5(String openidMd5) {
+		this.openidMd5 = openidMd5;
 	}
 
 	public String getSession_key() {

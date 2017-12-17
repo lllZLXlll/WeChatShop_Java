@@ -12,4 +12,6 @@ public interface UserMapper {
 
 	// 修改用户信息
 	public Long updateUser(User user);
+
+	public User checkOpenIdMd5(String openid);
 }

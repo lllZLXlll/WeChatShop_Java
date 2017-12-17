@@ -3,22 +3,26 @@
 <mapper namespace="com.wechat.shop.mapper.UserMapper">
 
 	<select id="queryUserInfoByOpenid" resultType="com.wechat.shop.entity.User">
-		SELECT * FROM t_user WHERE openid = #{0}
+		SELECT * FROM
+		t_user WHERE openid = #{0}
 	</select>
-	
+
 	<insert id="addUser" parameterType="com.wechat.shop.entity.User">
 		INSERT INTO t_user (
-			openid, session_key, nickName, gender, avatarUrl,
-			country, province, city, firstLoginTime, lastLoginTime
+		openid, openidMd5, session_key, nickName, gender, avatarUrl,
+		country, province, city, firstLoginTime, lastLoginTime
 		) VALUES (
-			#{openid}, #{session_key}, #{nickName}, #{gender}, #{avatarUrl},
-			#{country}, #{province}, #{city}, #{firstLoginTime}, #{lastLoginTime}
+		#{openid}, #{openidMd5}, #{session_key}, #{nickName}, #{gender}, #{avatarUrl},
+		#{country}, #{province}, #{city}, #{firstLoginTime}, #{lastLoginTime}
 		)
 	</insert>
-	
+
 	<update id="updateUser" parameterType="com.wechat.shop.entity.User">
-		UPDATE t_user 
+		UPDATE t_user
 		<set>
+			<if test='openidMd5 != null and openidMd5 != ""'>
+				openidMd5 = #{openidMd5},
+			</if>
 			<if test='session_key != null and session_key != ""'>
 				session_key = #{session_key},
 			</if>
@@ -46,6 +50,10 @@
 		</set>
 		WHERE openid = #{openid}
 	</update>
-	
+
+	<select id="checkOpenIdMd5" resultType="com.wechat.shop.entity.User">
+		SELECT * FROM t_user
+		WHERE openidMd5 = #{0}
+	</select>
 
 </mapper>

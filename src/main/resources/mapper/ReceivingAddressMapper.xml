@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wechat.shop.mapper.ReceivingAddressMapper">
+
+	<select id="queryUserInfoByOpenid" resultType="long">
+		SELECT COUNT(id) count FROM t_receivingAddress WHERE userId = #{0} AND status = 1
+	</select>
+
+	<insert id="addReceivingAddress" parameterType="com.wechat.shop.entity.ReceivingAddress">
+		INSERT INTO t_receivingAddress (
+			userId, userName, telNumber, postalCode, provinceName, cityName,
+			countyName, detailInfo, nationalCode, status, addAddressTime
+		) VALUES (
+			#{userId}, #{userName}, #{telNumber}, #{postalCode}, #{provinceName}, #{cityName},
+			#{countyName}, #{detailInfo}, #{nationalCode}, #{status}, #{addAddressTime}
+		)
+	</insert>
+
+	<select id="queryReceivingAddressListById" resultType="com.wechat.shop.entity.ReceivingAddress">
+		SELECT id, userName, telNumber, postalCode, provinceName, cityName,
+		countyName, detailInfo, nationalCode, status FROM t_receivingAddress
+		WHERE userId = #{0}
+	</select>
+
+</mapper>
