@@ -354,3 +354,68 @@
 2017-12-18 15:38:23,794  INFO DispatcherServlet:489 - FrameworkServlet 'dispatcherServlet': initialization started
 2017-12-18 15:38:23,806  INFO DispatcherServlet:508 - FrameworkServlet 'dispatcherServlet': initialization completed in 12 ms
 2017-12-18 15:38:23,825 ERROR ErrorController:32 - ---!!!---出现异常处理ErrorController，异常信息为：java.lang.NullPointerException---!!!---
+2017-12-18 18:41:24,881  INFO Application:48 - Starting Application on DESKTOP-LQRJRTP with PID 23028 (D:\Work\WX_Project\WeChatShop_Java\target\classes started by ZLX in D:\Work\WX_Project\WeChatShop_Java)
+2017-12-18 18:41:24,901  INFO Application:637 - No active profile set, falling back to default profiles: default
+2017-12-18 18:41:25,431  INFO AnnotationConfigEmbeddedWebApplicationContext:582 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@462d5aee: startup date [Mon Dec 18 18:41:25 CST 2017]; root of context hierarchy
+2017-12-18 18:41:26,802  INFO Version:30 - HV000001: Hibernate Validator 5.3.4.Final
+2017-12-18 18:41:27,830  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration' of type [class org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-12-18 18:41:27,920  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'validator' of type [class org.springframework.validation.beanvalidation.LocalValidatorFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-12-18 18:41:27,965  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4bb9271c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-12-18 18:41:28,821  INFO TomcatEmbeddedServletContainer:89 - Tomcat initialized with port(s): 8080 (http)
+2017-12-18 18:41:29,498  INFO ContextLoader:276 - Root WebApplicationContext: initialization completed in 4090 ms
+2017-12-18 18:41:29,767  INFO ServletRegistrationBean:190 - Mapping servlet: 'dispatcherServlet' to [/]
+2017-12-18 18:41:29,774  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-12-18 18:41:29,776  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-12-18 18:41:29,777  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-12-18 18:41:29,777  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+2017-12-18 18:41:31,089  INFO RequestMappingHandlerAdapter:534 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@462d5aee: startup date [Mon Dec 18 18:41:25 CST 2017]; root of context hierarchy
+2017-12-18 18:41:31,271  INFO RequestMappingHandlerMapping:543 - Mapped "{[/index]}" onto public java.lang.String com.wechat.shop.controller.UserController.index() throws java.lang.NullPointerException
+2017-12-18 18:41:31,275  INFO RequestMappingHandlerMapping:543 - Mapped "{[/addReceivingAddress]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.addReceivingAddress(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception
+2017-12-18 18:41:31,276  INFO RequestMappingHandlerMapping:543 - Mapped "{[/queryReceivingAddressListById]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.queryReceivingAddressListById(java.lang.String) throws java.lang.Exception
+2017-12-18 18:41:31,277  INFO RequestMappingHandlerMapping:543 - Mapped "{[/setAddressStatusById]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.setAddressStatusById(java.lang.String,java.lang.Long) throws java.lang.Exception
+2017-12-18 18:41:31,278  INFO RequestMappingHandlerMapping:543 - Mapped "{[/delAddressStatusById]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.delAddressStatusById(java.lang.String,java.lang.Long,java.lang.Integer) throws java.lang.Exception
+2017-12-18 18:41:31,279  INFO RequestMappingHandlerMapping:543 - Mapped "{[/login]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.login(java.lang.String,java.lang.String,java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception
+2017-12-18 18:41:31,288  INFO RequestMappingHandlerMapping:543 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-12-18 18:41:31,289  INFO RequestMappingHandlerMapping:543 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-12-18 18:41:31,416  INFO SimpleUrlHandlerMapping:354 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-12-18 18:41:31,425  INFO SimpleUrlHandlerMapping:354 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-12-18 18:41:31,607  INFO SimpleUrlHandlerMapping:354 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-12-18 18:41:32,232  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+2017-12-18 18:41:32,425  INFO TomcatEmbeddedServletContainer:192 - Tomcat started on port(s): 8080 (http)
+2017-12-18 18:41:32,433  INFO Application:57 - Started Application in 8.044 seconds (JVM running for 8.901)
+2017-12-18 18:41:32,433  INFO Application:25 - ---!!!---项目启动成功---!!!---
+2017-12-18 18:41:39,791  INFO DispatcherServlet:489 - FrameworkServlet 'dispatcherServlet': initialization started
+2017-12-18 18:41:39,866  INFO DispatcherServlet:508 - FrameworkServlet 'dispatcherServlet': initialization completed in 74 ms
+2017-12-18 18:46:14,775  INFO Application:48 - Starting Application on DESKTOP-LQRJRTP with PID 3120 (D:\Work\WX_Project\WeChatShop_Java\target\classes started by ZLX in D:\Work\WX_Project\WeChatShop_Java)
+2017-12-18 18:46:14,783  INFO Application:637 - No active profile set, falling back to default profiles: default
+2017-12-18 18:46:14,905  INFO AnnotationConfigEmbeddedWebApplicationContext:582 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@462d5aee: startup date [Mon Dec 18 18:46:14 CST 2017]; root of context hierarchy
+2017-12-18 18:46:15,788  INFO Version:30 - HV000001: Hibernate Validator 5.3.4.Final
+2017-12-18 18:46:17,089  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration' of type [class org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-12-18 18:46:17,188  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'validator' of type [class org.springframework.validation.beanvalidation.LocalValidatorFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-12-18 18:46:17,240  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:325 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4bb9271c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2017-12-18 18:46:18,452  INFO TomcatEmbeddedServletContainer:89 - Tomcat initialized with port(s): 8080 (http)
+2017-12-18 18:46:19,452  INFO ContextLoader:276 - Root WebApplicationContext: initialization completed in 4551 ms
+2017-12-18 18:46:19,755  INFO ServletRegistrationBean:190 - Mapping servlet: 'dispatcherServlet' to [/]
+2017-12-18 18:46:19,763  INFO FilterRegistrationBean:258 - Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-12-18 18:46:19,764  INFO FilterRegistrationBean:258 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-12-18 18:46:19,765  INFO FilterRegistrationBean:258 - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-12-18 18:46:19,765  INFO FilterRegistrationBean:258 - Mapping filter: 'requestContextFilter' to: [/*]
+2017-12-18 18:46:21,591  INFO RequestMappingHandlerAdapter:534 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@462d5aee: startup date [Mon Dec 18 18:46:14 CST 2017]; root of context hierarchy
+2017-12-18 18:46:21,821  INFO RequestMappingHandlerMapping:543 - Mapped "{[/index]}" onto public java.lang.String com.wechat.shop.controller.UserController.index() throws java.lang.NullPointerException
+2017-12-18 18:46:21,824  INFO RequestMappingHandlerMapping:543 - Mapped "{[/addReceivingAddress]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.addReceivingAddress(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception
+2017-12-18 18:46:21,825  INFO RequestMappingHandlerMapping:543 - Mapped "{[/queryReceivingAddressListById]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.queryReceivingAddressListById(java.lang.String) throws java.lang.Exception
+2017-12-18 18:46:21,826  INFO RequestMappingHandlerMapping:543 - Mapped "{[/delAddressStatusById]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.delAddressStatusById(java.lang.String,java.lang.Long,java.lang.Integer) throws java.lang.Exception
+2017-12-18 18:46:21,837  INFO RequestMappingHandlerMapping:543 - Mapped "{[/setAddressStatusById]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.setAddressStatusById(java.lang.String,java.lang.Long) throws java.lang.Exception
+2017-12-18 18:46:21,839  INFO RequestMappingHandlerMapping:543 - Mapped "{[/login]}" onto public java.util.Map<java.lang.String, java.lang.Object> com.wechat.shop.controller.UserController.login(java.lang.String,java.lang.String,java.lang.Integer,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.Exception
+2017-12-18 18:46:21,844  INFO RequestMappingHandlerMapping:543 - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-12-18 18:46:21,851  INFO RequestMappingHandlerMapping:543 - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-12-18 18:46:21,946  INFO SimpleUrlHandlerMapping:354 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-12-18 18:46:21,948  INFO SimpleUrlHandlerMapping:354 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-12-18 18:46:21,978  INFO ExceptionHandlerExceptionResolver:273 - Detected @ExceptionHandler methods in errorController
+2017-12-18 18:46:22,038  INFO SimpleUrlHandlerMapping:354 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-12-18 18:46:22,541  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+2017-12-18 18:46:22,688  INFO TomcatEmbeddedServletContainer:192 - Tomcat started on port(s): 8080 (http)
+2017-12-18 18:46:22,705  INFO Application:57 - Started Application in 8.568 seconds (JVM running for 9.275)
+2017-12-18 18:46:22,706  INFO Application:25 - ---!!!---项目启动成功---!!!---
+2017-12-18 18:47:41,513  INFO DispatcherServlet:489 - FrameworkServlet 'dispatcherServlet': initialization started
+2017-12-18 18:47:41,555  INFO DispatcherServlet:508 - FrameworkServlet 'dispatcherServlet': initialization completed in 41 ms
