@@ -1,8 +1,10 @@
 package com.wechat.shop;
 
+import org.apache.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 /**
  * Spring Boot 应用启动类
@@ -14,9 +16,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.wechat.shop.mapper")
 public class Application {
 
+	private static Logger logger = Logger.getLogger(Application.class);
+	
 	public static void main(String[] args) {
 		// 程序启动入口
 		// 启动嵌入式的 Tomcat 并初始化 Spring 环境及其各 Spring 组件
 		SpringApplication.run(Application.class, args);
+		logger.info("---!!!---项目启动成功---!!!---");
 	}
 }

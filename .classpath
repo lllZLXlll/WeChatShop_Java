@@ -23,6 +23,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/360安全浏览器下载/wafer-java-server-sdk-master/com.qcloud.weapp.demo/lib/org.json.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
