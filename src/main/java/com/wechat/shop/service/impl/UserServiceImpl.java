@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wechat.shop.common.Constants;
-import com.wechat.shop.common.MD5;
 import com.wechat.shop.common.ReturnCode;
 import com.wechat.shop.entity.ReceivingAddress;
 import com.wechat.shop.entity.User;
@@ -18,6 +17,7 @@ import com.wechat.shop.mapper.ReceivingAddressMapper;
 import com.wechat.shop.mapper.UserMapper;
 import com.wechat.shop.service.UserService;
 import com.wechat.shop.utils.HTTPRequestUtil;
+import com.wechat.shop.utils.MD5;
 
 @Service
 public class UserServiceImpl implements UserService {

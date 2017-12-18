@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wechat.shop.entity.User;
 import com.wechat.shop.service.UserService;
 
 @Controller
@@ -20,7 +19,10 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping("/index")
-	public String index() {
+	public String index() throws NullPointerException {
+		if (true) {
+			throw new NullPointerException();
+		}
 		return "index";
 	}
 

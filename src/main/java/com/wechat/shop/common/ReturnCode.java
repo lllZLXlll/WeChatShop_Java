@@ -61,6 +61,11 @@ public class ReturnCode {
 	 * 删除地址失败
 	 */
 	public static final String RETURN_FAIL_CODE_0006 = "code-0006";
+	
+	/**
+	 * 服务器异常
+	 */
+	public static final String RETURN_FAIL_CODE_0007 = "code-0007";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -107,4 +112,9 @@ public class ReturnCode {
 	 * 删除地址失败
 	 */
 	public static final String FAIL_0006_MESSAGE = "删除地址失败";
+	
+	/**
+	 * 服务器异常
+	 */
+	public static final String FAIL_0007_MESSAGE = "服务器异常";
 }
