@@ -25,8 +25,8 @@ public class ProductController {
 	 */
 	@RequestMapping("/queryProductList")
 	@ResponseBody
-	public Map<String, Object> queryProductList() throws Exception {
-		return productService.queryProductList();
+	public Map<String, Object> queryProductList(Integer pageNum) throws Exception {
+		return productService.queryProductList(pageNum);
 	}
 
 }

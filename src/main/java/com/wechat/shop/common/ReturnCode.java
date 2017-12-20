@@ -22,7 +22,12 @@ public class ReturnCode {
 	 * 返回List数据 key
 	 */
 	public static final String RESULTLIST = "resultList";
-
+	
+	/**
+	 * 返回分页数据 key
+	 */
+	public static final String PAGE = "page";
+	
 	/**
 	 * 返回状态码
 	 */

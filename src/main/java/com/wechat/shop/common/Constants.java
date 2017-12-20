@@ -49,5 +49,7 @@ public class Constants {
 		return oponIdApi;
 	}
 
+	// 分页数量 
+	public final static Integer PAGESIZE_10 = 10;
 
 }
