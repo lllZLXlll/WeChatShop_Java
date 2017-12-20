@@ -29,6 +29,7 @@ public class ErrorController {
 	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
 	public Map<String, Object> resultError(Exception e) {
+		e.printStackTrace();
 		logger.error("---!!!---出现异常处理ErrorController，异常信息为：" + e.toString() + "---!!!---");
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
