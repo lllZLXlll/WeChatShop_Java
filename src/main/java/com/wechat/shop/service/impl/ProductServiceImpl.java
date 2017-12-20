@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 		page.setPageNum(pageNum == null ? 1 : pageNum);
 
 		List<Map<String, Object>> list = productMapper.queryProductList(page.getPageBeginNum(), page.getPageSize(), name);
-		Integer pageTotalCount = productMapper.queryProductListCount();
+		Integer pageTotalCount = productMapper.queryProductListCount(name);
 
 		page.setPage(list);
 		page.setPageTotalCount(pageTotalCount);
