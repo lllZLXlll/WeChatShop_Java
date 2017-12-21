@@ -22,8 +22,10 @@
 		<if test='param5 != null and param5 != "" and param5 == "2"'>
 			ORDER BY t.price DESC
 		</if>
-		<if test='param4 == null and param5 == null'>
-			ORDER BY t.id DESC, t.salesVolume DESC , t.price DESC
+		<if test='param4 == null or param4 == ""'>
+			<if test='param5 == null or param5 == ""'>
+				ORDER BY t.id DESC, t.salesVolume DESC , t.price DESC
+			</if>
 		</if>
 		LIMIT #{param1}, #{param2}
 	</select>
