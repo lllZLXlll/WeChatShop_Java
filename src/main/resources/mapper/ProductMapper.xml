@@ -14,9 +14,6 @@
 			GROUP BY t2.productId
 		) t WHERE 1 = 1
 		<if test='param4 != null and param4 != "" and param4 == "1"'>
-			ORDER BY t.salesVolume
-		</if>
-		<if test='param4 != null and param4 != "" and param4 == "2"'>
 			ORDER BY t.salesVolume DESC
 		</if>
 		<if test='param5 != null and param5 != "" and param5 == "1"'>

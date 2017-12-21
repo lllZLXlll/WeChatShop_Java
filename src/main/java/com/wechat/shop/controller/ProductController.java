@@ -23,7 +23,7 @@ public class ProductController {
 	 * 
 	 * pageNum			当前页
 	 * name				商品名称
-	 * salesVolumeSort	销量排序 	1：升序	2：降序
+	 * salesVolumeSort	销量排序 	1：降序
 	 * priceSort		价格排序	1：升序	2：降序
 	 * 
 	 * @throws Exception
