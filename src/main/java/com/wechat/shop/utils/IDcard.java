@@ -7,10 +7,14 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 //实名认证
 public class IDcard {
+
+	private static Logger logger = Logger.getLogger(IDcard.class);
+	
 	private final static String MALL_ID = "110543";
 	private final static String APPKEY = "bd477703eb7a8ecb380ac25f05ce8ed4";
 	private final static String URL = "http://121.41.42.121:8080/v2/id-server?";
@@ -31,7 +35,7 @@ public class IDcard {
 
 		String jsonString = new String(json.getBytes(), "UTF-8");
 		JSONObject result = new JSONObject(jsonString);
-		System.out.println(result);
+		logger.info("---!!!--- 实名认证返回信息：" + result);
 
 		int status = Integer.parseInt(result.getString("status"));
 		int code = Integer.parseInt(result.getJSONObject("data").getString("code"));

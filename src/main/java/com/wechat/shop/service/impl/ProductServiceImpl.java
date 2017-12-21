@@ -19,13 +19,13 @@ public class ProductServiceImpl implements ProductService {
 	private ProductMapper productMapper;
 
 	@Override
-	public Map<String, Object> queryProductList(Integer pageNum, String name) {
+	public Map<String, Object> queryProductList(Integer pageNum, String name, String salesVolumeSort, String priceSort) {
 		Map<String, Object> resultMap = new HashMap<>();
 
 		Page page = new Page();
 		page.setPageNum(pageNum == null ? 1 : pageNum);
 
-		List<Map<String, Object>> list = productMapper.queryProductList(page.getPageBeginNum(), page.getPageSize(), name);
+		List<Map<String, Object>> list = productMapper.queryProductList(page.getPageBeginNum(), page.getPageSize(), name, salesVolumeSort, priceSort);
 		Integer pageTotalCount = productMapper.queryProductListCount(name);
 
 		page.setPage(list);

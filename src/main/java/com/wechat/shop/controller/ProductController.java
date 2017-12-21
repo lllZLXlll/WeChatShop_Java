@@ -21,12 +21,17 @@ public class ProductController {
 	/**
 	 * 用户登录获取信息保存
 	 * 
+	 * pageNum			当前页
+	 * name				商品名称
+	 * salesVolumeSort	销量排序 	1：升序	2：降序
+	 * priceSort		价格排序	1：升序	2：降序
+	 * 
 	 * @throws Exception
 	 */
 	@RequestMapping("/queryProductList")
 	@ResponseBody
-	public Map<String, Object> queryProductList(Integer pageNum, String name) throws Exception {
-		return productService.queryProductList(pageNum, name);
+	public Map<String, Object> queryProductList(Integer pageNum, String name, String salesVolumeSort, String priceSort) throws Exception {
+		return productService.queryProductList(pageNum, name, salesVolumeSort, priceSort);
 	}
 
 }
