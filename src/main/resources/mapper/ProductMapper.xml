@@ -42,4 +42,8 @@
 		) t
 	</select>
 
+	<select id="queryProductType" resultType="map">
+		SELECT * FROM t_product_type
+	</select>
+
 </mapper>

@@ -36,4 +36,15 @@ public class ProductServiceImpl implements ProductService {
 		return resultMap;
 	}
 
+	@Override
+	public Map<String, Object> queryProductType() {
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		List<Map<String, Object>> list = productMapper.queryProductType();
+
+		resultMap.put(ReturnCode.RESULTLIST, list);
+		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		return resultMap;
+	}
+
 }

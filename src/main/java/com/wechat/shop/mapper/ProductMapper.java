@@ -11,4 +11,6 @@ public interface ProductMapper {
 	public List<Map<String, Object>> queryProductList(Integer pageNum, Integer pageSize, String name, String salesVolumeSort, String priceSort);
 
 	public Integer queryProductListCount(@Param("name")String name);
+
+	public List<Map<String, Object>> queryProductType();
 }
