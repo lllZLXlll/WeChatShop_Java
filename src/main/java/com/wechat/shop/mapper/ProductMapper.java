@@ -3,14 +3,22 @@ package com.wechat.shop.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 public interface ProductMapper {
 	
 	// 分页查询商品列表
-	public List<Map<String, Object>> queryProductList(Integer pageNum, Integer pageSize, String name, String salesVolumeSort, String priceSort);
+	public List<Map<String, Object>> queryProductList(Integer pageNum, Integer pageSize, String name, String salesVolumeSort, String priceSort, String productClass);
 
-	public Integer queryProductListCount(@Param("name")String name);
+	public Integer queryProductListCount(String name, String productClass);
 
 	public List<Map<String, Object>> queryProductType();
+
+	public Map<String, Object> queryProductDetailInfoById(Long productId);
+
+	public List<Map<String, Object>> queryProductDetailImagesById(Long productId);
+
+	public List<Map<String, Object>> queryProductDetailClasssById(Long productId);
+
+	public List<Map<String, Object>> queryProductDetailParamsById(Long productId);
+
+	public List<Map<String, Object>> queryProductDetailImgTextById(Long productId);
 }

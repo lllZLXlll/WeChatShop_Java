@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
 
 	// 分页查询商品列表
-	public Map<String, Object> queryProductList(Integer pageNum, String name, String salesVolumeSort, String priceSort);
+	public Map<String, Object> queryProductList(Integer pageNum, String name, String salesVolumeSort, String priceSort, String productClass);
 
 	public Map<String, Object> queryProductType();
+
+	public Map<String, Object> queryProductDetailInfoById(Long productId);
 
 }

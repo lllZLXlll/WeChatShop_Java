@@ -24,9 +24,15 @@ public class ReturnCode {
 	public static final String RESULTLIST = "resultList";
 	
 	/**
+	 * 返回Map数据 key
+	 */
+	public static final String RESULTMAP = "resultMap";
+	
+	/**
 	 * 返回分页数据 key
 	 */
 	public static final String PAGE = "page";
+	
 	
 	/**
 	 * 返回状态码
