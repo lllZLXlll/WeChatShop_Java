@@ -44,7 +44,7 @@ public class ProductController {
 			return productService.queryProductList(pageNum, name, salesVolumeSort, priceSort, productClass);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("---!!!--- queryProductList 请求异常" + e.toString());
+			logger.error("---!!!--- queryProductList 商品列表多条件查询 异常" + e.toString());
 			throw e;
 		}
 	}
@@ -61,7 +61,7 @@ public class ProductController {
 			return productService.queryProductType();
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("---!!!--- queryProductType 请求异常" + e.toString());
+			logger.error("---!!!--- queryProductType 商品分类查询 异常" + e.toString());
 			throw e;
 		}
 	}
@@ -83,7 +83,29 @@ public class ProductController {
 			return productService.queryProductDetailInfoById(productId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("---!!!--- queryProductDetailInfoById 请求异常" + e.toString());
+			logger.error("---!!!--- queryProductDetailInfoById 商品详情数据查询 异常" + e.toString());
+			throw e;
+		}
+	}
+	
+	/**
+	 * 商品添加收藏
+	 * 
+	 * @param productId
+	 *            商品id
+	 * @return 商品收藏是否成功
+	 * 
+	 * @throws Exception
+	 */
+	
+	@RequestMapping("/addCollectionProduct")
+	@ResponseBody
+	public Map<String, Object> addCollectionProduct(Long productId, String openid) throws Exception {
+		try {
+			return productService.addCollectionProduct(productId, openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- addCollectionProduct 商品添加收藏 异常" + e.toString());
 			throw e;
 		}
 	}

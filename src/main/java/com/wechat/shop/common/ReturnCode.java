@@ -22,18 +22,17 @@ public class ReturnCode {
 	 * 返回List数据 key
 	 */
 	public static final String RESULTLIST = "resultList";
-	
+
 	/**
 	 * 返回Map数据 key
 	 */
 	public static final String RESULTMAP = "resultMap";
-	
+
 	/**
 	 * 返回分页数据 key
 	 */
 	public static final String PAGE = "page";
-	
-	
+
 	/**
 	 * 返回状态码
 	 */
@@ -62,21 +61,46 @@ public class ReturnCode {
 	 * openid 校验失败
 	 */
 	public static final String RETURN_FAIL_CODE_0004 = "code-0004";
-	
+
 	/**
 	 * 修改默认地址失败
 	 */
 	public static final String RETURN_FAIL_CODE_0005 = "code-0005";
-	
+
 	/**
 	 * 删除地址失败
 	 */
 	public static final String RETURN_FAIL_CODE_0006 = "code-0006";
-	
+
 	/**
 	 * 服务器异常
 	 */
 	public static final String RETURN_FAIL_CODE_0007 = "code-0007";
+
+	/**
+	 * 无此用户信息
+	 */
+	public static final String RETURN_FAIL_CODE_0008 = "code-0008";
+
+	/**
+	 * 无此商品信息
+	 */
+	public static final String RETURN_FAIL_CODE_0009 = "code-0009";
+
+	/**
+	 * 添加收藏失败
+	 */
+	public static final String RETURN_FAIL_CODE_0010 = "code-0010";
+
+	/**
+	 * 参数校验失败
+	 */
+	public static final String RETURN_FAIL_CODE_0011 = "code-0011";
+
+	/**
+	 * 取消收藏失败
+	 */
+	public static final String RETURN_FAIL_CODE_0012 = "code-0012";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -113,19 +137,45 @@ public class ReturnCode {
 	 * openid 校验失败
 	 */
 	public static final String FAIL_0004_MESSAGE = "ID校验失败";
-	
+
 	/**
 	 * 修改默认地址失败
 	 */
 	public static final String FAIL_0005_MESSAGE = "修改地址失败";
-	
+
 	/**
 	 * 删除地址失败
 	 */
 	public static final String FAIL_0006_MESSAGE = "删除地址失败";
-	
+
 	/**
 	 * 服务器异常
 	 */
 	public static final String FAIL_0007_MESSAGE = "服务器异常";
+
+	/**
+	 * 无此用户信息
+	 */
+	public static final String FAIL_0008_MESSAGE = "无此用户信息";
+
+	/**
+	 * 无此商品信息
+	 */
+	public static final String FAIL_0009_MESSAGE = "无此商品信息";
+
+	/**
+	 * 添加收藏失败
+	 */
+	public static final String FAIL_0010_MESSAGE = "添加收藏失败";
+
+	/**
+	 * 参数校验失败
+	 */
+	public static final String FAIL_0011_MESSAGE = "参数校验失败";
+
+	/**
+	 * 取消收藏失败
+	 */
+	public static final String FAIL_0012_MESSAGE = "取消收藏失败";
+
 }

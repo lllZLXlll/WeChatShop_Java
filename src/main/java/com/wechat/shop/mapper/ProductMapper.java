@@ -21,4 +21,12 @@ public interface ProductMapper {
 	public List<Map<String, Object>> queryProductDetailParamsById(Long productId);
 
 	public List<Map<String, Object>> queryProductDetailImgTextById(Long productId);
+
+	public int checkProductById(Long productId);
+
+	public int addCollectionProduct(Map<String, Object> dataMap);
+
+	public int queryCollectionByProductId(Map<String, Object> dataMap);
+
+	public int delCollectionByProductId(Map<String, Object> dataMap);
 }

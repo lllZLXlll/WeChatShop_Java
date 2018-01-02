@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ProductService {
 
-	// 分页查询商品列表
 	public Map<String, Object> queryProductList(Integer pageNum, String name, String salesVolumeSort, String priceSort, String productClass);
 
 	public Map<String, Object> queryProductType();
 
 	public Map<String, Object> queryProductDetailInfoById(Long productId);
+
+	public Map<String, Object> addCollectionProduct(Long productId, String openidMd5);
 
 }

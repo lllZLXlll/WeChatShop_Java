@@ -75,4 +75,24 @@
 		SELECT * FROM t_product_imageText WHERE productId = #{0}
 	</select>
 
+	<select id="checkProductById" resultType="int">
+		SELECT COUNT(id) FROM t_product_info WHERE id = #{0}
+	</select>
+
+	<insert id="addCollectionProduct">
+		INSERT INTO t_product_collection (
+			productId, openidMd5, addTime
+		) VALUES (
+			#{productId}, #{openidMd5}, NOW()
+		)
+	</insert>
+
+	<select id="queryCollectionByProductId" resultType="int">
+		SELECT COUNT(id) FROM t_product_collection WHERE productId = #{productId} AND openidMd5 = #{openidMd5}
+	</select>
+
+	<delete id="delCollectionByProductId">
+		DELETE FROM t_product_collection WHERE productId = #{productId} AND openidMd5 = #{openidMd5}
+	</delete>
+
 </mapper>
