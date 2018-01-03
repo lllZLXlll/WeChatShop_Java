@@ -87,20 +87,24 @@ public class ProductController {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 商品添加收藏
 	 * 
 	 * @param productId
 	 *            商品id
+	 * 
+	 * @param openid
+	 *            用户id
+	 * 
 	 * @return 商品收藏是否成功
 	 * 
 	 * @throws Exception
 	 */
-	
+
 	@RequestMapping("/addCollectionProduct")
 	@ResponseBody
-	public Map<String, Object> addCollectionProduct(Long productId, String openid) throws Exception {
+	public Map<String, Object> addCollectionProduct(Long productId, String openid, Long pageNum) throws Exception {
 		try {
 			return productService.addCollectionProduct(productId, openid);
 		} catch (Exception e) {

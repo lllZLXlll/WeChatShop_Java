@@ -13,17 +13,22 @@ import com.wechat.shop.common.Config;
 import com.wechat.shop.common.ReturnCode;
 import com.wechat.shop.entity.ReceivingAddress;
 import com.wechat.shop.entity.User;
+import com.wechat.shop.mapper.ProductMapper;
 import com.wechat.shop.mapper.ReceivingAddressMapper;
 import com.wechat.shop.mapper.UserMapper;
 import com.wechat.shop.service.UserService;
 import com.wechat.shop.utils.HTTPRequestUtil;
 import com.wechat.shop.utils.MD5;
+import com.wechat.shop.utils.Page;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private ProductMapper productMapper;
 
 	@Autowired
 	private ReceivingAddressMapper receivingAddressMapper;
@@ -168,6 +173,25 @@ public class UserServiceImpl implements UserService {
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0006);
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0006_MESSAGE);
 		}
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> queryCollectionProductList(Integer pageNum, String openid) {
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		
+		List<Map<String, Object>> list = productMapper.queryCollectionProductList(page.getPageBeginNum(), page.getPageSize(),
+				openid);
+		Integer pageTotalCount = productMapper.queryCollectionProductListCount(openid);
+
+		page.setPage(list);
+		page.setPageTotalCount(pageTotalCount);
+
+		resultMap.put(ReturnCode.PAGE, page);
+		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
 	}
 

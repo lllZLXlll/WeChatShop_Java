@@ -22,4 +22,6 @@ public interface UserService {
 
 	public Map<String, Object> delAddressStatusById(String openid, Long id, Integer status);
 
+	public Map<String, Object> queryCollectionProductList(Integer pageNum, String openid);
+
 }

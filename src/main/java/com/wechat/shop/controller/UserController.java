@@ -32,7 +32,13 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> login(String jdCode, String nickName, Integer gender, String avatarUrl, String country,
 			String province, String city) throws Exception {
-		return userService.login(jdCode, nickName, gender, avatarUrl, country, province, city);
+		try {
+			return userService.login(jdCode, nickName, gender, avatarUrl, country, province, city);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- login 用户登录获取信息保存 异常" + e.toString());
+			throw e;
+		}
 	}
 
 	/**
@@ -45,10 +51,16 @@ public class UserController {
 	public Map<String, Object> addReceivingAddress(String openid, String userName, String postalCode,
 			String provinceName, String cityName, String countyName, String detailInfo, String nationalCode,
 			String telNumber) throws Exception {
-		return userService.addReceivingAddress(openid, userName, postalCode, provinceName, cityName, countyName,
-				detailInfo, nationalCode, telNumber);
+		try {
+			return userService.addReceivingAddress(openid, userName, postalCode, provinceName, cityName, countyName,
+					detailInfo, nationalCode, telNumber);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- addReceivingAddress 用户增加收货地址 异常" + e.toString());
+			throw e;
+		}
 	}
-	
+
 	/**
 	 * 查询用户收货地址
 	 * 
@@ -57,9 +69,15 @@ public class UserController {
 	@RequestMapping("/queryReceivingAddressListById")
 	@ResponseBody
 	public Map<String, Object> queryReceivingAddressListById(String openid) throws Exception {
-		return userService.queryReceivingAddressListById(openid);
+		try {
+			return userService.queryReceivingAddressListById(openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- queryReceivingAddressListById 查询用户收货地址 异常" + e.toString());
+			throw e;
+		}
 	}
-	
+
 	/**
 	 * 修改默认收货地址
 	 * 
@@ -68,9 +86,15 @@ public class UserController {
 	@RequestMapping("/setAddressStatusById")
 	@ResponseBody
 	public Map<String, Object> setAddressStatusById(String openid, Long id) throws Exception {
-		return userService.setAddressStatusById(openid, id);
+		try {
+			return userService.setAddressStatusById(openid, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- setAddressStatusById 修改默认收货地址 异常" + e.toString());
+			throw e;
+		}
 	}
-	
+
 	/**
 	 * 删除收货地址
 	 * 
@@ -79,6 +103,38 @@ public class UserController {
 	@RequestMapping("/delAddressStatusById")
 	@ResponseBody
 	public Map<String, Object> delAddressStatusById(String openid, Long id, Integer status) throws Exception {
-		return userService.delAddressStatusById(openid, id, status);
+		try {
+			return userService.delAddressStatusById(openid, id, status);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- delAddressStatusById 删除收货地址 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 用户收藏商品列表
+	 * 
+	 * @param pageNum
+	 *            当前页
+	 *            
+	 * @param openid
+	 *            用户id
+	 *            
+	 * @return 分页数据
+	 * 
+	 * @throws Exception
+	 */
+
+	@RequestMapping("/queryCollectionProductList")
+	@ResponseBody
+	public Map<String, Object> queryCollectionProductList(Integer pageNum, String openid) throws Exception {
+		try {
+			return userService.queryCollectionProductList(pageNum, openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- queryCollectionProductList 用户收藏商品列表查询 异常" + e.toString());
+			throw e;
+		}
 	}
 }

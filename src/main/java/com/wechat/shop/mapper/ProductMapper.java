@@ -31,4 +31,8 @@ public interface ProductMapper {
 
 	public int delCollectionByProductId(Map<String, Object> dataMap);
 
+	public List<Map<String, Object>> queryCollectionProductList(Integer pageBeginNum, Integer pageSize, String openid);
+
+	public Integer queryCollectionProductListCount(String openid);
+
 }

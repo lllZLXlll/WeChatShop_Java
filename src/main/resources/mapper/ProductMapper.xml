@@ -94,6 +94,16 @@
 	<delete id="delCollectionByProductId">
 		DELETE FROM t_product_collection WHERE productId = #{productId} AND openidMd5 = #{openidMd5}
 	</delete>
+
+	<select id="queryCollectionProductList" resultType="map">
+		SELECT id, name, productImage, price FROM t_product_info WHERE id IN (
+			SELECT productId FROM t_product_collection WHERE openidMd5 = #{param3}
+		) LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id="queryCollectionProductListCount" resultType="int">
+		SELECT COUNT(productId) FROM t_product_collection WHERE openidMd5 = #{0}
+	</select>
 	
 
 </mapper>
