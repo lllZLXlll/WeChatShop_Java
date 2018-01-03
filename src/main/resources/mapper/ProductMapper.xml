@@ -94,5 +94,6 @@
 	<delete id="delCollectionByProductId">
 		DELETE FROM t_product_collection WHERE productId = #{productId} AND openidMd5 = #{openidMd5}
 	</delete>
+	
 
 </mapper>

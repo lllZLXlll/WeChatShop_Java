@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductMapper {
-	
+
 	// 分页查询商品列表
-	public List<Map<String, Object>> queryProductList(Integer pageNum, Integer pageSize, String name, String salesVolumeSort, String priceSort, String productClass);
+	public List<Map<String, Object>> queryProductList(Integer pageNum, Integer pageSize, String name,
+			String salesVolumeSort, String priceSort, String productClass);
 
 	public Integer queryProductListCount(String name, String productClass);
 
@@ -29,4 +30,5 @@ public interface ProductMapper {
 	public int queryCollectionByProductId(Map<String, Object> dataMap);
 
 	public int delCollectionByProductId(Map<String, Object> dataMap);
+
 }

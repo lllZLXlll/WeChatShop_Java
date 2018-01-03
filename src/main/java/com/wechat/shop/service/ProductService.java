@@ -11,7 +11,7 @@ public interface ProductService {
 
 	public Map<String, Object> queryProductType();
 
-	public Map<String, Object> queryProductDetailInfoById(Long productId);
+	public Map<String, Object> queryProductDetailInfoById(Long productId, String openid);
 
 	public Map<String, Object> addCollectionProduct(Long productId, String openidMd5);
 

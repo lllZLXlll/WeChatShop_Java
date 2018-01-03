@@ -78,9 +78,9 @@ public class ProductController {
 
 	@RequestMapping("/queryProductDetailInfoById")
 	@ResponseBody
-	public Map<String, Object> queryProductDetailInfoById(Long productId) throws Exception {
+	public Map<String, Object> queryProductDetailInfoById(Long productId, String openid) throws Exception {
 		try {
-			return productService.queryProductDetailInfoById(productId);
+			return productService.queryProductDetailInfoById(productId, openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- queryProductDetailInfoById 商品详情数据查询 异常" + e.toString());

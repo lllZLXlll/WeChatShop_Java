@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Map<String, Object> queryProductDetailInfoById(Long productId) {
+	public Map<String, Object> queryProductDetailInfoById(Long productId, String openidMd5) {
 		Map<String, Object> resultMap = new HashMap<>();
 
 		// 商品基本信息
@@ -73,6 +73,23 @@ public class ProductServiceImpl implements ProductService {
 		// 商品参数信息
 		productInfoMap.put("productImageText", productMapper.queryProductDetailImgTextById(productId));
 
+		// 检验用户登录
+		if (openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
+			// 无用户登录 返回未收藏商品
+			productInfoMap.put("collectionProduct", "0");
+		} else {
+			// 有用户登录 查询是否收藏商品
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("productId", productId);
+			paramMap.put("openidMd5", openidMd5);
+			int collectionCount = productMapper.queryCollectionByProductId(paramMap);
+			if (collectionCount > 0) {
+				productInfoMap.put("collectionProduct", "1");
+			} else {
+				productInfoMap.put("collectionProduct", "0");
+			}
+		}
+
 		resultMap.put(ReturnCode.RESULTMAP, productInfoMap);
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
@@ -85,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
 		int result = -1;
 
 		// 验证商品id的真实性
-		if (productId == null || openidMd5 == null || openidMd5.trim().length() == 0) {
+		if (productId == null || openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
 			return resultMap;
@@ -111,6 +128,7 @@ public class ProductServiceImpl implements ProductService {
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0012);
 			} else {
 				// 删除成功
+				resultMap.put("type", "0");
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 			}
 			return resultMap;
@@ -128,6 +146,7 @@ public class ProductServiceImpl implements ProductService {
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0010);
 			} else {
 				// 添加成功
+				resultMap.put("type", "1");
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 			}
 		} else {
