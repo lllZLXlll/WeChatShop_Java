@@ -35,4 +35,6 @@ public interface ProductMapper {
 
 	public Integer queryCollectionProductListCount(String openid);
 
+	public int addShoppingCart(Map<String, Object> dataMap);
+
 }

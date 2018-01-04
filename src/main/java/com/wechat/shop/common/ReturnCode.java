@@ -101,11 +101,16 @@ public class ReturnCode {
 	 * 取消收藏失败
 	 */
 	public static final String RETURN_FAIL_CODE_0012 = "code-0012";
-	
+
 	/**
 	 * 删除收藏失败
 	 */
 	public static final String RETURN_FAIL_CODE_0013 = "code-0013";
+
+	/**
+	 * 添加购物车失败
+	 */
+	public static final String RETURN_FAIL_CODE_0014 = "code-0014";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -119,6 +124,21 @@ public class ReturnCode {
 	public static final String SUCCESS_0001_MESSAGE = "登录成功";
 
 	/**
+	 * 添加地址成功
+	 */
+	public static final String SUCCESS_0003_MESSAGE = "添加地址成功";
+
+	/**
+	 * 删除收藏成功
+	 */
+	public static final String SUCCESS_0004_MESSAGE = "删除收藏成功";
+	
+	/**
+	 * 添加购物车成功
+	 */
+	public static final String SUCCESS_0005_MESSAGE = "添加购物车成功";
+
+	/**
 	 * 登录失败
 	 */
 	public static final String FAIL_0001_MESSAGE = "登录失败";
@@ -127,11 +147,6 @@ public class ReturnCode {
 	 * 请求参数为空
 	 */
 	public static final String FAIL_0002_MESSAGE = "请求参数为空";
-
-	/**
-	 * 添加地址成功
-	 */
-	public static final String SUCCESS_0003_MESSAGE = "添加地址成功";
 
 	/**
 	 * 添加地址失败
@@ -182,15 +197,16 @@ public class ReturnCode {
 	 * 取消收藏失败
 	 */
 	public static final String FAIL_0012_MESSAGE = "取消收藏失败";
-	
+
 	/**
 	 * 删除收藏失败
 	 */
 	public static final String FAIL_0013_MESSAGE = "删除收藏失败";
-	
+
 	/**
-	 * 删除收藏成功
+	 * 添加购物车失败
 	 */
-	public static final String FAIL_0014_MESSAGE = "删除收藏成功";
+	public static final String FAIL_0014_MESSAGE = "添加购物车失败";
+
 
 }

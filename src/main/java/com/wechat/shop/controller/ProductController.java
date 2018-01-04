@@ -114,4 +114,37 @@ public class ProductController {
 		}
 	}
 
+	/**
+	 * 商品添加购物车
+	 * 
+	 * @param openid
+	 *            用户id
+	 * 
+	 * @param productId
+	 *            商品id
+	 * 
+	 * @param productClassId
+	 *            商品类型id
+	 * 
+	 * @param productCount
+	 *            商品选择数量
+	 * 
+	 * @return 商品添加购物车是否成功
+	 * 
+	 * @throws Exception
+	 */
+
+	@RequestMapping("/addShoppingCart")
+	@ResponseBody
+	public Map<String, Object> addShoppingCart(String openid, Long productId, Long productClassId, Long productCount)
+			throws Exception {
+		try {
+			return productService.addShoppingCart(openid, productId, productClassId, productCount);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- addShoppingCart 商品添加购物车 异常" + e.toString());
+			throw e;
+		}
+	}
+
 }

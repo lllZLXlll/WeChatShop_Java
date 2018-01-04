@@ -208,7 +208,7 @@ public class UserServiceImpl implements UserService {
 			updateCount = productMapper.delCollectionByProductId(dataMap);
 			if (updateCount > 0) {
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
-				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0014_MESSAGE);
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0004_MESSAGE);
 			} else {
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0013);
 				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0013_MESSAGE);

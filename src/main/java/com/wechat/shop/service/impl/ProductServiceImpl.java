@@ -157,4 +157,54 @@ public class ProductServiceImpl implements ProductService {
 		return resultMap;
 	}
 
+	@Override
+	public Map<String, Object> addShoppingCart(String openidMd5, Long productId, Long productClassId,
+			Long productCount) {
+		Map<String, Object> resultMap = new HashMap<>();
+		Map<String, Object> dataMap = new HashMap<>();
+		int result = -1;
+
+		// 验证商品id的真实性
+		if (productId == null || openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
+			return resultMap;
+		}
+
+		int count = productMapper.checkProductById(productId);
+		if (!(count > 0)) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0009_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0009);
+			return resultMap;
+		}
+
+		// 验证用户的真实性
+		User user = userMapper.checkOpenIdMd5(openidMd5);
+		if (user != null) {
+			// 添加购物车
+
+			dataMap.put("openidMd5", openidMd5);
+			dataMap.put("productId", productId);
+			dataMap.put("productClassId", productClassId);
+			dataMap.put("productCount", productCount);
+
+			result = productMapper.addShoppingCart(dataMap);
+
+			if (!(result > 0)) {
+				// 添加失败
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0014_MESSAGE);
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0014);
+			} else {
+				// 添加成功
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0005_MESSAGE);
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+			}
+		} else {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+		}
+
+		return resultMap;
+	}
+
 }

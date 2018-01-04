@@ -15,4 +15,6 @@ public interface ProductService {
 
 	public Map<String, Object> addCollectionProduct(Long productId, String openidMd5);
 
+	public Map<String, Object> addShoppingCart(String openid, Long productId, Long productClassId, Long productCount);
+
 }

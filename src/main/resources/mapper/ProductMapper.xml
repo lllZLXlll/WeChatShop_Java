@@ -105,4 +105,12 @@
 		SELECT COUNT(productId) FROM t_product_collection WHERE openidMd5 = #{0}
 	</select>
 
+	<insert id="addShoppingCart">
+		INSERT INTO t_product_shoppingCart (
+			productId, openidMd5, productCount, productClassId, addTime
+		) VALUES (
+			#{productId}, #{openidMd5}, #{productCount}, #{productClassId}, NOW()
+		)
+	</insert>
+
 </mapper>
