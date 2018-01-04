@@ -101,6 +101,11 @@ public class ReturnCode {
 	 * 取消收藏失败
 	 */
 	public static final String RETURN_FAIL_CODE_0012 = "code-0012";
+	
+	/**
+	 * 删除收藏失败
+	 */
+	public static final String RETURN_FAIL_CODE_0013 = "code-0013";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -177,5 +182,15 @@ public class ReturnCode {
 	 * 取消收藏失败
 	 */
 	public static final String FAIL_0012_MESSAGE = "取消收藏失败";
+	
+	/**
+	 * 删除收藏失败
+	 */
+	public static final String FAIL_0013_MESSAGE = "删除收藏失败";
+	
+	/**
+	 * 删除收藏成功
+	 */
+	public static final String FAIL_0014_MESSAGE = "删除收藏成功";
 
 }

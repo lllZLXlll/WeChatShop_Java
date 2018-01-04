@@ -24,4 +24,6 @@ public interface UserService {
 
 	public Map<String, Object> queryCollectionProductList(Integer pageNum, String openid);
 
+	public Map<String, Object> delCollectionById(String openid, Long productId);
+
 }

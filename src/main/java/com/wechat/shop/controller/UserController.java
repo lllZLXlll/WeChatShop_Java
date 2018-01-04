@@ -137,4 +137,21 @@ public class UserController {
 			throw e;
 		}
 	}
+	
+	/**
+	 * 删除收藏
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping("/delCollectionById")
+	@ResponseBody
+	public Map<String, Object> delCollectionById(String openid, Long productId) throws Exception {
+		try {
+			return userService.delCollectionById(openid, productId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- delCollectionById 删除收藏 异常" + e.toString());
+			throw e;
+		}
+	}
 }

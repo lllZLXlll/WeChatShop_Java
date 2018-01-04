@@ -179,12 +179,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> queryCollectionProductList(Integer pageNum, String openid) {
 		Map<String, Object> resultMap = new HashMap<>();
-		
+
 		Page page = new Page();
 		page.setPageNum(pageNum == null ? 1 : pageNum);
-		
-		List<Map<String, Object>> list = productMapper.queryCollectionProductList(page.getPageBeginNum(), page.getPageSize(),
-				openid);
+
+		List<Map<String, Object>> list = productMapper.queryCollectionProductList(page.getPageBeginNum(),
+				page.getPageSize(), openid);
 		Integer pageTotalCount = productMapper.queryCollectionProductListCount(openid);
 
 		page.setPage(list);
@@ -193,6 +193,32 @@ public class UserServiceImpl implements UserService {
 		resultMap.put(ReturnCode.PAGE, page);
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> delCollectionById(String openidMd5, Long productId) {
+		Map<String, Object> resultMap = new HashMap<>();
+		long updateCount = -1;
+
+		if (openidMd5 != null && !openidMd5.equals("null") && productId != null && productId > 0) {
+			Map<String, Object> dataMap = new HashMap<>();
+			dataMap.put("productId", productId);
+			dataMap.put("openidMd5", openidMd5);
+			// 删除收藏
+			updateCount = productMapper.delCollectionByProductId(dataMap);
+			if (updateCount > 0) {
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0014_MESSAGE);
+			} else {
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0013);
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0013_MESSAGE);
+			}
+			return resultMap;
+		} else {
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0013);
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0013_MESSAGE);
+			return resultMap;
+		}
 	}
 
 }
