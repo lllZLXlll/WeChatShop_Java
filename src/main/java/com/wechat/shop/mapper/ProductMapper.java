@@ -37,4 +37,8 @@ public interface ProductMapper {
 
 	public int addShoppingCart(Map<String, Object> dataMap);
 
+	public List<Map<String, Object>> queryShoppingCartList(Integer pageBeginNum, Integer pageSize, String openidMd5);
+
+	public Integer queryShoppingCartListCount(String openidMd5);
+
 }
