@@ -115,8 +115,8 @@
 	
 	<select id="queryShoppingCartList" resultType="map">
 		SELECT
-		t1.id, t1.productCount, t1.productClassId,
-		t1.productId, t2.class, t2.price, t2.productImage
+		t1.id, t1.productCount, t1.productClassId, t1.productId, 
+		t2.class, t2.price, t2.productImage, t2.count
 		FROM
 			t_product_shoppingCart t1
 		LEFT JOIN t_product_class t2 ON t1.productId = t2.productId 
@@ -133,5 +133,12 @@
 		LEFT JOIN t_product_class t2 ON t1.productId = t2.productId 
 		WHERE t2.id = t1.productClassId AND t1.openidMd5 = #{param1}
 	</select>
+	
+	<delete id="delShoppingCartList">
+		DELETE FROM t_product_shoppingCart WHERE openidMd5 = #{openidMd5} AND id IN 
+		<foreach item="item" collection="array" separator="," open="(" close=")" index="">  
+	      #{item}
+	    </foreach>  
+	</delete>
 
 </mapper>

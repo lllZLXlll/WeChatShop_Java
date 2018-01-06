@@ -18,16 +18,15 @@ public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 
-
 	/**
 	 * 购物车列表
 	 * 
 	 * @param pageNum
 	 *            当前页
-	 *            
+	 * 
 	 * @param openid
 	 *            用户id
-	 *            
+	 * 
 	 * @return 分页数据
 	 * 
 	 * @throws Exception
@@ -44,5 +43,26 @@ public class ShoppingCartController {
 			throw e;
 		}
 	}
-	
+
+	/**
+	 * 购物车列表
+	 * 
+	 * @param id
+	 *            购物车表id
+	 * 
+	 * @throws Exception
+	 */
+
+	@RequestMapping("/delShoppingCartList")
+	@ResponseBody
+	public Map<String, Object> delShoppingCartList(String array, String openid) throws Exception {
+		try {
+			return shoppingCartService.delShoppingCartList(array, openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- delShoppingCartList 删除购物车商品 异常" + e.toString());
+			throw e;
+		}
+	}
+
 }

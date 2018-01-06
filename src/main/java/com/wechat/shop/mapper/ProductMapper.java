@@ -3,6 +3,8 @@ package com.wechat.shop.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface ProductMapper {
 
 	// 分页查询商品列表
@@ -40,5 +42,7 @@ public interface ProductMapper {
 	public List<Map<String, Object>> queryShoppingCartList(Integer pageBeginNum, Integer pageSize, String openidMd5);
 
 	public Integer queryShoppingCartListCount(String openidMd5);
+
+	public int delShoppingCartList(@Param("array") String[] array, @Param("openidMd5") String openidMd5);
 
 }

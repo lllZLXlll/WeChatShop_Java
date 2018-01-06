@@ -116,6 +116,11 @@ public class ReturnCode {
 	 * 用户未登录
 	 */
 	public static final String RETURN_FAIL_CODE_0015 = "code-0015";
+	
+	/**
+	 * 删除购物车失败
+	 */
+	public static final String RETURN_FAIL_CODE_0016 = "code-0016";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -142,6 +147,11 @@ public class ReturnCode {
 	 * 添加购物车成功
 	 */
 	public static final String SUCCESS_0005_MESSAGE = "添加购物车成功";
+	
+	/**
+	 * 删除购物车成功
+	 */
+	public static final String SUCCESS_0006_MESSAGE = "删除购物车成功";
 
 	/**
 	 * 登录失败
@@ -217,6 +227,11 @@ public class ReturnCode {
 	 * 用户未登录
 	 */
 	public static final String FAIL_0015_MESSAGE = "用户未登录";
+	
+	/**
+	 * 删除购物车失败
+	 */
+	public static final String FAIL_0016_MESSAGE = "删除购物车失败";
 
 
 }
