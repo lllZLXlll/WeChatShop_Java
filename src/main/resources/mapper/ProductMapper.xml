@@ -121,6 +121,7 @@
 			t_product_shoppingCart t1
 		LEFT JOIN t_product_class t2 ON t1.productId = t2.productId 
 		WHERE t2.id = t1.productClassId AND t1.openidMd5 = #{param3}
+		ORDER BY t1.id DESC
 		LIMIT #{param1}, #{param2}
 	</select>
 	
