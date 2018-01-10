@@ -1,13 +1,17 @@
 package com.wechat.shop.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wechat.shop.api.KdniaoTrackQueryAPI;
 import com.wechat.shop.service.UserService;
 
 @Controller
@@ -153,5 +157,25 @@ public class UserController {
 			logger.error("---!!!--- delCollectionById 删除收藏 异常" + e.toString());
 			throw e;
 		}
+	}
+	
+
+	/**
+	 * 查询用户收货物流信息 test
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryKDInfo")
+	@ResponseBody
+	public Map<String, Object> queryKDInfo() throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		KdniaoTrackQueryAPI kdAPI = new KdniaoTrackQueryAPI();
+		String resultInfo = kdAPI.getOrderTracesByJson("ZTO", "473200626208");
+		JSONObject json = new JSONObject(resultInfo);
+		JSONArray jsonArray = json.getJSONArray("Traces");
+		
+		resultMap.put("Traces", jsonArray.toString());
+		return resultMap;
 	}
 }
