@@ -163,12 +163,46 @@ public class ProductController {
 
 	@RequestMapping("/queryOrderSettlementInfo")
 	@ResponseBody
-	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId, String openid) throws Exception {
+	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId, String openid)
+			throws Exception {
 		try {
 			return productService.queryOrderSettlementInfo(productId, productClassId, openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- queryOrderSettlementInfo 订单结算信息查询 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 生成订单
+	 * 
+	 * @param productId
+	 *            商品id
+	 * @param productClassId
+	 *            商品类型id
+	 * @param productCount
+	 *            商品购买数量
+	 * @param addreddId
+	 *            收货地址id
+	 * @param describe
+	 *            买家留言描述
+	 * @param openid
+	 *            用户md5加密的openid
+	 * @return 订单数据
+	 * 
+	 * @throws Exception
+	 */
+
+	@RequestMapping("/addOrder")
+	@ResponseBody
+	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addreddId,
+			String describe, String openid) throws Exception {
+		try {
+			return productService.addOrder(productId, productClassId, productCount, addreddId, describe, openid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- addOrder 生成订单 异常" + e.toString());
 			throw e;
 		}
 	}

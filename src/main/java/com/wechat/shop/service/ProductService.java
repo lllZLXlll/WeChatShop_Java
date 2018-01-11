@@ -19,4 +19,7 @@ public interface ProductService {
 
 	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId, String openid);
 
+	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addreddId,
+			String describe, String openid);
+
 }
