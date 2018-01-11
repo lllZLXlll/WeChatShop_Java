@@ -23,4 +23,6 @@ public interface ReceivingAddressMapper {
 	public long delAddressStatusById(@Param("userId") Long userId, @Param("id") Long id);
 
 	public long setAddressStatusDefaultById(Long id);
+
+	public ReceivingAddress queryAddressByUserId(Long userId);
 }

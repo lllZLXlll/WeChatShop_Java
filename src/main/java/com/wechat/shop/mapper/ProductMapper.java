@@ -45,4 +45,6 @@ public interface ProductMapper {
 
 	public int delShoppingCartList(@Param("array") String[] array, @Param("openidMd5") String openidMd5);
 
+	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId);
+
 }

@@ -40,4 +40,10 @@
 		) t2 SET status = 1 WHERE t1.id = t2.id
 	</update>
 
+	<select id="queryAddressByUserId" resultType="com.wechat.shop.entity.ReceivingAddress">
+		SELECT id, userName, telNumber, postalCode, provinceName, cityName,
+		countyName, detailInfo, nationalCode, status FROM t_receivingAddress
+		WHERE userId = #{param1} AND status = 1
+	</select>
+
 </mapper>

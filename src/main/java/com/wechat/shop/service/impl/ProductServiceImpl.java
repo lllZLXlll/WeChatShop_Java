@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wechat.shop.common.ReturnCode;
+import com.wechat.shop.entity.ReceivingAddress;
 import com.wechat.shop.entity.User;
 import com.wechat.shop.mapper.ProductMapper;
+import com.wechat.shop.mapper.ReceivingAddressMapper;
 import com.wechat.shop.mapper.UserMapper;
 import com.wechat.shop.service.ProductService;
 import com.wechat.shop.utils.Page;
@@ -22,6 +24,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private ReceivingAddressMapper receivingAddressMapper;
 
 	@Override
 	public Map<String, Object> queryProductList(Integer pageNum, String name, String salesVolumeSort, String priceSort,
@@ -199,6 +204,43 @@ public class ProductServiceImpl implements ProductService {
 				resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0005_MESSAGE);
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 			}
+		} else {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+		}
+
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId, String openidMd5) {
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		// 验证商品id的真实性
+		if (productId == null || openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
+			return resultMap;
+		}
+
+		int count = productMapper.checkProductById(productId);
+		if (!(count > 0)) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0009_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0009);
+			return resultMap;
+		}
+		// 验证用户的真实性
+		User user = userMapper.checkOpenIdMd5(openidMd5);
+		if (user != null) {
+			// 商品信息
+			Map<String, Object> productInfoMap = productMapper.queryOrderSettlementInfo(productId, productClassId);
+			
+			// 用户收货地址
+			ReceivingAddress address = receivingAddressMapper.queryAddressByUserId(user.getId());
+
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+			resultMap.put("productInfo", productInfoMap);
+			resultMap.put("address", address);
 		} else {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);

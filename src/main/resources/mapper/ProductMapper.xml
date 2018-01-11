@@ -140,5 +140,16 @@
 	      #{item}
 	    </foreach>  
 	</delete>
+	
+	<select id="queryOrderSettlementInfo" resultType="map">
+		SELECT
+			tpi.id, tpi.expressFee, tpc.id classId,
+			tpc.productImage, tpc.class productName,
+			tpc.price, tpc.count
+		FROM
+			t_product_info tpi
+		LEFT JOIN t_product_class tpc ON tpi.id = tpc.productId
+		WHERE tpi.id = #{param1} AND tpc.id = #{param2}
+	</select>
 
 </mapper>
