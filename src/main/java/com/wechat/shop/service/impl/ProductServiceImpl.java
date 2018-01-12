@@ -14,6 +14,7 @@ import com.wechat.shop.mapper.ProductMapper;
 import com.wechat.shop.mapper.ReceivingAddressMapper;
 import com.wechat.shop.mapper.UserMapper;
 import com.wechat.shop.service.ProductService;
+import com.wechat.shop.utils.Arith;
 import com.wechat.shop.utils.DateUtil;
 import com.wechat.shop.utils.Page;
 
@@ -279,21 +280,27 @@ public class ProductServiceImpl implements ProductService {
 		User user = userMapper.checkOpenIdMd5(openidMd5);
 		if (user != null) {
 			Map<String, Object> orderMap = new HashMap<String, Object>();
+			String order = DateUtil.createOrder();
+			double expressFee = Double.parseDouble(productInfo.get("expressFee").toString());
+			double price = Double.parseDouble(productInfo.get("price").toString());
+			double totalAmount = Arith.mul(price, productCount) + expressFee;
+			
 			// 订单号
-			orderMap.put("order", DateUtil.createOrder());
-			orderMap.put("orderCreateTime", DateUtil.getDateTime());
+			orderMap.put("orderNumber", order);
+			orderMap.put("orderCreateTime", DateUtil.getDateFormatYMDHMS());
 			orderMap.put("openidMd5", openidMd5);
 			orderMap.put("productId", productId);
 			orderMap.put("productCount", productCount);
 			orderMap.put("productClassId", productClassId);
-			orderMap.put("expressFee", productInfo.get("expressFee"));
+			orderMap.put("expressFee", expressFee);
 			orderMap.put("addressId", addressId);
+			orderMap.put("totalAmount", totalAmount);
 
-			int orderId = productMapper.addOrder(orderMap);
+			int result = productMapper.addOrder(orderMap);
 
-			if (orderId > 0) {
-				// 根据订单id查询完整订单信息
-
+			if (result > 0) {
+				// 返回订单号
+				resultMap.put(ReturnCode.ORDER, order);
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 			} else {
 				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);

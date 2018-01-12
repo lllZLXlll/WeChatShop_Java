@@ -18,14 +18,11 @@ public class DateUtil {
 			System.out.println(createOrder());
 	}
 
-	// 日期格式
 	private static final SimpleDateFormat DATEFORMAT_TIME = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
-	// 日期格式
 	private static final SimpleDateFormat DATEFORMAT_Y_M_D_H_M_S = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
-	// 日历实例
-	private static final Calendar CALENDAR = Calendar.getInstance();
+	private static final SimpleDateFormat DATEFORMAT_Y_M_D = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * 根据当前时间戳加上5位随机数字生成订单号
@@ -34,8 +31,7 @@ public class DateUtil {
 	 */
 	public static String createOrder() {
 		// 获得当前时间戳
-		Date date = CALENDAR.getTime();
-		String dateTime = DATEFORMAT_TIME.format(date);
+		String dateTime = DATEFORMAT_TIME.format(Calendar.getInstance().getTime());
 
 		// 获得随机5位数字 确保订单号唯一性
 		int max = 99999;
@@ -52,7 +48,25 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Date getDateTime() {
-		return CALENDAR.getTime();
+		return Calendar.getInstance().getTime();
+	}
+
+	/**
+	 * 获得当前格式化时间 yyyy-MM-dd
+	 * 
+	 * @return
+	 */
+	public static String getDateFormatYMD() {
+		return DATEFORMAT_Y_M_D.format(Calendar.getInstance().getTime());
+	}
+
+	/**
+	 * 获得当前格式化时间 yyyy-MM-dd HH-mm-ss
+	 * 
+	 * @return
+	 */
+	public static String getDateFormatYMDHMS() {
+		return DATEFORMAT_Y_M_D_H_M_S.format(Calendar.getInstance().getTime());
 	}
 
 }

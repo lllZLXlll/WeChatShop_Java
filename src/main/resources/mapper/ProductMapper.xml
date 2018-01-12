@@ -152,13 +152,13 @@
 		WHERE tpi.id = #{param1} AND tpc.id = #{param2}
 	</select>
 
-	<insert id="orderMap">
+	<insert id="addOrder">
 		INSERT INTO t_product_order (
-			order, orderCreateTime, openidMd5, productId, productCount,
-			productClassId, expressFee, addressId
+			orderNumber, orderCreateTime, openidMd5, productId, productCount,
+			productClassId, expressFee, addressId, totalAmount
 		) VALUES (
-			#{order}, #{orderCreateTime}, #{openidMd5}, #{productId}, #{productCount},
-			#{productClassId}, #{expressFee}, #{addressId}
+			#{orderNumber}, #{orderCreateTime}, #{openidMd5}, #{productId}, #{productCount},
+			#{productClassId}, #{expressFee}, #{addressId}, #{totalAmount}
 		)
 	</insert>
 

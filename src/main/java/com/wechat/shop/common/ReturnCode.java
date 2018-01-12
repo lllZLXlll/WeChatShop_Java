@@ -32,6 +32,11 @@ public class ReturnCode {
 	 * 返回分页数据 key
 	 */
 	public static final String PAGE = "page";
+	
+	/**
+	 * 返回订单号 key
+	 */
+	public static final String ORDER = "order";
 
 	/**
 	 * 返回状态码
