@@ -143,8 +143,8 @@
 	
 	<select id="queryOrderSettlementInfo" resultType="map">
 		SELECT
-			tpi.id, tpi.expressFee, tpc.id classId,
-			tpc.productImage, tpc.class productName,
+			tpi.id, tpi.expressFee, tpi.name productName, tpc.id classId,
+			tpc.productImage, tpc.class productClassName,
 			tpc.price, tpc.count
 		FROM
 			t_product_info tpi
