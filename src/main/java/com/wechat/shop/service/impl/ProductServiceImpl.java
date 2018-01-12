@@ -14,6 +14,7 @@ import com.wechat.shop.mapper.ProductMapper;
 import com.wechat.shop.mapper.ReceivingAddressMapper;
 import com.wechat.shop.mapper.UserMapper;
 import com.wechat.shop.service.ProductService;
+import com.wechat.shop.utils.DateUtil;
 import com.wechat.shop.utils.Page;
 
 @Service
@@ -251,13 +252,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addreddId,
+	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addressId,
 			String describe, String openidMd5) {
 		Map<String, Object> resultMap = new HashMap<>();
 
 		// 校验数据
 		// 验证商品id的真实性
-		if (productId == null || productClassId == null || productCount == null || addreddId == null
+		if (productId == null || productClassId == null || productCount == null || addressId == null
 				|| openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
@@ -271,12 +272,33 @@ public class ProductServiceImpl implements ProductService {
 			return resultMap;
 		}
 
+		// 商品信息
+		Map<String, Object> productInfo = productMapper.queryProductDetailInfoById(productId);
+
 		// 验证用户的真实性
 		User user = userMapper.checkOpenIdMd5(openidMd5);
 		if (user != null) {
+			Map<String, Object> orderMap = new HashMap<String, Object>();
 			// 订单号
-			String order = "";
-			
+			orderMap.put("order", DateUtil.createOrder());
+			orderMap.put("orderCreateTime", DateUtil.getDateTime());
+			orderMap.put("openidMd5", openidMd5);
+			orderMap.put("productId", productId);
+			orderMap.put("productCount", productCount);
+			orderMap.put("productClassId", productClassId);
+			orderMap.put("expressFee", productInfo.get("expressFee"));
+			orderMap.put("addressId", addressId);
+
+			int orderId = productMapper.addOrder(orderMap);
+
+			if (orderId > 0) {
+				// 根据订单id查询完整订单信息
+
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+			} else {
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+			}
 		} else {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);

@@ -38,7 +38,7 @@ public class ReturnCode {
 	 */
 
 	/**
-	 * 所有成功状态码
+	 * 所有成功状态码 code-0000
 	 */
 	public static final String RETURN_SUCCESS_CODE = "code-0000";
 
@@ -121,6 +121,11 @@ public class ReturnCode {
 	 * 删除购物车失败
 	 */
 	public static final String RETURN_FAIL_CODE_0016 = "code-0016";
+	
+	/**
+	 * 生成订单失败
+	 */
+	public static final String RETURN_FAIL_CODE_0017 = "code-0017";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -232,6 +237,11 @@ public class ReturnCode {
 	 * 删除购物车失败
 	 */
 	public static final String FAIL_0016_MESSAGE = "删除购物车失败";
+	
+	/**
+	 * 生成订单失败
+	 */
+	public static final String FAIL_0017_MESSAGE = "生成订单失败";
 
 
 }

@@ -152,4 +152,14 @@
 		WHERE tpi.id = #{param1} AND tpc.id = #{param2}
 	</select>
 
+	<insert id="orderMap">
+		INSERT INTO t_product_order (
+			order, orderCreateTime, openidMd5, productId, productCount,
+			productClassId, expressFee, addressId
+		) VALUES (
+			#{order}, #{orderCreateTime}, #{openidMd5}, #{productId}, #{productCount},
+			#{productClassId}, #{expressFee}, #{addressId}
+		)
+	</insert>
+
 </mapper>

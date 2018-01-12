@@ -196,10 +196,10 @@ public class ProductController {
 
 	@RequestMapping("/addOrder")
 	@ResponseBody
-	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addreddId,
+	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addressId,
 			String describe, String openid) throws Exception {
 		try {
-			return productService.addOrder(productId, productClassId, productCount, addreddId, describe, openid);
+			return productService.addOrder(productId, productClassId, productCount, addressId, describe, openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- addOrder 生成订单 异常" + e.toString());

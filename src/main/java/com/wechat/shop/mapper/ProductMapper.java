@@ -47,4 +47,6 @@ public interface ProductMapper {
 
 	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId);
 
+	public int addOrder(Map<String, Object> orderMap);
+
 }
