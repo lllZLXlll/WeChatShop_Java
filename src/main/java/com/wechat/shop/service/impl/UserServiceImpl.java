@@ -163,8 +163,11 @@ public class UserServiceImpl implements UserService {
 			updateCount = receivingAddressMapper.delAddressStatusById(user.getId(), id);
 
 			if (updateCount != -1 && status == 1) {
-				// 如果删除的是默认收货地址，就把用户添加时间最近的一条地址设为默认地址
-				updateCount = receivingAddressMapper.setAddressStatusDefaultById(user.getId());
+				// 查询该用户是否还有地址
+				int addressCount = receivingAddressMapper.queryAddressCountByUserId(user.getId());
+				if (addressCount > 0)
+					// 如果删除的是默认收货地址，就把用户添加时间最近的一条地址设为默认地址
+					updateCount = receivingAddressMapper.setAddressStatusDefaultById(user.getId());
 			}
 		}
 		if (updateCount > 0)

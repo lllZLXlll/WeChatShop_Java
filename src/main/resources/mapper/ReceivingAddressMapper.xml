@@ -46,4 +46,9 @@
 		WHERE userId = #{param1} AND status = 1
 	</select>
 
+	<select id="queryAddressCountByUserId" resultType="int">
+		SELECT COUNT(id) FROM t_receivingAddress
+		WHERE userId = #{param1}
+	</select>
+
 </mapper>
