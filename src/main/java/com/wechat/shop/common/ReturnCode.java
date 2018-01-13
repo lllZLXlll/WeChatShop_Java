@@ -131,6 +131,16 @@ public class ReturnCode {
 	 * 生成订单失败
 	 */
 	public static final String RETURN_FAIL_CODE_0017 = "code-0017";
+	
+	/**
+	 * 取消订单失败
+	 */
+	public static final String RETURN_FAIL_CODE_0018 = "code-0018";
+	
+	/**
+	 * 删除订单失败
+	 */
+	public static final String RETURN_FAIL_CODE_0019 = "code-0019";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -138,6 +148,8 @@ public class ReturnCode {
 	 * 返回信息
 	 */
 
+	// 成功
+	
 	/**
 	 * 登录成功
 	 */
@@ -162,7 +174,19 @@ public class ReturnCode {
 	 * 删除购物车成功
 	 */
 	public static final String SUCCESS_0006_MESSAGE = "删除购物车成功";
+	
+	/**
+	 * 取消订单成功
+	 */
+	public static final String SUCCESS_0007_MESSAGE = "取消订单成功";
+	
+	/**
+	 * 删除订单成功
+	 */
+	public static final String SUCCESS_0008_MESSAGE = "删除订单成功";
 
+	// 失败
+	
 	/**
 	 * 登录失败
 	 */
@@ -247,6 +271,16 @@ public class ReturnCode {
 	 * 生成订单失败
 	 */
 	public static final String FAIL_0017_MESSAGE = "生成订单失败";
+	
+	/**
+	 * 取消订单失败
+	 */
+	public static final String FAIL_0018_MESSAGE = "取消订单失败";
+	
+	/**
+	 * 删除订单失败
+	 */
+	public static final String FAIL_0019_MESSAGE = "删除订单失败";
 
 
 }

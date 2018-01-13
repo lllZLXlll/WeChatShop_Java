@@ -167,4 +167,32 @@
 		)
 	</insert>
 
+	<select id="queryOrderInfo" resultType="map">
+		SELECT
+			tpo.orderCreateTime,
+			tpo.productCount,
+			tpo.expressFee,
+			tpo.totalAmount,
+			tpo.describes,
+			tpo.addressId,
+			tpi.name,
+			tpi.price,
+			tpc.class,
+			tpc.productImage
+		FROM
+			t_product_order tpo
+		LEFT JOIN t_product_info tpi ON tpo.productId = tpi.id
+		LEFT JOIN t_product_class tpc ON tpo.productClassId = tpc.id
+		WHERE
+			tpo.orderNumber = #{param1}
+	</select>
+	
+	<update id="updateOrderStatus">
+		UPDATE t_product_order SET orderType = 3 WHERE orderNumber = #{param1}
+	</update>
+	
+	<delete id="delOrder">
+		DELETE FROM t_product_order WHERE orderNumber = #{param1}
+	</delete>
+	
 </mapper>

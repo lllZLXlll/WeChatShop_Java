@@ -161,8 +161,7 @@ public class ProductController {
 
 	@RequestMapping("/queryOrderSettlementInfo")
 	@ResponseBody
-	public Map<String, Object> queryOrderSettlementInfo(String openid)
-			throws Exception {
+	public Map<String, Object> queryOrderSettlementInfo(String openid) throws Exception {
 		try {
 			return productService.queryOrderSettlementInfo(openid);
 		} catch (Exception e) {
@@ -200,6 +199,75 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- addOrder 生成订单 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 查询已生成完整信息订单
+	 * 
+	 * @param order
+	 *            订单号
+	 * 
+	 * @return 订单数据
+	 * 
+	 * @throws Exception
+	 */
+
+	@RequestMapping("/queryOrderInfo")
+	@ResponseBody
+	public Map<String, Object> queryOrderInfo(HttpServletRequest request) throws Exception {
+		try {
+			return productService.queryOrderInfo(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- queryOrderInfo 查询已生成完整信息订单 异常" + e.toString());
+			throw e;
+		}
+	}
+	
+	/**
+	 * 修改订单状态为取消
+	 * 
+	 * @param order
+	 *            订单号
+	 * 
+	 * @return 订单数据
+	 * 
+	 * @throws Exception
+	 */
+	
+	@RequestMapping("/updateOrderStatus")
+	@ResponseBody
+	public Map<String, Object> updateOrderStatus(HttpServletRequest request) throws Exception {
+		try {
+			return productService.updateOrderStatus(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- updateOrderStatus 修改订单状态为取消 异常" + e.toString());
+			throw e;
+		}
+	}
+	
+	/**
+	 * 删除订单
+	 * 
+	 * @param order
+	 *            订单号
+	 * 
+	 * @return 订单数据
+	 * 
+	 * @throws Exception
+	 */
+	
+	@RequestMapping("/delOrder")
+	@ResponseBody
+	public Map<String, Object> delOrder(HttpServletRequest request) throws Exception {
+		try {
+			return productService.delOrder(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- delOrder 删除订单 异常" + e.toString());
 			throw e;
 		}
 	}

@@ -22,6 +22,7 @@ import com.wechat.shop.utils.Arith;
 import com.wechat.shop.utils.DateUtil;
 import com.wechat.shop.utils.GetRequestJsonUtils;
 import com.wechat.shop.utils.Page;
+import com.wechat.shop.utils.PamarParse;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -247,7 +248,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> addOrder(HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-
+		// request中的json数据
 		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
 		if (json == null) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
@@ -258,16 +259,13 @@ public class ProductServiceImpl implements ProductService {
 		// 订单号
 		String order = DateUtil.createOrder();
 		// 买家留言
-		String describes = json.get("describes") == null ? "" : json.get("describes").toString();
+		String describes = PamarParse.getParseString(json.get("describes"));
 		// openid
-		String openidMd5 = json.get("openid") == null ? "" : json.get("openid").toString();
+		String openidMd5 = PamarParse.getParseString(json.get("openid"));
 		// 地址id
 		Long addressId = json.getLong("addressId");
 		// 是否从购物车中结算
 		Long isShoppingCart = json.getLong("isShoppingCart");
-
-		if (describes.equals("null"))
-			describes = "";
 
 		// 商品数组
 		JSONArray productArrayJson = json.getJSONArray("orderProducts");
@@ -341,6 +339,73 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> queryOrderInfo(HttpServletRequest request) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		// request中的json数据
+		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
+
+		// 订单号
+		String order = PamarParse.getParseString(json.get("order"));
+
+		// 查询订单完整详情
+		List<Map<String, Object>> orderList = productMapper.queryOrderInfo(order);
+		Map<String, Object> orderMap = orderList.get(0);
+
+		ReceivingAddress addressMap = receivingAddressMapper
+				.queryAddressById(PamarParse.getParseLong(orderMap.get("addressId")));
+
+		resultMap.put("orderInfo", orderList);
+		resultMap.put("address", addressMap);
+		resultMap.put(ReturnCode.ORDER, order);
+		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> updateOrderStatus(HttpServletRequest request) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		// request中的json数据
+		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
+
+		// 订单号
+		String order = PamarParse.getParseString(json.get("order"));
+		
+		int result = productMapper.updateOrderStatus(order);
+		
+		if (result > 0) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0007_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		} else {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0018_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0018);
+		}
+		
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> delOrder(HttpServletRequest request) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		// request中的json数据
+		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
+
+		// 订单号
+		String order = PamarParse.getParseString(json.get("order"));
+		
+		int result = productMapper.delOrder(order);
+		
+		if (result > 0) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0008_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		} else {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0019_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0019);
+		}
+		
 		return resultMap;
 	}
 

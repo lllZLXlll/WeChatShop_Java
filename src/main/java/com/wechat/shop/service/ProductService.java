@@ -24,4 +24,10 @@ public interface ProductService {
 
 	public Map<String, Object> addOrder(HttpServletRequest request) throws Exception;
 
+	public Map<String, Object> queryOrderInfo(HttpServletRequest request) throws Exception;
+
+	public Map<String, Object> updateOrderStatus(HttpServletRequest request) throws Exception;
+
+	public Map<String, Object> delOrder(HttpServletRequest request) throws Exception;
+
 }

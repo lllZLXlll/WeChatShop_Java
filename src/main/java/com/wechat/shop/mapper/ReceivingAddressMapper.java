@@ -27,4 +27,6 @@ public interface ReceivingAddressMapper {
 	public ReceivingAddress queryAddressByUserId(Long userId);
 
 	public int queryAddressCountByUserId(Long id);
+
+	public ReceivingAddress queryAddressById(Long parseLong);
 }

@@ -51,4 +51,9 @@
 		WHERE userId = #{param1}
 	</select>
 
+	<select id="queryAddressById" resultType="com.wechat.shop.entity.ReceivingAddress">
+		SELECT * FROM t_receivingAddress
+		WHERE id = #{param1}
+	</select>
+
 </mapper>
