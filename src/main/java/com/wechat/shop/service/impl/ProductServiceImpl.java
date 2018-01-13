@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -219,34 +220,21 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId, String openidMd5) {
+	public Map<String, Object> queryOrderSettlementInfo(String openidMd5) {
 		Map<String, Object> resultMap = new HashMap<>();
 
-		// 验证商品id的真实性
-		if (productId == null || productClassId == null || openidMd5 == null || openidMd5.trim().length() == 0
-				|| openidMd5.equals("null")) {
+		if (openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
-			return resultMap;
-		}
-
-		int count = productMapper.checkProductById(productId);
-		if (!(count > 0)) {
-			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0009_MESSAGE);
-			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0009);
 			return resultMap;
 		}
 		// 验证用户的真实性
 		User user = userMapper.checkOpenIdMd5(openidMd5);
 		if (user != null) {
-			// 商品信息
-			Map<String, Object> productInfoMap = productMapper.queryOrderSettlementInfo(productId, productClassId);
-
 			// 用户收货地址
 			ReceivingAddress address = receivingAddressMapper.queryAddressByUserId(user.getId());
 
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
-			resultMap.put("productInfo", productInfoMap);
 			resultMap.put("address", address);
 		} else {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
@@ -266,66 +254,91 @@ public class ProductServiceImpl implements ProductService {
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
 			return resultMap;
 		}
-		Long productId = json.getLong("productId");
-		Long productClassId = json.getLong("productClassId");
-		Long productCount = json.getLong("productCount");
+
+		// 订单号
+		String order = DateUtil.createOrder();
+		// 买家留言
+		String describes = json.get("describes") == null ? "" : json.get("describes").toString();
+		// openid
+		String openidMd5 = json.get("openid") == null ? "" : json.get("openid").toString();
+		// 地址id
 		Long addressId = json.getLong("addressId");
-		String describes = json.get("describes") == null ? null : json.get("describes").toString();
-		String openidMd5 = json.get("openid") == null ? null : json.get("openid").toString();
+		// 是否从购物车中结算
+		Long isShoppingCart = json.getLong("isShoppingCart");
 
-		// 校验数据
-		// 验证商品id的真实性
-		if (productId == null || productClassId == null || productCount == null || addressId == null
-				|| openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
-			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
-			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
-			return resultMap;
-		}
+		if (describes.equals("null"))
+			describes = "";
 
-		int count = productMapper.checkProductById(productId);
-		if (!(count > 0)) {
-			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0009_MESSAGE);
-			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0009);
-			return resultMap;
-		}
+		// 商品数组
+		JSONArray productArrayJson = json.getJSONArray("orderProducts");
 
-		// 商品信息
-		Map<String, Object> productInfo = productMapper.queryProductDetailInfoById(productId);
+		// 循环将订单插入表中
+		for (int i = 0; i < productArrayJson.length(); i++) {
+			JSONObject productJson = new JSONObject(productArrayJson.get(i).toString());
+			Long productId = productJson.getLong("productId");
+			Long productCount = productJson.getLong("productCount");
+			Long productClassId = productJson.getLong("productClassId");
 
-		// 验证用户的真实性
-		User user = userMapper.checkOpenIdMd5(openidMd5);
-		if (user != null) {
-			Map<String, Object> orderMap = new HashMap<String, Object>();
-			String order = DateUtil.createOrder();
-			double expressFee = Double.parseDouble(productInfo.get("expressFee").toString());
-			double price = Double.parseDouble(productInfo.get("price").toString());
-			double totalAmount = Arith.mul(price, productCount) + expressFee;
-
-			// 订单号
-			orderMap.put("orderNumber", order);
-			orderMap.put("orderCreateTime", DateUtil.getDateFormatYMDHMS());
-			orderMap.put("openidMd5", openidMd5);
-			orderMap.put("productId", productId);
-			orderMap.put("productCount", productCount);
-			orderMap.put("productClassId", productClassId);
-			orderMap.put("expressFee", expressFee);
-			orderMap.put("addressId", addressId);
-			orderMap.put("totalAmount", totalAmount);
-			orderMap.put("describes", describes);
-
-			int result = productMapper.addOrder(orderMap);
-
-			if (result > 0) {
-				// 返回订单号
-				resultMap.put(ReturnCode.ORDER, order);
-				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
-			} else {
-				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
-				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+			// 校验数据
+			// 验证商品id的真实性
+			if (productId == null || productClassId == null || productCount == null || addressId == null
+					|| openidMd5 == null || openidMd5.trim().length() == 0 || openidMd5.equals("null")) {
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
+				return resultMap;
 			}
-		} else {
-			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
-			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+
+			int count = productMapper.checkProductById(productId);
+			if (!(count > 0)) {
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0009_MESSAGE);
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0009);
+				return resultMap;
+			}
+
+			// 商品信息
+			Map<String, Object> productInfo = productMapper.queryProductDetailInfoById(productId);
+
+			// 验证用户的真实性
+			User user = userMapper.checkOpenIdMd5(openidMd5);
+			if (user != null) {
+				Map<String, Object> orderMap = new HashMap<String, Object>();
+				double expressFee = Double.parseDouble(productInfo.get("expressFee").toString());
+				double price = Double.parseDouble(productInfo.get("price").toString());
+				double totalAmount = Arith.mul(price, productCount) + expressFee;
+
+				orderMap.put("orderNumber", order);
+				orderMap.put("orderCreateTime", DateUtil.getDateFormatYMDHMS());
+				orderMap.put("openidMd5", openidMd5);
+				orderMap.put("productId", productId);
+				orderMap.put("productCount", productCount);
+				orderMap.put("productClassId", productClassId);
+				orderMap.put("expressFee", expressFee);
+				orderMap.put("addressId", addressId);
+				orderMap.put("totalAmount", totalAmount);
+				orderMap.put("describes", describes);
+
+				// 插入订单表
+				int result = productMapper.addOrder(orderMap);
+				if (result > 0) {
+					// 返回订单号
+					resultMap.put(ReturnCode.ORDER, order);
+					resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+				} else {
+					resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
+					resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+				}
+				// 如果商品订单数量大于1件，说明是从购物车中进行结算的，删除购物车中对应的商品
+				if (isShoppingCart != -1) {
+					result = productMapper.delShoppingCart(productId, openidMd5);
+					if (!(result > 0)) {
+						resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
+						resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+					}
+				}
+			} else {
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+			}
 		}
 
 		return resultMap;

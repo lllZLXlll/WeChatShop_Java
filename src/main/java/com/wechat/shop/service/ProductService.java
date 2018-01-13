@@ -20,7 +20,7 @@ public interface ProductService {
 
 	public Map<String, Object> addShoppingCart(String openid, Long productId, Long productClassId, Long productCount);
 
-	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId, String openid);
+	public Map<String, Object> queryOrderSettlementInfo(String openid);
 
 	public Map<String, Object> addOrder(HttpServletRequest request) throws Exception;
 

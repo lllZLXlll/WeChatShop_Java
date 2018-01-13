@@ -152,10 +152,6 @@ public class ProductController {
 	/**
 	 * 订单结算信息查询
 	 * 
-	 * @param productId
-	 *            商品id
-	 * @param productClassId
-	 *            商品类型id
 	 * @param openid
 	 *            用户md5加密的openid
 	 * @return 订单结算信息数据
@@ -165,10 +161,10 @@ public class ProductController {
 
 	@RequestMapping("/queryOrderSettlementInfo")
 	@ResponseBody
-	public Map<String, Object> queryOrderSettlementInfo(Long productId, Long productClassId, String openid)
+	public Map<String, Object> queryOrderSettlementInfo(String openid)
 			throws Exception {
 		try {
-			return productService.queryOrderSettlementInfo(productId, productClassId, openid);
+			return productService.queryOrderSettlementInfo(openid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- queryOrderSettlementInfo 订单结算信息查询 异常" + e.toString());
