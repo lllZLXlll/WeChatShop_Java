@@ -2,6 +2,8 @@ package com.wechat.shop.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -196,10 +198,9 @@ public class ProductController {
 
 	@RequestMapping("/addOrder")
 	@ResponseBody
-	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addressId,
-			String describe, String openid) throws Exception {
+	public Map<String, Object> addOrder(HttpServletRequest request) throws Exception {
 		try {
-			return productService.addOrder(productId, productClassId, productCount, addressId, describe, openid);
+			return productService.addOrder(request);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- addOrder 生成订单 异常" + e.toString());

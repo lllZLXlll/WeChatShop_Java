@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,7 @@ import com.wechat.shop.mapper.UserMapper;
 import com.wechat.shop.service.ProductService;
 import com.wechat.shop.utils.Arith;
 import com.wechat.shop.utils.DateUtil;
+import com.wechat.shop.utils.GetRequestJsonUtils;
 import com.wechat.shop.utils.Page;
 
 @Service
@@ -253,9 +257,21 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Map<String, Object> addOrder(Long productId, Long productClassId, Long productCount, Long addressId,
-			String describe, String openidMd5) {
+	public Map<String, Object> addOrder(HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
+
+		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
+		if (json == null) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
+			return resultMap;
+		}
+		Long productId = json.getLong("productId");
+		Long productClassId = json.getLong("productClassId");
+		Long productCount = json.getLong("productCount");
+		Long addressId = json.getLong("addressId");
+		String describes = json.get("describes") == null ? null : json.get("describes").toString();
+		String openidMd5 = json.get("openid") == null ? null : json.get("openid").toString();
 
 		// 校验数据
 		// 验证商品id的真实性
@@ -284,7 +300,7 @@ public class ProductServiceImpl implements ProductService {
 			double expressFee = Double.parseDouble(productInfo.get("expressFee").toString());
 			double price = Double.parseDouble(productInfo.get("price").toString());
 			double totalAmount = Arith.mul(price, productCount) + expressFee;
-			
+
 			// 订单号
 			orderMap.put("orderNumber", order);
 			orderMap.put("orderCreateTime", DateUtil.getDateFormatYMDHMS());
@@ -295,7 +311,7 @@ public class ProductServiceImpl implements ProductService {
 			orderMap.put("expressFee", expressFee);
 			orderMap.put("addressId", addressId);
 			orderMap.put("totalAmount", totalAmount);
-			orderMap.put("describes", describe);
+			orderMap.put("describes", describes);
 
 			int result = productMapper.addOrder(orderMap);
 
