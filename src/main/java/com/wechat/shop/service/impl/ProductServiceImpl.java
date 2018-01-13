@@ -295,6 +295,7 @@ public class ProductServiceImpl implements ProductService {
 			orderMap.put("expressFee", expressFee);
 			orderMap.put("addressId", addressId);
 			orderMap.put("totalAmount", totalAmount);
+			orderMap.put("describes", describe);
 
 			int result = productMapper.addOrder(orderMap);
 

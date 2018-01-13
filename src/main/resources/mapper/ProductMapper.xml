@@ -155,10 +155,10 @@
 	<insert id="addOrder">
 		INSERT INTO t_product_order (
 			orderNumber, orderCreateTime, openidMd5, productId, productCount,
-			productClassId, expressFee, addressId, totalAmount
+			productClassId, expressFee, addressId, totalAmount, describes
 		) VALUES (
 			#{orderNumber}, #{orderCreateTime}, #{openidMd5}, #{productId}, #{productCount},
-			#{productClassId}, #{expressFee}, #{addressId}, #{totalAmount}
+			#{productClassId}, #{expressFee}, #{addressId}, #{totalAmount}, #{describes}
 		)
 	</insert>
 
