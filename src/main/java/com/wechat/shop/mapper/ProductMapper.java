@@ -57,4 +57,6 @@ public interface ProductMapper {
 
 	public int delOrder(String order);
 
+	public List<Map<String, Object>> queryAllOrder(String openidMd5);
+
 }

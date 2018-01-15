@@ -271,5 +271,28 @@ public class ProductController {
 			throw e;
 		}
 	}
+	
+	/**
+	 * 查询全部订单
+	 * 
+	 * @param openid
+	 *            用户md5 加密openid
+	 * 
+	 * @return 订单数据
+	 * 
+	 * @throws Exception
+	 */
+
+	@RequestMapping("/queryAllOrder")
+	@ResponseBody
+	public Map<String, Object> queryAllOrder(HttpServletRequest request) throws Exception {
+		try {
+			return productService.queryAllOrder(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- queryAllOrder 查询全部订单 异常" + e.toString());
+			throw e;
+		}
+	}
 
 }

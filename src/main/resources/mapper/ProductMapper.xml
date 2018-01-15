@@ -191,8 +191,17 @@
 		UPDATE t_product_order SET orderType = 3 WHERE orderNumber = #{param1}
 	</update>
 	
-	<delete id="delOrder">
-		DELETE FROM t_product_order WHERE orderNumber = #{param1}
-	</delete>
+	<update id="delOrder">
+		UPDATE FROM t_product_order SET orderType = 4 WHERE orderNumber = #{param1}
+	</update>
+	
+	<select id="queryAllOrder" resultType="map">
+		SELECT
+			*
+		FROM
+			t_product_order
+		WHERE
+			openidMd5 = 'wMM37KSHNhYUWmj9dhl7fg=='
+	</select>
 	
 </mapper>

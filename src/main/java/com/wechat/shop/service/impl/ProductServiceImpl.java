@@ -1,5 +1,6 @@
 package com.wechat.shop.service.impl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -373,9 +375,9 @@ public class ProductServiceImpl implements ProductService {
 
 		// 订单号
 		String order = PamarParse.getParseString(json.get("order"));
-		
+
 		int result = productMapper.updateOrderStatus(order);
-		
+
 		if (result > 0) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0007_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
@@ -383,7 +385,7 @@ public class ProductServiceImpl implements ProductService {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0018_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0018);
 		}
-		
+
 		return resultMap;
 	}
 
@@ -395,9 +397,9 @@ public class ProductServiceImpl implements ProductService {
 
 		// 订单号
 		String order = PamarParse.getParseString(json.get("order"));
-		
+
 		int result = productMapper.delOrder(order);
-		
+
 		if (result > 0) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.SUCCESS_0008_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
@@ -405,7 +407,36 @@ public class ProductServiceImpl implements ProductService {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0019_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0019);
 		}
+
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> queryAllOrder(HttpServletRequest request) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
 		
+		// request中的json数据
+		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
+		if (json == null) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
+			return resultMap;
+		}
+		
+		// 订单号
+		String openidMd5 = PamarParse.getParseString(json.get("openid"));
+
+		// 验证用户的真实性
+		User user = userMapper.checkOpenIdMd5(openidMd5);
+		if (user != null) {
+			// 查询所有订单
+			List<Map<String, Object>> page = productMapper.queryAllOrder(openidMd5);
+
+		} else {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+		}
+
 		return resultMap;
 	}
 
