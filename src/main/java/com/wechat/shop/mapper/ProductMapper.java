@@ -65,4 +65,6 @@ public interface ProductMapper {
 
 	public List<Map<String, Object>> queryOrderProductInfoByOrder(String order);
 
+	public int delShoppingCartById(Long shoppingCartId);
+
 }

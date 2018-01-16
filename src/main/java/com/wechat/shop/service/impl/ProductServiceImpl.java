@@ -288,6 +288,8 @@ public class ProductServiceImpl implements ProductService {
 			Long productId = productJson.getLong("productId");
 			Long productCount = productJson.getLong("productCount");
 			Long productClassId = productJson.getLong("productClassId");
+			// 购物车id
+			Long shoppingCartId = productJson.getLong("id");
 			_productCount += productCount;
 
 			// 校验数据
@@ -338,7 +340,7 @@ public class ProductServiceImpl implements ProductService {
 				}
 				// 从购物车中进行结算，删除购物车中对应的商品
 				if (isShoppingCart != -1) {
-					result = productMapper.delShoppingCart(productId, openidMd5);
+					result = productMapper.delShoppingCartById(shoppingCartId);
 					if (!(result > 0)) {
 						resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
 						resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);

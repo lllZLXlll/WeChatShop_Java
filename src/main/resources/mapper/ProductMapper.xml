@@ -234,4 +234,8 @@
 		SELECT * FROM t_product_orderInfo WHERE orderNumber = #{param1}
 	</select>
 	
+	<delete id="delShoppingCartById">
+		DELETE FROM t_product_shoppingCart WHERE id = #{param1}
+	</delete>
+	
 </mapper>
