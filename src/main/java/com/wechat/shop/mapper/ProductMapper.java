@@ -57,7 +57,7 @@ public interface ProductMapper {
 
 	public int delOrder(String order);
 
-	public List<Map<String, Object>> queryAllOrder(String openidMd5);
+	public List<Map<String, Object>> queryAllOrder(String openidMd5, Integer integer, Integer integer2);
 
 	public Map<String, Object> queryProductDetailInfoByIdClassId(Long productId, Long productClassId);
 
@@ -66,5 +66,7 @@ public interface ProductMapper {
 	public List<Map<String, Object>> queryOrderProductInfoByOrder(String order);
 
 	public int delShoppingCartById(Long shoppingCartId);
+
+	public Integer queryAllOrderCount(String openidMd5);
 
 }

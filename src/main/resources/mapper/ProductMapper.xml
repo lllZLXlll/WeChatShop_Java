@@ -174,7 +174,9 @@
 			tpo.expressFee,
 			tpo.totalAmount,
 			tpo.describes,
-			tpo.addressId
+			tpo.addressId,
+			tpo.orderType,
+			tpo.orderCreateTime
 		FROM
 			t_product_order tpo
 		WHERE
@@ -186,7 +188,7 @@
 	</update>
 	
 	<update id="delOrder">
-		UPDATE FROM t_product_order SET orderType = 4 WHERE orderNumber = #{param1}
+		UPDATE t_product_order SET orderType = 4 WHERE orderNumber = #{param1}
 	</update>
 	
 	<select id="queryAllOrder" resultType="map">
@@ -195,7 +197,19 @@
 		FROM
 			t_product_order
 		WHERE
-			openidMd5 = 'wMM37KSHNhYUWmj9dhl7fg=='
+			openidMd5 = #{param1}
+		AND orderType != 4
+		LIMIT #{param2}, #{param3}
+	</select>
+	
+	<select id="queryAllOrderCount" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			t_product_order
+		WHERE
+			openidMd5 = #{param1}
+		AND orderType != 4
 	</select>
 	
 	<select id="queryProductDetailInfoByIdClassId" resultType="map">

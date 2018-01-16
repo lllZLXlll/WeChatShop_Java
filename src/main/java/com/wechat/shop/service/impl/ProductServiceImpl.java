@@ -1,7 +1,5 @@
 package com.wechat.shop.service.impl;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -271,6 +268,8 @@ public class ProductServiceImpl implements ProductService {
 		Long addressId = json.getLong("addressId");
 		// 是否从购物车中结算
 		Long isShoppingCart = json.getLong("isShoppingCart");
+		// 购物车id
+		Long shoppingCartId = null;
 		// 商品数组
 		JSONArray productArrayJson = json.getJSONArray("orderProducts");
 		// 商品总数量
@@ -288,9 +287,10 @@ public class ProductServiceImpl implements ProductService {
 			Long productId = productJson.getLong("productId");
 			Long productCount = productJson.getLong("productCount");
 			Long productClassId = productJson.getLong("productClassId");
-			// 购物车id
-			Long shoppingCartId = productJson.getLong("id");
 			_productCount += productCount;
+
+			if (isShoppingCart == 1)
+				shoppingCartId = productJson.getLong("id");
 
 			// 校验数据
 			// 验证商品id的真实性
@@ -401,6 +401,15 @@ public class ProductServiceImpl implements ProductService {
 
 		// 订单号
 		String order = PamarParse.getParseString(json.get("order"));
+		// openid
+		String openidMd5 = PamarParse.getParseString(json.get("openid"));
+		// 验证用户的真实性
+		User user = userMapper.checkOpenIdMd5(openidMd5);
+		if (user == null) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+			return resultMap;
+		}
 
 		// 查询订单基本信息
 		Map<String, Object> orderMap = productMapper.queryOrderInfo(order);
@@ -449,6 +458,15 @@ public class ProductServiceImpl implements ProductService {
 
 		// 订单号
 		String order = PamarParse.getParseString(json.get("order"));
+		// openid
+		String openidMd5 = PamarParse.getParseString(json.get("openid"));
+		// 验证用户的真实性
+		User user = userMapper.checkOpenIdMd5(openidMd5);
+		if (user == null) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+			return resultMap;
+		}
 
 		int result = productMapper.delOrder(order);
 
@@ -477,13 +495,36 @@ public class ProductServiceImpl implements ProductService {
 
 		// 订单号
 		String openidMd5 = PamarParse.getParseString(json.get("openid"));
+		Integer pageNum = PamarParse.getParseInteger(json.get("pageNum"));
 
 		// 验证用户的真实性
 		User user = userMapper.checkOpenIdMd5(openidMd5);
 		if (user != null) {
 			// 查询所有订单
-			List<Map<String, Object>> page = productMapper.queryAllOrder(openidMd5);
+			Page page = new Page();
+			if (pageNum == null || pageNum == -1)
+				page.setPageNum(1);
+			else
+				page.setPageNum(pageNum);
 
+			// 查询订单基本信息
+			List<Map<String, Object>> orderList = productMapper.queryAllOrder(openidMd5, page.getPageBeginNum(),
+					page.getPageSize());
+			// 查询总条数
+			Integer pageTotalCount = productMapper.queryAllOrderCount(openidMd5);
+
+			// 循环根据订单基本信息查询订单对应商品信息集合
+			for (Map<String, Object> orderMap : orderList) {
+				List<Map<String, Object>> productLIst = productMapper
+						.queryOrderProductInfoByOrder(orderMap.get("orderNumber").toString());
+				// 将订单号对应的商品信息组装到page中
+				orderMap.put("productLIst", productLIst);
+			}
+
+			page.setPage(orderList);
+			page.setPageTotalCount(pageTotalCount);
+			resultMap.put(ReturnCode.PAGE, page);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		} else {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
