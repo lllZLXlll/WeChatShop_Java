@@ -359,7 +359,7 @@ public class ProductServiceImpl implements ProductService {
 					_expressFee = expressFee;
 				}
 				// 计算总金额
-				totalAmount += Arith.mul(price, productCount);
+				totalAmount = Arith.add(Arith.mul(price, productCount), totalAmount);
 			} else {
 				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
@@ -402,7 +402,7 @@ public class ProductServiceImpl implements ProductService {
 
 		// 查询订单基本信息
 		Map<String, Object> orderMap = productMapper.queryOrderInfo(order);
-		
+
 		// 订单相关商品信息
 		List<Map<String, Object>> productLIst = productMapper.queryOrderProductInfoByOrder(order);
 
