@@ -51,12 +51,18 @@ public interface ProductMapper {
 
 	public int addOrder(Map<String, Object> orderMap);
 
-	public List<Map<String, Object>> queryOrderInfo(String order);
+	public Map<String, Object> queryOrderInfo(String order);
 
 	public int updateOrderStatus(String order);
 
 	public int delOrder(String order);
 
 	public List<Map<String, Object>> queryAllOrder(String openidMd5);
+
+	public Map<String, Object> queryProductDetailInfoByIdClassId(Long productId, Long productClassId);
+
+	public int addOrderInfo(Map<String, Object> orderMap);
+
+	public List<Map<String, Object>> queryOrderProductInfoByOrder(String order);
 
 }

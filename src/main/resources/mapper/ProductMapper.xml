@@ -159,30 +159,24 @@
 
 	<insert id="addOrder">
 		INSERT INTO t_product_order (
-			orderNumber, orderCreateTime, openidMd5, productId, productCount,
-			productClassId, expressFee, addressId, totalAmount, describes
+			orderNumber, orderCreateTime, openidMd5, productCount,
+			expressFee, addressId, totalAmount, describes
 		) VALUES (
-			#{orderNumber}, #{orderCreateTime}, #{openidMd5}, #{productId}, #{productCount},
-			#{productClassId}, #{expressFee}, #{addressId}, #{totalAmount}, #{describes}
+			#{orderNumber}, #{orderCreateTime}, #{openidMd5}, #{productCount},
+			#{expressFee}, #{addressId}, #{totalAmount}, #{describes}
 		)
 	</insert>
 
 	<select id="queryOrderInfo" resultType="map">
 		SELECT
-			tpo.orderCreateTime,
+			tpo.orderNumber,
 			tpo.productCount,
 			tpo.expressFee,
 			tpo.totalAmount,
 			tpo.describes,
-			tpo.addressId,
-			tpi.name,
-			tpi.price,
-			tpc.class,
-			tpc.productImage
+			tpo.addressId
 		FROM
 			t_product_order tpo
-		LEFT JOIN t_product_info tpi ON tpo.productId = tpi.id
-		LEFT JOIN t_product_class tpc ON tpo.productClassId = tpc.id
 		WHERE
 			tpo.orderNumber = #{param1}
 	</select>
@@ -202,6 +196,42 @@
 			t_product_order
 		WHERE
 			openidMd5 = 'wMM37KSHNhYUWmj9dhl7fg=='
+	</select>
+	
+	<select id="queryProductDetailInfoByIdClassId" resultType="map">
+		SELECT t1.name, t1.showPrice, t1.expressFee, 
+		t2.class, t2.price, t2.count, t2.productImage
+		FROM t_product_info t1
+		LEFT JOIN t_product_class t2 ON t1.id = t2.productId
+		WHERE t1.id = #{param1} AND t2.id = #{param2}
+	</select>
+	
+	<insert id="addOrderInfo">
+		INSERT INTO t_product_orderInfo (
+			orderNumber,
+			productId,
+			productName,
+			productShowPrice,
+			productCount,
+			productClassId,
+			productClassName,
+			productPrice,
+			productImage
+		) VALUES (
+			#{orderNumber},
+			#{productId},
+			#{productName},
+			#{productShowPrice},
+			#{productCount},
+			#{productClassId},
+			#{productClassName},
+			#{productPrice},
+			#{productImage}
+		)
+	</insert>
+	
+	<select id="queryOrderProductInfoByOrder" resultType="map">
+		SELECT * FROM t_product_orderInfo WHERE orderNumber = #{param1}
 	</select>
 	
 </mapper>

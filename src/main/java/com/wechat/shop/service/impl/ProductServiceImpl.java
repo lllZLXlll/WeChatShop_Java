@@ -1,6 +1,7 @@
 package com.wechat.shop.service.impl;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -250,8 +251,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> addOrder(HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
+		Map<String, Object> orderMap = new HashMap<>();
 		// request中的json数据
 		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
+
 		if (json == null) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0011_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
@@ -268,16 +271,24 @@ public class ProductServiceImpl implements ProductService {
 		Long addressId = json.getLong("addressId");
 		// 是否从购物车中结算
 		Long isShoppingCart = json.getLong("isShoppingCart");
-
 		// 商品数组
 		JSONArray productArrayJson = json.getJSONArray("orderProducts");
+		// 商品总数量
+		int _productCount = 0;
+		// 订单快递费用
+		double _expressFee = 0;
+		// 循环次数
+		int forCount = 0;
+		// 订单总金额
+		double totalAmount = 0;
 
-		// 循环将订单插入表中
-		for (int i = 0; i < productArrayJson.length(); i++) {
+		// 循环插入订单信息表中
+		for (int i = 0, j = productArrayJson.length(); i < j; i++) {
 			JSONObject productJson = new JSONObject(productArrayJson.get(i).toString());
 			Long productId = productJson.getLong("productId");
 			Long productCount = productJson.getLong("productCount");
 			Long productClassId = productJson.getLong("productClassId");
+			_productCount += productCount;
 
 			// 校验数据
 			// 验证商品id的真实性
@@ -296,51 +307,87 @@ public class ProductServiceImpl implements ProductService {
 			}
 
 			// 商品信息
-			Map<String, Object> productInfo = productMapper.queryProductDetailInfoById(productId);
-
+			Map<String, Object> productInfo = productMapper.queryProductDetailInfoByIdClassId(productId,
+					productClassId);
 			// 验证用户的真实性
 			User user = userMapper.checkOpenIdMd5(openidMd5);
+
 			if (user != null) {
-				Map<String, Object> orderMap = new HashMap<String, Object>();
+				orderMap = new HashMap<String, Object>();
 				double expressFee = Double.parseDouble(productInfo.get("expressFee").toString());
 				double price = Double.parseDouble(productInfo.get("price").toString());
-				double totalAmount = Arith.mul(price, productCount) + expressFee;
+				double showPrice = Double.parseDouble(productInfo.get("showPrice").toString());
 
 				orderMap.put("orderNumber", order);
-				orderMap.put("orderCreateTime", DateUtil.getDateFormatYMDHMS());
 				orderMap.put("openidMd5", openidMd5);
 				orderMap.put("productId", productId);
+				orderMap.put("productName", productInfo.get("name").toString());
+				orderMap.put("productShowPrice", showPrice);
 				orderMap.put("productCount", productCount);
 				orderMap.put("productClassId", productClassId);
-				orderMap.put("expressFee", expressFee);
-				orderMap.put("addressId", addressId);
-				orderMap.put("totalAmount", totalAmount);
-				orderMap.put("describes", describes);
+				orderMap.put("productClassName", productInfo.get("class").toString());
+				orderMap.put("productPrice", price);
+				orderMap.put("productImage", productInfo.get("productImage").toString());
 
-				// 插入订单表
-				int result = productMapper.addOrder(orderMap);
-				if (result > 0) {
-					// 返回订单号
-					resultMap.put(ReturnCode.ORDER, order);
-					resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
-				} else {
+				// 插入订单明细表
+				int result = productMapper.addOrderInfo(orderMap);
+				if (!(result > 0)) {
 					resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
 					resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+					return resultMap;
 				}
-				// 如果商品订单数量大于1件，说明是从购物车中进行结算的，删除购物车中对应的商品
+				// 从购物车中进行结算，删除购物车中对应的商品
 				if (isShoppingCart != -1) {
 					result = productMapper.delShoppingCart(productId, openidMd5);
 					if (!(result > 0)) {
 						resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
 						resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+						return resultMap;
 					}
 				}
+
+				/**
+				 * 一笔订单有多个商品，如每件商品都需要快递费则取快递费最低的，但不能等于0；
+				 * 如有一件商品快递费用大于0而其他几件商品运费等于0则取大于0的运费 （有一笔运费大于0的，就去运费大于0的）
+				 */
+				if (expressFee > 0 && forCount == 0) {
+					_expressFee = expressFee;
+					forCount++;
+				}
+				// 如果有大于0，并且更低的快递费用就设置商品快递费为更低的
+				if (expressFee > 0 && expressFee < _expressFee) {
+					_expressFee = expressFee;
+				}
+				// 计算总金额
+				totalAmount += Arith.mul(price, productCount);
 			} else {
 				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0008_MESSAGE);
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0008);
+				return resultMap;
 			}
 		}
 
+		// 将数据插入订单表
+		orderMap = new HashMap<String, Object>();
+		orderMap.put("orderNumber", order);
+		orderMap.put("orderCreateTime", DateUtil.getDateFormatYMDHMS());
+		orderMap.put("openidMd5", openidMd5);
+		orderMap.put("productCount", _productCount);
+		orderMap.put("expressFee", _expressFee);
+		orderMap.put("totalAmount", totalAmount + _expressFee);
+		orderMap.put("addressId", addressId);
+		orderMap.put("describes", describes);
+		// 插入订单明细表
+		int result = productMapper.addOrder(orderMap);
+		if (!(result > 0)) {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+			return resultMap;
+		}
+
+		// 返回订单号
+		resultMap.put(ReturnCode.ORDER, order);
+		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
 	}
 
@@ -353,16 +400,19 @@ public class ProductServiceImpl implements ProductService {
 		// 订单号
 		String order = PamarParse.getParseString(json.get("order"));
 
-		// 查询订单完整详情
-		List<Map<String, Object>> orderList = productMapper.queryOrderInfo(order);
-		Map<String, Object> orderMap = orderList.get(0);
+		// 查询订单基本信息
+		Map<String, Object> orderMap = productMapper.queryOrderInfo(order);
+		
+		// 订单相关商品信息
+		List<Map<String, Object>> productLIst = productMapper.queryOrderProductInfoByOrder(order);
 
+		// 收货地址信息
 		ReceivingAddress addressMap = receivingAddressMapper
 				.queryAddressById(PamarParse.getParseLong(orderMap.get("addressId")));
 
-		resultMap.put("orderInfo", orderList);
+		resultMap.put("orderInfo", orderMap);
+		resultMap.put("productLIst", productLIst);
 		resultMap.put("address", addressMap);
-		resultMap.put(ReturnCode.ORDER, order);
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
 	}
@@ -414,7 +464,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> queryAllOrder(HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-		
+
 		// request中的json数据
 		JSONObject json = GetRequestJsonUtils.getRequestJson(request);
 		if (json == null) {
@@ -422,7 +472,7 @@ public class ProductServiceImpl implements ProductService {
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0011);
 			return resultMap;
 		}
-		
+
 		// 订单号
 		String openidMd5 = PamarParse.getParseString(json.get("openid"));
 
