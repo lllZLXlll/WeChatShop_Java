@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
@@ -12,14 +13,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  */
 
-//启注解事务管理  
+// 启用注解事务管理  
 @EnableTransactionManagement
+
+// 启用定时任务
+@EnableScheduling
+
+// 接口类扫描包配置
+@MapperScan("com.wechat.shop.mapper")
 
 // Spring Boot 应用的标识
 @SpringBootApplication
-
-// mapper 接口类扫描包配置
-@MapperScan("com.wechat.shop.mapper")
 public class Application {
 
 	private static Logger logger = Logger.getLogger(Application.class);

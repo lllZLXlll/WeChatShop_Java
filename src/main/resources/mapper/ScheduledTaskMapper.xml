@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wechat.shop.mapper.ScheduledTaskMapper">
+
+	<update id="updateOrderType">
+		UPDATE t_product_order t1,
+		 (
+			SELECT
+				id
+			FROM
+				t_product_order
+			WHERE
+				orderType = 1
+			AND orderCreateTime >= DATE_ADD(
+				#orderCreateTime,
+				'2018-01-14 11:33:13',
+				INTERVAL 3 DAY
+			)
+		) t2
+		SET orderType = 3
+		WHERE
+			t1.id = t2.id	
+	</update>
+
+</mapper>

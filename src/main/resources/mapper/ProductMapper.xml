@@ -202,6 +202,7 @@
 		<if test="param4 != null">
 			AND orderType = #{param4}
 		</if>
+		ORDER BY id DESC
 		LIMIT #{param2}, #{param3}
 	</select>
 	
