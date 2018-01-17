@@ -11,9 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wechat.shop.common.ReturnCode;
-import com.wechat.shop.controller.ProductController;
 import com.wechat.shop.entity.ReceivingAddress;
 import com.wechat.shop.entity.User;
 import com.wechat.shop.mapper.ProductMapper;
@@ -26,6 +26,8 @@ import com.wechat.shop.utils.GetRequestJsonUtils;
 import com.wechat.shop.utils.Page;
 import com.wechat.shop.utils.PamarParse;
 
+// 此类使用注解所有方法启用事务
+@Transactional
 @Service
 public class ProductServiceImpl implements ProductService {
 

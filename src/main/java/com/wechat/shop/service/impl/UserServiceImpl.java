@@ -8,6 +8,7 @@ import java.util.Map;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wechat.shop.common.Config;
 import com.wechat.shop.common.ReturnCode;
@@ -21,6 +22,8 @@ import com.wechat.shop.utils.HTTPRequestUtil;
 import com.wechat.shop.utils.MD5;
 import com.wechat.shop.utils.Page;
 
+//此类使用注解所有方法启用事务
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
