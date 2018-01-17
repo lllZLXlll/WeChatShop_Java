@@ -375,6 +375,9 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 
+		// 收货地址信息
+		ReceivingAddress address = receivingAddressMapper.queryAddressById(addressId);
+
 		// 将数据插入订单表
 		orderMap = new HashMap<String, Object>();
 		orderMap.put("orderNumber", order);
@@ -383,8 +386,12 @@ public class ProductServiceImpl implements ProductService {
 		orderMap.put("productCount", _productCount);
 		orderMap.put("expressFee", _expressFee);
 		orderMap.put("totalAmount", totalAmount + _expressFee);
-		orderMap.put("addressId", addressId);
 		orderMap.put("describes", describes);
+		orderMap.put("addressId", addressId);
+		orderMap.put("userName", address.getUserName());
+		orderMap.put("telNumber", address.getTelNumber());
+		orderMap.put("address", address.getProvinceName() + address.getCityName() + address.getCountyName() + " "
+				+ address.getDetailInfo());
 		// 插入订单明细表
 		int result = productMapper.addOrder(orderMap);
 		if (!(result > 0)) {
@@ -423,13 +430,8 @@ public class ProductServiceImpl implements ProductService {
 		// 订单相关商品信息
 		List<Map<String, Object>> productLIst = productMapper.queryOrderProductInfoByOrder(order);
 
-		// 收货地址信息
-		ReceivingAddress addressMap = receivingAddressMapper
-				.queryAddressById(PamarParse.getParseLong(orderMap.get("addressId")));
-
 		resultMap.put("orderInfo", orderMap);
 		resultMap.put("productLIst", productLIst);
-		resultMap.put("address", addressMap);
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
 	}

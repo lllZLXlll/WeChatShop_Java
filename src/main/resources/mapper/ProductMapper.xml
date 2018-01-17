@@ -160,27 +160,32 @@
 	<insert id="addOrder">
 		INSERT INTO t_product_order (
 			orderNumber, orderCreateTime, openidMd5, productCount,
-			expressFee, addressId, totalAmount, describes
+			expressFee, addressId, totalAmount, describes, userName,
+			telNumber, address
 		) VALUES (
 			#{orderNumber}, #{orderCreateTime}, #{openidMd5}, #{productCount},
-			#{expressFee}, #{addressId}, #{totalAmount}, #{describes}
+			#{expressFee}, #{addressId}, #{totalAmount}, #{describes}, #{userName},
+			#{telNumber}, #{address}
 		)
 	</insert>
 
 	<select id="queryOrderInfo" resultType="map">
 		SELECT
-			tpo.orderNumber,
-			tpo.productCount,
-			tpo.expressFee,
-			tpo.totalAmount,
-			tpo.describes,
-			tpo.addressId,
-			tpo.orderType,
-			tpo.orderCreateTime
+			orderNumber,
+			productCount,
+			expressFee,
+			totalAmount,
+			describes,
+			addressId,
+			orderType,
+			orderCreateTime,
+			userName,
+			telNumber,
+			address
 		FROM
-			t_product_order tpo
+			t_product_order
 		WHERE
-			tpo.orderNumber = #{param1}
+			orderNumber = #{param1}
 	</select>
 	
 	<update id="updateOrderStatus">
@@ -234,20 +239,20 @@
 			productName,
 			productShowPrice,
 			productCount,
-			productClassId,
 			productClassName,
 			productPrice,
-			productImage
+			productImage,
+			productClassId
 		) VALUES (
 			#{orderNumber},
 			#{productId},
 			#{productName},
 			#{productShowPrice},
 			#{productCount},
-			#{productClassId},
 			#{productClassName},
 			#{productPrice},
-			#{productImage}
+			#{productImage},
+			#{productClassId}
 		)
 	</insert>
 	
