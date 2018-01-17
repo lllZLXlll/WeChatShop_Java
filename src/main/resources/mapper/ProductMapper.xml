@@ -199,6 +199,9 @@
 		WHERE
 			openidMd5 = #{param1}
 		AND orderType != 4
+		<if test="param4 != null">
+			AND orderType = #{param4}
+		</if>
 		LIMIT #{param2}, #{param3}
 	</select>
 	
@@ -210,6 +213,9 @@
 		WHERE
 			openidMd5 = #{param1}
 		AND orderType != 4
+		<if test="param2 != null">
+			AND orderType = #{param2}
+		</if>
 	</select>
 	
 	<select id="queryProductDetailInfoByIdClassId" resultType="map">
