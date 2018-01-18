@@ -116,7 +116,8 @@
 	<select id="queryShoppingCartList" resultType="map">
 		SELECT
 		t1.id, t1.productCount, t1.productClassId, t1.productId, 
-		t2.class, t2.price, t2.productImage, t2.count, t3.expressFee, t3.name
+		t2.class, t2.price, t2.productImage, t2.count, t3.expressFee, 
+		t3.name, t3.buyCount
 		FROM
 			t_product_shoppingCart t1
 		LEFT JOIN t_product_class t2 ON t1.productId = t2.productId 
