@@ -53,7 +53,7 @@
 	</select>
 
 	<select id="queryProductDetailInfoById" resultType="map">
-		SELECT t1.*, SUM(t2.salesVolume) salesVolume, SUM(t2.count) count
+		SELECT t1.*, SUM(t2.salesVolume) salesVolume, (SUM(t2.count) - SUM(t2.freezeCount)) count
 		FROM t_product_info t1
 		LEFT JOIN t_product_class t2 ON t1.id = t2.productId
 		WHERE t1.id = #{0}
@@ -116,8 +116,8 @@
 	<select id="queryShoppingCartList" resultType="map">
 		SELECT
 		t1.id, t1.productCount, t1.productClassId, t1.productId, 
-		t2.class, t2.price, t2.productImage, t2.count, t3.expressFee, 
-		t3.name, t3.buyCount
+		t2.class, t2.price, t2.productImage, t2.count, t2.count, 
+		t2.freezeCount,t3.expressFee, t3.name, t3.buyCount
 		FROM
 			t_product_shoppingCart t1
 		LEFT JOIN t_product_class t2 ON t1.productId = t2.productId 
@@ -227,7 +227,8 @@
 	
 	<select id="queryProductDetailInfoByIdClassId" resultType="map">
 		SELECT t1.name, t1.showPrice, t1.expressFee, 
-		t2.class, t2.price, t2.count, t2.productImage
+		t2.class, t2.price, t2.count, t2.productImage,
+		t2.freezeCount
 		FROM t_product_info t1
 		LEFT JOIN t_product_class t2 ON t1.id = t2.productId
 		WHERE t1.id = #{param1} AND t2.id = #{param2}
@@ -264,5 +265,9 @@
 	<delete id="delShoppingCartById">
 		DELETE FROM t_product_shoppingCart WHERE id = #{param1}
 	</delete>
+	
+	<update id="updateProductFreezeCount">
+		UPDATE t_product_class SET freezeCount = #{param2} WHERE id = #{param1}
+	</update>
 	
 </mapper>

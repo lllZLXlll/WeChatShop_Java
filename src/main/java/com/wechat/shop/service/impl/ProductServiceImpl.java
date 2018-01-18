@@ -251,6 +251,7 @@ public class ProductServiceImpl implements ProductService {
 		return resultMap;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> addOrder(HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
@@ -286,15 +287,17 @@ public class ProductServiceImpl implements ProductService {
 		int forCount = 0;
 		// 订单总金额
 		double totalAmount = 0;
+		// 修改插入成功数
+		int result = -1;
 
 		// 循环插入订单信息表中
 		for (int i = 0, j = productArrayJson.length(); i < j; i++) {
 			JSONObject productJson = new JSONObject(productArrayJson.get(i).toString());
+			int count = -1;
 			Long productId = productJson.getLong("productId");
 			Long productCount = productJson.getLong("productCount");
 			Long productClassId = productJson.getLong("productClassId");
 			_productCount += productCount;
-
 			if (isShoppingCart == 1)
 				shoppingCartId = productJson.getLong("id");
 
@@ -307,38 +310,49 @@ public class ProductServiceImpl implements ProductService {
 				return resultMap;
 			}
 
-			int count = productMapper.checkProductById(productId);
+			count = productMapper.checkProductById(productId);
 			if (!(count > 0)) {
 				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0009_MESSAGE);
 				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0009);
 				return resultMap;
 			}
 
+			logger.info("---begin---" + DateUtil.getDateFormatYMDHMS());
+			// 冻结商品库存
+			resultMap = updateProductFreezeCount(productId, productClassId, productCount);
+			logger.info("---end---" + DateUtil.getDateFormatYMDHMS());
 			// 商品信息
-			Map<String, Object> productInfo = productMapper.queryProductDetailInfoByIdClassId(productId,
-					productClassId);
+			Map<String, Object> productInfo;
+
+			// 冻结成功
+			if (ReturnCode.RETURN_SUCCESS_CODE.equals(resultMap.get(ReturnCode.ERROR))) {
+				productInfo = (Map<String, Object>) resultMap.get("productInfo");
+			} else {
+				return resultMap;
+			}
+
 			// 验证用户的真实性
 			User user = userMapper.checkOpenIdMd5(openidMd5);
 
 			if (user != null) {
 				orderMap = new HashMap<String, Object>();
-				double expressFee = Double.parseDouble(productInfo.get("expressFee").toString());
-				double price = Double.parseDouble(productInfo.get("price").toString());
-				double showPrice = Double.parseDouble(productInfo.get("showPrice").toString());
+				double expressFee = PamarParse.getParseDouble(productInfo.get("expressFee"));
+				double price = PamarParse.getParseDouble(productInfo.get("price"));
+				double showPrice = PamarParse.getParseDouble(productInfo.get("showPrice"));
 
 				orderMap.put("orderNumber", order);
 				orderMap.put("openidMd5", openidMd5);
 				orderMap.put("productId", productId);
-				orderMap.put("productName", productInfo.get("name").toString());
+				orderMap.put("productName", PamarParse.getParseString(productInfo.get("name")));
 				orderMap.put("productShowPrice", showPrice);
 				orderMap.put("productCount", productCount);
 				orderMap.put("productClassId", productClassId);
-				orderMap.put("productClassName", productInfo.get("class").toString());
+				orderMap.put("productClassName", PamarParse.getParseString(productInfo.get("class")));
 				orderMap.put("productPrice", price);
-				orderMap.put("productImage", productInfo.get("productImage").toString());
+				orderMap.put("productImage", PamarParse.getParseString(productInfo.get("productImage")));
 
 				// 插入订单明细表
-				int result = productMapper.addOrderInfo(orderMap);
+				result = productMapper.addOrderInfo(orderMap);
 				if (!(result > 0)) {
 					resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
 					resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
@@ -393,7 +407,7 @@ public class ProductServiceImpl implements ProductService {
 		orderMap.put("address", address.getProvinceName() + address.getCityName() + address.getCountyName() + " "
 				+ address.getDetailInfo());
 		// 插入订单明细表
-		int result = productMapper.addOrder(orderMap);
+		result = productMapper.addOrder(orderMap);
 		if (!(result > 0)) {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
 			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
@@ -404,6 +418,49 @@ public class ProductServiceImpl implements ProductService {
 		resultMap.put(ReturnCode.ORDER, order);
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
+	}
+
+	/**
+	 * 共享资源修改方法，上锁保证在下单时冻结商品数量不会超过商品库存，让商品不会超卖
+	 * 
+	 */
+	private synchronized Map<String, Object> updateProductFreezeCount(Long productId, Long productClassId,
+			Long productCount) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		int result = -1;
+		// 商品信息
+		Map<String, Object> productInfo = productMapper.queryProductDetailInfoByIdClassId(productId, productClassId);
+		// 商品冻结数量
+		Integer _freezeCount = PamarParse.getParseInteger(productInfo.get("freezeCount"));
+		// 商品库存
+		Integer _product_count = PamarParse.getParseInteger(productInfo.get("count"));
+
+		// 判断商品库存是否大于冻结商品数量
+		if (_product_count > _freezeCount) {
+			// 订单购买的商品数量+冻结数量不得大于商品库存
+			if (productCount + _freezeCount <= _product_count) {
+				// 根据商品类型id修改此商品的冻结库存数量
+				result = productMapper.updateProductFreezeCount(productClassId, productCount + _freezeCount);
+				if (!(result > 0)) {
+					resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0017_MESSAGE);
+					resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0017);
+					return resultMap;
+				} else {
+					resultMap.put("productInfo", productInfo);
+					resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+					return resultMap;
+				}
+			} else {
+				resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0021_MESSAGE);
+				resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0021);
+				return resultMap;
+			}
+		} else {
+			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0020_MESSAGE);
+			resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0020);
+			return resultMap;
+		}
+
 	}
 
 	@Override

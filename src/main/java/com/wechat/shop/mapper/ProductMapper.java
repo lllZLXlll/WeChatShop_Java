@@ -69,4 +69,6 @@ public interface ProductMapper {
 
 	public Integer queryAllOrderCount(String openidMd5, Integer orderType);
 
+	public int updateProductFreezeCount(Long productClassId, Long productCount);
+
 }

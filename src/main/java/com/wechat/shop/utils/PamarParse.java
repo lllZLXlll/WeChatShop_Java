@@ -19,6 +19,19 @@ public class PamarParse {
 		return parseStr;
 	}
 
+	@SuppressWarnings("static-access")
+	public static Double getParseDouble(Object object) {
+		Double parseDouble = -1d;
+		if (object != null) {
+			try {
+				parseDouble = parseDouble.parseDouble(object.toString());
+			} catch (Exception e) {
+				parseDouble = -1d;
+			}
+		}
+		return parseDouble;
+	}
+
 	public static Long getParseLong(Object object) {
 		Long parseLong = -1l;
 		if (object != null) {
@@ -32,14 +45,14 @@ public class PamarParse {
 	}
 
 	public static Integer getParseInteger(Object object) {
-		Integer parseLong = -1;
+		Integer parseInteger = -1;
 		if (object != null) {
 			try {
-				parseLong = Integer.parseInt(object.toString());
+				parseInteger = Integer.parseInt(object.toString());
 			} catch (Exception e) {
-				parseLong = -1;
+				parseInteger = -1;
 			}
 		}
-		return parseLong;
+		return parseInteger;
 	}
 }

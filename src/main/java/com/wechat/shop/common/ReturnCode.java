@@ -141,6 +141,16 @@ public class ReturnCode {
 	 * 删除订单失败
 	 */
 	public static final String RETURN_FAIL_CODE_0019 = "code-0019";
+	
+	/**
+	 * 商品已售罄
+	 */
+	public static final String RETURN_FAIL_CODE_0020 = "code-0020";
+	
+	/**
+	 * 库存不足，请重新下单
+	 */
+	public static final String RETURN_FAIL_CODE_0021 = "code-0021";
 
 	// --------------------------------------------------------------------------------------------------------------
 
@@ -281,6 +291,16 @@ public class ReturnCode {
 	 * 删除订单失败
 	 */
 	public static final String FAIL_0019_MESSAGE = "删除订单失败";
+	
+	/**
+	 * 商品已售罄
+	 */
+	public static final String FAIL_0020_MESSAGE = "商品已售罄";
+	
+	/**
+	 * 库存不足，请重新下单
+	 */
+	public static final String FAIL_0021_MESSAGE = "库存不足，请重新下单";
 
 
 }
