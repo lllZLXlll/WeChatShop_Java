@@ -1,15 +1,20 @@
 package com.wechat.shop.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wechat.shop.api.KdniaoTrackQueryAPI;
 import com.wechat.shop.common.Config;
 import com.wechat.shop.common.ReturnCode;
 import com.wechat.shop.entity.ReceivingAddress;
@@ -225,6 +230,29 @@ public class UserServiceImpl implements UserService {
 			resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0013_MESSAGE);
 			return resultMap;
 		}
+	}
+
+	@Override
+	public Map<String, Object> queryProductLogistics(HttpServletRequest request) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		KdniaoTrackQueryAPI kdAPI = new KdniaoTrackQueryAPI();
+		String resultInfo = kdAPI.getOrderTracesByJson("ZTO", "473200626208");
+		JSONObject json = new JSONObject(resultInfo);
+		JSONArray jsonArray = json.getJSONArray("Traces");
+
+		List<Map<String, Object>> traces = new ArrayList<Map<String, Object>>();
+		for (int i = jsonArray.length() - 1, j = 0; i >= 0; i--, j++) {
+			json = new JSONObject(jsonArray.get(i).toString());
+			resultMap.put("acceptTime", json.getString("AcceptTime"));
+			resultMap.put("acceptStation", json.getString("AcceptStation"));
+			traces.add(resultMap);
+			resultMap = new HashMap<String, Object>();
+		}
+
+		resultMap.put("traces", traces);
+		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		return resultMap;
 	}
 
 }

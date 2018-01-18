@@ -3,6 +3,8 @@ package com.wechat.shop.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -121,10 +123,10 @@ public class UserController {
 	 * 
 	 * @param pageNum
 	 *            当前页
-	 *            
+	 * 
 	 * @param openid
 	 *            用户id
-	 *            
+	 * 
 	 * @return 分页数据
 	 * 
 	 * @throws Exception
@@ -141,7 +143,7 @@ public class UserController {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 删除收藏
 	 * 
@@ -158,24 +160,21 @@ public class UserController {
 			throw e;
 		}
 	}
-	
 
 	/**
-	 * 查询用户收货物流信息 test
+	 * 查询商品收货物流信息
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping("/queryKDInfo")
+	@RequestMapping("/queryProductLogistics")
 	@ResponseBody
-	public Map<String, Object> queryKDInfo() throws Exception {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
-		KdniaoTrackQueryAPI kdAPI = new KdniaoTrackQueryAPI();
-		String resultInfo = kdAPI.getOrderTracesByJson("ZTO", "473200626208");
-		JSONObject json = new JSONObject(resultInfo);
-		JSONArray jsonArray = json.getJSONArray("Traces");
-		
-		resultMap.put("Traces", jsonArray.toString());
-		return resultMap;
+	public Map<String, Object> queryProductLogistics(HttpServletRequest request) throws Exception {
+		try {
+			return userService.queryProductLogistics(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- queryProductLogistics 查询商品收货物流信息 异常" + e.toString());
+			throw e;
+		}
 	}
 }

@@ -2,6 +2,8 @@ package com.wechat.shop.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
 
 import com.wechat.shop.entity.User;
@@ -25,5 +27,7 @@ public interface UserService {
 	public Map<String, Object> queryCollectionProductList(Integer pageNum, String openid);
 
 	public Map<String, Object> delCollectionById(String openid, Long productId);
+
+	public Map<String, Object> queryProductLogistics(HttpServletRequest request) throws Exception;
 
 }
