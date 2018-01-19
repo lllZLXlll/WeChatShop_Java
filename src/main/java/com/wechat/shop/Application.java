@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 // 接口类扫描包配置
 @MapperScan("com.wechat.shop.mapper")
 
-// Spring Boot 应用的标识
+// Spring Boot 应用的标识 (scanBasePackages="com.wechat.shop.config")
 @SpringBootApplication
 public class Application {
 

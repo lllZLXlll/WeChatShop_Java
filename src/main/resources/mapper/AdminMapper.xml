@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wechat.shop.mapper.AdminMapper">
+
+	<select id="checkAdminLogin" resultType="map">
+		SELECT * FROM t_admin WHERE accountNumber = #{param1} AND password = #{param2}
+	</select>
+
+</mapper>

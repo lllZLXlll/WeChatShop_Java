@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
+@SuppressWarnings("restriction")
 public class MD5 {
 
 	/**
@@ -22,5 +23,9 @@ public class MD5 {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(getMD5OpenId("123456"));
 	}
 }

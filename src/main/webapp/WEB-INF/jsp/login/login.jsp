@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     
+<%
+	String basePath = request.getContextPath();
+	session.setAttribute("path", basePath);
+ %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,10 +85,9 @@ $(function() {
 			$.cookie(COOKIE_NAME, null, { path: '/' });  //删除cookie
 		}
 		$("#login_ok").attr("disabled", true).val('登陆中..');
-		var password = HMAC_SHA256_MAC($("#j_username").val(), $("#j_password").val());
-		$("#j_password").val(HMAC_SHA256_MAC($("#j_randomKey").val(), password));
-        window.location.href = 'index.html'; /*注意：生产环境时请删除此行*/
-        return false;
+		//var password = HMAC_SHA256_MAC($("#j_username").val(), $("#j_password").val());
+		//$("#j_password").val(HMAC_SHA256_MAC($("#j_randomKey").val(), password));
+        return true;
 	});
 });
 function genTimestamp(){
@@ -97,6 +101,13 @@ function choose_bg() {
 	var bg = Math.floor(Math.random() * 9 + 1);
 	$('body').css('background-image', 'url(images/loginbg_0'+ bg +'.jpg)');
 }
+
+// 更换验证码
+function changeImg(){
+	var img = document.getElementById("captcha_img");  
+	img.src = "${path }/admin/getAuthImage?date=" + new Date();;
+} 
+
 </script>
 </head>
 <body>
@@ -123,19 +134,23 @@ function choose_bg() {
 	    </c:if>
         -->
         <div class="login_form">
-            <input type="hidden" value="${randomKey }" id="j_randomKey" />
-    		<form action="index.html" id="login_form" method="post">
+    		<form action="${path }/admin/adminLogin" id="login_form" method="post">
                 <input type="hidden" name="jfinal_token" value="${jfinal_token }" />
+                <div class="form-group" style="text-align: center; margin-bottom: 10px;">
+   					<label style="color: red;">${message}</label>
+   				</div>
     			<div class="form-group">
-    				<label for="j_username" class="t">用户名：</label> <input id="j_username" value="" name="username" type="text" class="form-control x319 in" autocomplete="off">
+    				<label for="j_username" class="t">账　号：</label> <input id="j_username" value="${accountNumber }" name="accountNumber" type="text" class="form-control x319 in" autocomplete="off">
     			</div>
     			<div class="form-group">
-    				<label for="j_password" class="t">密　码：</label> <input id="j_password" value="" name="passwordhash" type="password" class="form-control x319 in">
+    				<label for="j_password" class="t">密　码：</label> <input id="j_password" value="" name="password" type="password" class="form-control x319 in">
     			</div>
     			<div class="form-group">
-    				<label for="j_captcha" class="t">验证码：</label> <input id="j_captcha" name="j_captcha" type="text" class="form-control x164 in">
-    				<img id="captcha_img" alt="点击更换" title="点击更换" src="images/captcha.jpeg" class="m">
-    			</div>
+    				<label for="j_captcha" class="t">验证码：</label> <input id="j_captcha" name="code" type="text" class="form-control x164 in">
+    				<a href='#' onclick="javascript:changeImg()" style="color:white;">
+    					<img id="captcha_img" alt="点击更换" title="点击更换" src="${path }/admin/getAuthImage" class="m">
+   					</a>
+    			</div>	
     			<div class="form-group">
                     <label class="t"></label>
                     <label for="j_remember" class="m"><input id="j_remember" type="checkbox" value="true">&nbsp;记住登陆账号!</label>
