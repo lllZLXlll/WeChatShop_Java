@@ -1,5 +1,7 @@
 package com.wechat.shop.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,7 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wechat.shop.common.Constants;
 import com.wechat.shop.service.AdminService;
@@ -74,6 +78,45 @@ public class AdminController {
 	@RequestMapping("/exitLogin")
 	public String exitLogin(HttpServletRequest request) {
 		return adminService.exitLogin(request);
+	}
+
+	/**
+	 * 管理员退出登录
+	 */
+	@RequestMapping("/changePwdInit")
+	public String changePwdInit() {
+		return "/index/changePwd";
+	}
+
+	/**
+	 * 管理员修改密码
+	 */
+	@RequestMapping("/changePwd")
+	@ResponseBody
+	public Map<String, Object> changePwd(HttpServletRequest request, String password, String newPassword,
+			String secPassword) {
+		try {
+			return adminService.changePwd(request, password, newPassword, secPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- changePwd 管理员修改登陆密码 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 查询首页banner
+	 */
+	@RequestMapping("/homeBanner")
+	public String homeBanner(Model model, Integer pageCurrent) {
+		try {
+			adminService.homeData(model, 1, pageCurrent);
+			return "/home/home-banner";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeBanner 查询首页banner 异常" + e.toString());
+			throw e;
+		}
 	}
 
 }

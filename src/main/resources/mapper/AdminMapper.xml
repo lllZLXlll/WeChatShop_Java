@@ -3,7 +3,35 @@
 <mapper namespace="com.wechat.shop.mapper.AdminMapper">
 
 	<select id="checkAdminLogin" resultType="map">
-		SELECT * FROM t_admin WHERE accountNumber = #{param1} AND password = #{param2}
+		SELECT * FROM t_admin
+		WHERE accountNumber = #{param1} AND password = #{param2}
+	</select>
+
+	<select id="checkPassword" resultType="int">
+		SELECT COUNT(id) FROM
+		t_admin
+		WHERE id = #{param1} AND password = #{param2}
+	</select>
+
+	<update id="changePwd">
+		UPDATE t_admin SET password = #{param2} WHERE id =
+		#{param1}
+	</update>
+
+	<select id="homeData" resultType="map">
+		SELECT th.*, tp.name FROM t_home_data th 
+		LEFT JOIN t_product_info tp ON th.productId = tp.id
+		WHERE
+		status != 3 AND type = #{param3}
+		ORDER BY sort
+		LIMIT #{param1}, #{param2}
+	</select>
+
+	<select id="homeDataCount" resultType="int">
+		SELECT COUNT(id) FROM
+		t_home_data
+		WHERE
+		status != 3 AND type = #{param1}
 	</select>
 
 </mapper>
