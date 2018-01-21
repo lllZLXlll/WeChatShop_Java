@@ -43,6 +43,15 @@ public class DateUtil {
 	}
 
 	/**
+	 * 获得当前时间戳
+	 * 
+	 * @return
+	 */
+	public static String getDateTimeStr() {
+		return DATEFORMAT_TIME.format(Calendar.getInstance().getTime()).toString();
+	}
+
+	/**
 	 * 获得当前时间
 	 * 
 	 * @return

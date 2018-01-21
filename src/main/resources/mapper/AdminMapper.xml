@@ -19,12 +19,15 @@
 	</update>
 
 	<select id="homeData" resultType="map">
-		SELECT th.*, tp.name FROM t_home_data th 
+		SELECT th.*, tp.name FROM
+		t_home_data th
 		LEFT JOIN t_product_info tp ON th.productId = tp.id
 		WHERE
-		status != 3 AND type = #{param3}
+		status != 3 AND
+		type = #{param3}
 		ORDER BY sort
-		LIMIT #{param1}, #{param2}
+		LIMIT #{param1},
+		#{param2}
 	</select>
 
 	<select id="homeDataCount" resultType="int">
@@ -33,5 +36,35 @@
 		WHERE
 		status != 3 AND type = #{param1}
 	</select>
+
+	<update id="homeBannerUpdateStatus">
+		UPDATE t_home_data SET status = 3 WHERE id =
+		#{param1}
+	</update>
+
+	<select id="queryHomeBannerById" resultType="map">
+		SELECT * FROM
+		t_home_data WHERE id = #{param1}
+	</select>
+
+	<update id="homeBannerEdit">
+		UPDATE t_home_data SET productId = #{param2}, image =
+		#{param3}, status = #{param4}, sort = #{param5}, lastUpdateTime =
+		NOW() WHERE id =
+		#{param1}
+	</update>
+
+	<select id="queryHomeBannerMaxSort" resultType="int">
+		SELECT MAX(sort) + 1 FROM t_home_data
+	</select>
+	
+	<insert id="homeBannerAdd">
+		insert into t_home_data (
+			productId, image, status, sort, lastUpdateTime, addTime, type
+		) values (
+			#{param1}, #{param2}, #{param3}, #{param4}, NOW(), NOW(), #{param5}
+		)
+	</insert>
+
 
 </mapper>

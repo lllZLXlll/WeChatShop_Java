@@ -134,9 +134,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void homeData(Model model, int type, Integer pageNum) {
+	public void homeData(Model model, String tabid, int type, Integer pageNum, Integer pageSize) {
 		Page page = new Page();
 		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
 
 		List<Map<String, Object>> list = adminMapper.homeData(page.getPageBeginNum(), page.getPageSize(), type);
 		Integer pageTotalCount = adminMapper.homeDataCount(type);
@@ -145,6 +147,73 @@ public class AdminServiceImpl implements AdminService {
 		page.setPageTotalCount(pageTotalCount);
 
 		model.addAttribute("page", page);
+		model.addAttribute("tabid", tabid);
+	}
+
+	@Override
+	public Map<String, Object> homeBannerUpdateStatus(Integer id) {
+		// 参数校验
+		if (id == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空，修改失败", "", "");
+
+		// 修改状态
+		int result = adminMapper.homeBannerUpdateStatus(id);
+
+		if (!(result > 0)) {
+			return BJUI.ajaxDoneInfo("300", "删除失败", "", "");
+		}
+
+		return BJUI.ajaxDoneInfo("200", "删除成功", "", "");
+	}
+
+	@Override
+	public void homeBannerEditInit(Model model, String tabid, Integer id) {
+		Map<String, Object> bannerMap = adminMapper.queryHomeBannerById(id);
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("item", bannerMap);
+	}
+
+	@Override
+	public Map<String, Object> homeBannerEdit(String tabid, Integer id, Integer productId, String image, Integer status,
+			Integer sort) {
+		image = PamarParse.getParseString(image);
+
+		if (image == null || image.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先选择图片", "", "");
+		if (id == null || productId == null || status == null || sort == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
+
+		int result = adminMapper.homeBannerEdit(id, productId, image, status, sort);
+
+		if (!(result > 0))
+			return BJUI.ajaxDoneInfo("300", "修改失败，请稍后重试", "", "");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
+	}
+
+	@Override
+	public void homeBannerAddInit(Model model, String tabid) {
+		int maxSort = adminMapper.queryHomeBannerMaxSort();
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("sort", maxSort);
+	}
+
+	@Override
+	public Map<String, Object> homeBannerAdd(String tabid, Integer productId, String image, Integer status,
+			Integer sort, Integer type) {
+		image = PamarParse.getParseString(image);
+
+		if (image == null || image.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先选择图片", "", "");
+		if (type == null || productId == null || status == null || sort == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
+
+		int result = adminMapper.homeBannerAdd(productId, image, status, sort, type);
+		
+		if (!(result > 0))
+			return BJUI.ajaxDoneInfo("300", "添加失败，请稍后重试", "", "");
+
+		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
 	}
 
 }

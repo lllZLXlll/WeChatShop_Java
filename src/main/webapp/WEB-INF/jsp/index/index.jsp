@@ -188,6 +188,9 @@ function MainMenuClick(event, treeId, treeNode) {
     else
         $(event.target).navtab({id:treeNode.tabid, url:treeNode.url, title:treeNode.name, fresh:treeNode.fresh, external:treeNode.external})
 }
+
+
+
 </script>
 <!-- for doc begin -->
 <link type="text/css" rel="stylesheet" href="js/syntaxhighlighter-2.1.382/styles/shCore.css"/>
@@ -245,9 +248,9 @@ $(function(){
                 	<li class="active"><a href="javascript:;" data-toggle="slidebar">小程序首页管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="小程序首页管理">
-                                <li data-url="${path }/admin/homeBanner" data-tabid="doc-file" data-faicon="caret-right">轮播图</li>
-                                <li data-url="${path }/admin/homeRecommended" data-tabid="doc-file" data-faicon="caret-right">推荐商品</li>
-                                <li data-url="${path }/admin/homeActivity" data-tabid="doc-file" data-faicon="caret-right">活动专区</li>
+                                <li data-url="${path }/admin/homeBanner" data-toggle="navtab" data-fresh="true" data-tabid="doc-file" data-faicon="caret-right">轮播图</li>
+                                <li data-url="${path }/admin/homeRecommended" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">推荐商品</li>
+                                <li data-url="${path }/admin/homeActivity" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">活动专区</li>
                                 
                             </ul>
                         </div>
@@ -256,9 +259,9 @@ $(function(){
                     <li><a href="javascript:;" data-toggle="slidebar">商品管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="商品管理">
-                                <li data-url="doc/base/filelist.html" data-tabid="doc-file" data-faicon="caret-right">商品分类</li>
-                                <li data-url="doc/base/filelist.html" data-tabid="doc-file" data-faicon="caret-right">商品上下架</li>
-                                <li data-url="doc/base/filelist.html" data-tabid="doc-file" data-faicon="caret-right">商品信息管理</li>
+                                <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品分类</li>
+                                <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品上下架</li>
+                                <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品信息管理</li>
                             </ul>
                         </div>
                     </li>
@@ -266,7 +269,7 @@ $(function(){
                     <li><a href="javascript:;" data-toggle="slidebar">数据分析</a>
                         <div class="items hide" data-noinit="true">
                             <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="数据分析">
-                                <li data-url="doc/base/filelist.html" data-tabid="doc-file" data-faicon="caret-right">数据图表</li>
+                                <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">数据图表</li>
                             </ul>
                         </div>
                     </li>
@@ -274,7 +277,7 @@ $(function(){
                     <li><a href="javascript:;" data-toggle="slidebar">用户管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="用户管理">
-                                <li data-url="doc/base/filelist.html" data-tabid="doc-file" data-faicon="caret-right">用户列表</li>
+                                <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">用户列表</li>
                             </ul>
                         </div>
                     </li>

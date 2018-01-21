@@ -2,7 +2,8 @@
     pageEncoding="utf-8"%>
     
 <%
-	String basePath = request.getContextPath();
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 	session.setAttribute("path", basePath);
  %>
     
@@ -106,7 +107,7 @@ function choose_bg() {
 function changeImg(){
 	var img = document.getElementById("captcha_img");  
 	img.src = "${path }/admin/getAuthImage?date=" + new Date();;
-} 
+}
 
 </script>
 </head>

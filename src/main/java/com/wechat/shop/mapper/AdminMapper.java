@@ -15,4 +15,14 @@ public interface AdminMapper {
 
 	Integer homeDataCount(int type);
 
+	int homeBannerUpdateStatus(Integer id);
+
+	Map<String, Object> queryHomeBannerById(Integer id);
+
+	int homeBannerEdit(Integer id, Integer productId, String image, Integer status, Integer sort);
+
+	int queryHomeBannerMaxSort();
+
+	int homeBannerAdd(Integer productId, String image, Integer status, Integer sort, Integer type);
+
 }

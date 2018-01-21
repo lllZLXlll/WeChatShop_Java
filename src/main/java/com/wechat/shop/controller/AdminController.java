@@ -108,13 +108,78 @@ public class AdminController {
 	 * 查询首页banner
 	 */
 	@RequestMapping("/homeBanner")
-	public String homeBanner(Model model, Integer pageCurrent) {
+	public String homeBanner(Model model, String _, Integer pageCurrent, Integer pageSize) {
 		try {
-			adminService.homeData(model, 1, pageCurrent);
+			adminService.homeData(model, _, 1, pageCurrent, pageSize);
 			return "/home/home-banner";
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeBanner 查询首页banner 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 管理员修改banner状态
+	 */
+	@RequestMapping("/homeBannerUpdateStatus")
+	@ResponseBody
+	public Map<String, Object> homeBannerUpdateStatus(Integer id) {
+		try {
+			return adminService.homeBannerUpdateStatus(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeBannerUpdateStatus 管理员修改banner状态 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 编辑首页banner，页面跳转
+	 */
+	@RequestMapping("/homeBannerEditInit")
+	public String homeBannerEditInit(Model model, String tabid, Integer id) {
+		adminService.homeBannerEditInit(model, tabid, id);
+		return "/home/home-banner-edit";
+	}
+
+	/**
+	 * 编辑首页banner
+	 */
+	@RequestMapping("/homeBannerEdit")
+	@ResponseBody
+	public Map<String, Object> homeBannerEdit(String tabid, Integer id, Integer productId, String image, Integer status,
+			Integer sort) {
+		try {
+			return adminService.homeBannerEdit(tabid, id, productId, image, status, sort);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeBannerEdit 编辑首页banner 异常" + e.toString());
+			throw e;
+		}
+	}
+	
+	/**
+	 * 添加首页banner，页面跳转
+	 */
+	@RequestMapping("/homeBannerAddInit")
+	public String homeBannerAddInit(Model model, String tabid) {
+		adminService.homeBannerAddInit(model, tabid);
+		return "/home/home-banner-add";
+	}
+	
+	/**
+	 * 添加首页banner
+	 */
+	@RequestMapping("/homeBannerAdd")
+	@ResponseBody
+	public Map<String, Object> homeBannerAdd(String tabid, Integer id, Integer productId, String image, Integer status,
+			Integer sort) {
+		try {
+			return adminService.homeBannerAdd(tabid, productId, image, status, sort, 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeBannerAdd 添加首页banner 异常" + e.toString());
 			throw e;
 		}
 	}
