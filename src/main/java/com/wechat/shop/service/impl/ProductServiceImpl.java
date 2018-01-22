@@ -607,4 +607,16 @@ public class ProductServiceImpl implements ProductService {
 		return resultMap;
 	}
 
+	@Override
+	public Map<String, Object> queryHomeData() {
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		// banner数据
+		List<Map<String, Object>> bannerList = productMapper.queryHomeBanner(1);
+		
+		resultMap.put(ReturnCode.BANNERLIST, bannerList);
+		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
+		return resultMap;
+	}
+
 }

@@ -32,4 +32,6 @@ public interface ProductService {
 
 	public Map<String, Object> queryAllOrder(HttpServletRequest request) throws Exception;
 
+	public Map<String, Object> queryHomeData();
+
 }

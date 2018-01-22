@@ -108,9 +108,9 @@ public class AdminController {
 	 * 查询首页banner
 	 */
 	@RequestMapping("/homeBanner")
-	public String homeBanner(Model model, String _, Integer pageCurrent, Integer pageSize) {
+	public String homeBanner(Model model, String tabid, Integer pageCurrent, Integer pageSize) {
 		try {
-			adminService.homeData(model, _, 1, pageCurrent, pageSize);
+			adminService.homeData(model, tabid, 1, pageCurrent, pageSize);
 			return "/home/home-banner";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,8 +138,8 @@ public class AdminController {
 	 * 编辑首页banner，页面跳转
 	 */
 	@RequestMapping("/homeBannerEditInit")
-	public String homeBannerEditInit(Model model, String tabid, Integer id) {
-		adminService.homeBannerEditInit(model, tabid, id);
+	public String homeBannerEditInit(Model model, String tabid, Integer id, Integer pageCurrent, Integer pageSize) {
+		adminService.homeBannerEditInit(model, tabid, id, pageCurrent, pageSize);
 		return "/home/home-banner-edit";
 	}
 
@@ -158,16 +158,26 @@ public class AdminController {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 添加首页banner，页面跳转
 	 */
 	@RequestMapping("/homeBannerAddInit")
-	public String homeBannerAddInit(Model model, String tabid) {
-		adminService.homeBannerAddInit(model, tabid);
+	public String homeBannerAddInit(Model model, String tabid, Integer pageCurrent, Integer pageSize) {
+		adminService.homeBannerAddInit(model, tabid, pageCurrent, pageSize);
 		return "/home/home-banner-add";
 	}
-	
+
+	/**
+	 * 查询商品信息让页面选择
+	 */
+	@RequestMapping("/queryAdminSelectProductList")
+	public String queryAdminSelectProductList(Model model, Integer _productId, String _productName, Integer pageCurrent,
+			Integer pageSize) {
+		adminService.queryAdminSelectProductList(model, _productId, _productName, pageCurrent, pageSize);
+		return "/home/home-banner-product";
+	}
+
 	/**
 	 * 添加首页banner
 	 */

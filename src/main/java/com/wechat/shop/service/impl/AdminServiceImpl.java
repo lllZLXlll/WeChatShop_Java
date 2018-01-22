@@ -1,6 +1,5 @@
 package com.wechat.shop.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +13,8 @@ import org.springframework.ui.Model;
 
 import com.wechat.shop.common.BJUI;
 import com.wechat.shop.common.Constants;
-import com.wechat.shop.common.ReturnCode;
 import com.wechat.shop.mapper.AdminMapper;
+import com.wechat.shop.mapper.ProductMapper;
 import com.wechat.shop.service.AdminService;
 import com.wechat.shop.utils.MD5;
 import com.wechat.shop.utils.Page;
@@ -28,6 +27,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private AdminMapper adminMapper;
+
+	@Autowired
+	private ProductMapper productMapper;
 
 	@Override
 	public String adminLogin(HttpServletRequest request, String accountNumber, String password, String code) {
@@ -167,8 +169,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void homeBannerEditInit(Model model, String tabid, Integer id) {
+	public void homeBannerEditInit(Model model, String tabid, Integer id, Integer pageNum, Integer pageSize) {
+		// 编辑商品信息
 		Map<String, Object> bannerMap = adminMapper.queryHomeBannerById(id);
+
+		queryAdminSelectProductList(model, null, null, pageNum, pageSize);
+
 		model.addAttribute("tabid", tabid);
 		model.addAttribute("item", bannerMap);
 	}
@@ -192,8 +198,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void homeBannerAddInit(Model model, String tabid) {
+	public void homeBannerAddInit(Model model, String tabid, Integer pageNum, Integer pageSize) {
+		// 查询当前最大序号
 		int maxSort = adminMapper.queryHomeBannerMaxSort();
+
+		queryAdminSelectProductList(model, null, null, pageNum, pageSize);
+
 		model.addAttribute("tabid", tabid);
 		model.addAttribute("sort", maxSort);
 	}
@@ -209,11 +219,32 @@ public class AdminServiceImpl implements AdminService {
 			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
 
 		int result = adminMapper.homeBannerAdd(productId, image, status, sort, type);
-		
+
 		if (!(result > 0))
 			return BJUI.ajaxDoneInfo("300", "添加失败，请稍后重试", "", "");
 
 		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
+	}
+
+	@Override
+	public void queryAdminSelectProductList(Model model, Integer _productId, String _productName, Integer pageNum, Integer pageSize) {
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
+
+		// 查询商品信息，以供页面上选择
+		List<Map<String, Object>> productLIst = productMapper.queryAdminSelectProductList(page.getPageBeginNum(),
+				page.getPageSize(), _productName);
+		int pageTotalCount = productMapper.queryAdminSelectProductListCount(_productName);
+
+		page.setPage(productLIst);
+		page.setPageTotalCount(pageTotalCount);
+
+		model.addAttribute("page", page);
+		// 从编辑页面传入的商品id，传回给home-banner-product.jsp页面，如果商品列表中的id与此id相等，让单选框选中
+		model.addAttribute("_productId", _productId);
+		model.addAttribute("_productName", _productName);
 	}
 
 }

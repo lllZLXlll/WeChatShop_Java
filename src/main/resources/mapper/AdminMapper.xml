@@ -43,8 +43,10 @@
 	</update>
 
 	<select id="queryHomeBannerById" resultType="map">
-		SELECT * FROM
-		t_home_data WHERE id = #{param1}
+		SELECT t1.*, t2.name FROM
+		t_home_data t1 LEFT JOIN t_product_info t2
+		ON t1.productId = t2.id 
+		WHERE t1.id = #{param1}
 	</select>
 
 	<update id="homeBannerEdit">

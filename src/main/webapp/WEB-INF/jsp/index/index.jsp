@@ -248,9 +248,9 @@ $(function(){
                 	<li class="active"><a href="javascript:;" data-toggle="slidebar">小程序首页管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="小程序首页管理">
-                                <li data-url="${path }/admin/homeBanner" data-toggle="navtab" data-fresh="true" data-tabid="doc-file" data-faicon="caret-right">轮播图</li>
-                                <li data-url="${path }/admin/homeRecommended" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">推荐商品</li>
-                                <li data-url="${path }/admin/homeActivity" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">活动专区</li>
+                                <li data-url="${path }/admin/homeBanner?tabid=submenu-tab-1" data-tabid="submenu-tab-1" data-toggle="navtab" data-fresh="true" data-tabid="doc-file" data-faicon="caret-right">轮播图</li>
+                                <li data-url="${path }/admin/homeRecommended?tabid=submenu-tab-2" data-tabid="submenu-tab-2" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">推荐商品</li>
+                                <li data-url="${path }/admin/homeActivity?tabid=submenu-tab-3" data-tabid="submenu-tab-3" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">活动专区</li>
                                 
                             </ul>
                         </div>

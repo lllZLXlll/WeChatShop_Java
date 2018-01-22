@@ -11,12 +11,10 @@
         <input type="hidden" name="pageSize" value="${page.pageSize }">
         <input type="hidden" name="pageCurrent" value="${page.pageNum }">
         <input type="hidden" name="_" value="${tabid }">
+        
         <div class="bjui-searchBar">
         	<!-- 添加banner -->
         	<a class="btn btn-default" href="${path }/admin/homeBannerAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加轮播图">添加轮播图</a>
-        
-            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
-            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
         </div>
     </form>
 </div>

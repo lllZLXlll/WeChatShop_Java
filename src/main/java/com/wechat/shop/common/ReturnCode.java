@@ -29,6 +29,11 @@ public class ReturnCode {
 	public static final String RESULTMAP = "resultMap";
 
 	/**
+	 * 返回banner List数据 key
+	 */
+	public static final String BANNERLIST = "bannerList";
+	
+	/**
 	 * 返回分页数据 key
 	 */
 	public static final String PAGE = "page";

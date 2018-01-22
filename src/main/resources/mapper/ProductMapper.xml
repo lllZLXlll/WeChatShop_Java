@@ -13,6 +13,7 @@
 			</if>
 			GROUP BY t2.productId
 		) t WHERE 1 = 1
+		AND downShelves != 1
 		<if test='param6 != null and param6 != ""'>
 			AND t.typeId = #{param6}
 		</if>
@@ -38,6 +39,7 @@
 			SELECT COUNT(t1.id) FROM t_product_info t1 LEFT JOIN
 			t_product_class t2 ON t1.id = t2.productId
 			WHERE 1 = 1
+			AND t1.downShelves != 1
 			<if test='param1 != null and param1 != ""'>
 				AND t1.name LIKE '%' #{param1} '%'
 			</if>
@@ -269,5 +271,24 @@
 	<update id="updateProductFreezeCount">
 		UPDATE t_product_class SET freezeCount = #{param2} WHERE id = #{param1}
 	</update>
+	
+	<select id="queryAdminSelectProductList" resultType="map">
+		SELECT * FROM t_product_info WHERE downShelves = 0
+		<if test='param3 != null and param3 != ""'>
+			AND name LIKE '%' #{param3} '%'
+		</if>
+		ORDER BY id DESC LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id="queryAdminSelectProductListCount" resultType="int">
+		SELECT COUNT(id) FROM t_product_info WHERE downShelves = 0
+		<if test='_parameter != null and _parameter != ""'>
+			AND name LIKE '%' #{_parameter} '%'
+		</if>
+	</select>
+	
+	<select id="queryHomeBanner" resultType="map">
+		SELECT productId, image FROM t_home_data WHERE status = 1 AND type = #{param1} ORDER BY sort
+	</select>
 	
 </mapper>

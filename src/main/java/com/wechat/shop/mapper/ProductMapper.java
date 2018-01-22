@@ -71,4 +71,10 @@ public interface ProductMapper {
 
 	public int updateProductFreezeCount(Long productClassId, Long productCount);
 
+	public List<Map<String, Object>> queryAdminSelectProductList(Integer pageBeginNum, Integer pageSize, String _productName);
+
+	public int queryAdminSelectProductListCount(String _productName);
+
+	public List<Map<String, Object>> queryHomeBanner(Integer type);
+
 }
