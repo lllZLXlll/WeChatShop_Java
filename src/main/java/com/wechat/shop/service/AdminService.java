@@ -26,7 +26,7 @@ public interface AdminService {
 
 	void homeBannerAddInit(Model model, String tabid, Integer pageCurrent, Integer pageSize);
 
-	Map<String, Object> homeBannerAdd(String tabid, Integer productId, String image, Integer status, Integer sort, Integer type);
+	Map<String, Object> homeBannerAdd(String tabid, Integer productId, String image, Integer status, Integer sort);
 
 	void queryAdminSelectProductList(Model model, Integer pageCurrent, String _productName, Integer pageSize, Integer pageSize2);
 

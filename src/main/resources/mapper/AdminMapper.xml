@@ -20,11 +20,10 @@
 
 	<select id="homeData" resultType="map">
 		SELECT th.*, tp.name FROM
-		t_home_data th
+		t_home_banner th
 		LEFT JOIN t_product_info tp ON th.productId = tp.id
 		WHERE
-		status != 3 AND
-		type = #{param3}
+		status != 3
 		ORDER BY sort
 		LIMIT #{param1},
 		#{param2}
@@ -32,39 +31,39 @@
 
 	<select id="homeDataCount" resultType="int">
 		SELECT COUNT(id) FROM
-		t_home_data
+		t_home_banner
 		WHERE
-		status != 3 AND type = #{param1}
+		status != 3
 	</select>
 
 	<update id="homeBannerUpdateStatus">
-		UPDATE t_home_data SET status = 3 WHERE id =
+		UPDATE t_home_banner SET status = 3 WHERE id =
 		#{param1}
 	</update>
 
 	<select id="queryHomeBannerById" resultType="map">
 		SELECT t1.*, t2.name FROM
-		t_home_data t1 LEFT JOIN t_product_info t2
+		t_home_banner t1 LEFT JOIN t_product_info t2
 		ON t1.productId = t2.id 
 		WHERE t1.id = #{param1}
 	</select>
 
 	<update id="homeBannerEdit">
-		UPDATE t_home_data SET productId = #{param2}, image =
+		UPDATE t_home_banner SET productId = #{param2}, image =
 		#{param3}, status = #{param4}, sort = #{param5}, lastUpdateTime =
 		NOW() WHERE id =
 		#{param1}
 	</update>
 
 	<select id="queryHomeBannerMaxSort" resultType="int">
-		SELECT MAX(sort) + 1 FROM t_home_data
+		SELECT MAX(sort) + 1 FROM t_home_banner
 	</select>
 	
 	<insert id="homeBannerAdd">
-		insert into t_home_data (
-			productId, image, status, sort, lastUpdateTime, addTime, type
+		insert into t_home_banner (
+			productId, image, status, sort, lastUpdateTime, addTime
 		) values (
-			#{param1}, #{param2}, #{param3}, #{param4}, NOW(), NOW(), #{param5}
+			#{param1}, #{param2}, #{param3}, #{param4}, NOW(), NOW()
 		)
 	</insert>
 

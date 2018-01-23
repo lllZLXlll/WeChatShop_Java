@@ -186,7 +186,7 @@ public class AdminController {
 	public Map<String, Object> homeBannerAdd(String tabid, Integer id, Integer productId, String image, Integer status,
 			Integer sort) {
 		try {
-			return adminService.homeBannerAdd(tabid, productId, image, status, sort, 1);
+			return adminService.homeBannerAdd(tabid, productId, image, status, sort);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeBannerAdd 添加首页banner 异常" + e.toString());

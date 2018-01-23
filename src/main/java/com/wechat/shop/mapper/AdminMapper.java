@@ -11,9 +11,9 @@ public interface AdminMapper {
 
 	int checkPassword(long adminId, String password);
 
-	List<Map<String, Object>> homeData(Integer pageBeginNum, Integer pageSize, int type);
+	List<Map<String, Object>> homeData(Integer pageBeginNum, Integer pageSize);
 
-	Integer homeDataCount(int type);
+	Integer homeDataCount();
 
 	int homeBannerUpdateStatus(Integer id);
 
@@ -23,6 +23,6 @@ public interface AdminMapper {
 
 	int queryHomeBannerMaxSort();
 
-	int homeBannerAdd(Integer productId, String image, Integer status, Integer sort, Integer type);
+	int homeBannerAdd(Integer productId, String image, Integer status, Integer sort);
 
 }

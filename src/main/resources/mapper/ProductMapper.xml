@@ -288,7 +288,7 @@
 	</select>
 	
 	<select id="queryHomeBanner" resultType="map">
-		SELECT productId, image FROM t_home_data WHERE status = 1 AND type = #{param1} ORDER BY sort
+		SELECT productId, image FROM t_home_banner WHERE status = 1 ORDER BY sort
 	</select>
 	
 </mapper>

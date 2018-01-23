@@ -142,8 +142,8 @@ public class AdminServiceImpl implements AdminService {
 		if (pageSize != null)
 			page.setPageSize(pageSize);
 
-		List<Map<String, Object>> list = adminMapper.homeData(page.getPageBeginNum(), page.getPageSize(), type);
-		Integer pageTotalCount = adminMapper.homeDataCount(type);
+		List<Map<String, Object>> list = adminMapper.homeData(page.getPageBeginNum(), page.getPageSize());
+		Integer pageTotalCount = adminMapper.homeDataCount();
 
 		page.setPage(list);
 		page.setPageTotalCount(pageTotalCount);
@@ -210,15 +210,15 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Map<String, Object> homeBannerAdd(String tabid, Integer productId, String image, Integer status,
-			Integer sort, Integer type) {
+			Integer sort) {
 		image = PamarParse.getParseString(image);
 
 		if (image == null || image.equals(""))
 			return BJUI.ajaxDoneInfo("300", "请先选择图片", "", "");
-		if (type == null || productId == null || status == null || sort == null)
+		if (productId == null || status == null || sort == null)
 			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
 
-		int result = adminMapper.homeBannerAdd(productId, image, status, sort, type);
+		int result = adminMapper.homeBannerAdd(productId, image, status, sort);
 
 		if (!(result > 0))
 			return BJUI.ajaxDoneInfo("300", "添加失败，请稍后重试", "", "");

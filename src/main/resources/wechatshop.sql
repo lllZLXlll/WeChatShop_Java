@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 微信小程序数据库
+Source Server         : wechat
 Source Server Version : 50628
 Source Host           : gz-cdb-0uw0wmgs.sql.tencentcdb.com:63535
 Source Database       : wechatshop
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-01-21 22:05:33
+Date: 2018-01-23 17:09:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,36 +35,59 @@ CREATE TABLE `t_admin` (
 INSERT INTO `t_admin` VALUES ('1', '系统管理员', '13317071014', 'gnzLDuqKcGxMNKFokfhOew==', '2018-01-19 19:28:32', '2018-01-19 19:28:34');
 
 -- ----------------------------
--- Table structure for t_home_data
+-- Table structure for t_home_banner
 -- ----------------------------
-DROP TABLE IF EXISTS `t_home_data`;
-CREATE TABLE `t_home_data` (
+DROP TABLE IF EXISTS `t_home_banner`;
+CREATE TABLE `t_home_banner` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `productId` bigint(20) NOT NULL COMMENT '商品id，点击图片链接到的商品id',
-  `image` varchar(255) DEFAULT NULL COMMENT '图片：如果类型是banner就是banner图片，如果是活动就是活动的图片',
+  `image` varchar(255) DEFAULT NULL COMMENT 'banner图片',
   `sort` int(11) NOT NULL COMMENT '序号',
   `status` int(11) NOT NULL COMMENT '状态：1.显示，2.隐藏，3.删除',
   `lastUpdateTime` datetime NOT NULL COMMENT '最后一次修改时间',
   `addTime` datetime NOT NULL COMMENT '添加时间',
-  `type` int(11) NOT NULL COMMENT '类型： 1.banner 2.推荐 3.活动',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='首页数据表\r\n';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='首页banner数据表\r\n';
 
 -- ----------------------------
--- Records of t_home_data
+-- Records of t_home_banner
 -- ----------------------------
-INSERT INTO `t_home_data` VALUES ('1', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('2', '1', 'http://localhost:8080/zlx/resources/admin/upload/home/20180121135425348.jpg', '1', '1', '2018-01-21 15:20:06', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('3', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('4', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '1', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('5', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '1', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('6', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '1', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('7', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '1', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('8', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '1', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('9', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('10', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '1', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('11', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '1', '2018-01-20 16:14:30', '2018-01-20 16:14:32', '1');
-INSERT INTO `t_home_data` VALUES ('12', '1', 'http://localhost:8080/zlx/resources/admin/upload/home/20180121154704880.jpg', '2', '1', '2018-01-21 15:48:45', '2018-01-21 15:48:45', '1');
+INSERT INTO `t_home_banner` VALUES ('1', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('2', '3', 'http://localhost:8080/zlx/resources/admin/upload/home/20180122135918362.jpg', '1', '3', '2018-01-22 15:23:55', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('3', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('4', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('5', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('6', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('7', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('8', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('9', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('10', '14', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '2', '3', '2018-01-22 14:08:08', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('11', '1', 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', '1', '3', '2018-01-20 16:14:30', '2018-01-20 16:14:32');
+INSERT INTO `t_home_banner` VALUES ('12', '1', 'http://localhost:8080/zlx/resources/admin/upload/home/20180121154704880.jpg', '2', '3', '2018-01-21 15:48:45', '2018-01-21 15:48:45');
+INSERT INTO `t_home_banner` VALUES ('13', '2', 'http://localhost:8080/zlx/resources/admin/upload/home/20180122105204351.jpg', '3', '3', '2018-01-22 10:53:24', '2018-01-22 10:52:20');
+INSERT INTO `t_home_banner` VALUES ('14', '1', 'http://localhost:8080/zlx/resources/admin/upload/home/20180122105342954.jpg', '4', '3', '2018-01-22 10:53:46', '2018-01-22 10:53:46');
+INSERT INTO `t_home_banner` VALUES ('15', '5', 'http://localhost:8080/zlx/resources/admin/upload/home/20180122134339178.jpg', '5', '3', '2018-01-22 13:43:53', '2018-01-22 13:43:53');
+INSERT INTO `t_home_banner` VALUES ('16', '14', 'http://localhost:8080/zlx/resources/admin/upload/home/20180122153800931.jpg', '2', '1', '2018-01-23 16:43:47', '2018-01-22 15:38:05');
+INSERT INTO `t_home_banner` VALUES ('17', '14', 'http://localhost:8080/zlx/resources/admin/upload/home/20180122153818338.jpg', '7', '3', '2018-01-22 15:38:22', '2018-01-22 15:38:22');
+INSERT INTO `t_home_banner` VALUES ('18', '14', 'http://localhost:8080/zlx/resources/admin/upload/home/20180123164409041.jpg', '1', '1', '2018-01-23 16:47:39', '2018-01-23 16:47:39');
+
+-- ----------------------------
+-- Table structure for t_home_recommended
+-- ----------------------------
+DROP TABLE IF EXISTS `t_home_recommended`;
+CREATE TABLE `t_home_recommended` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `productId` bigint(20) NOT NULL COMMENT '商品id，点击图片链接到的商品id',
+  `sort` int(11) NOT NULL COMMENT '序号',
+  `status` int(11) NOT NULL COMMENT '状态：1.显示，2.隐藏，3.删除',
+  `lastUpdateTime` datetime NOT NULL COMMENT '最后一次修改时间',
+  `addTime` datetime NOT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='首页推荐商品数据表';
+
+-- ----------------------------
+-- Records of t_home_recommended
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_product_class
@@ -206,27 +229,28 @@ CREATE TABLE `t_product_info` (
   `showPrice` decimal(10,2) DEFAULT NULL COMMENT '商品展示价格，就是打折前的价格',
   `expressFee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品快递费',
   `buyCount` int(11) NOT NULL DEFAULT '-1' COMMENT '此商品每个用户限购数量 -1：不限制',
+  `downShelves` int(1) NOT NULL DEFAULT '0' COMMENT '是否下架 0：否 1：是',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='商品信息表';
 
 -- ----------------------------
 -- Records of t_product_info
 -- ----------------------------
-INSERT INTO `t_product_info` VALUES ('1', '小米手环1', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '149.00', '155.00', '0.00', '1');
-INSERT INTO `t_product_info` VALUES ('2', '小米手环2', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '150.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('3', '小米手环3', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '151.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('4', '小米手环4', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '152.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('5', '小米手环5', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '153.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('6', '小米手环6', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '154.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('7', '小米手环7', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '155.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('8', '小米手环8', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '156.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('9', '小米手环9', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '157.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('10', '小米手环10', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '158.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('11', '小米手环11', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '159.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('12', '小米手环12', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '160.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('13', '小米手环13', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '161.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('14', '小米手环14', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '162.00', '200.00', '0.00', '-1');
-INSERT INTO `t_product_info` VALUES ('15', '小米手环15', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '163.00', '200.00', '0.00', '-1');
+INSERT INTO `t_product_info` VALUES ('1', '小米手环1', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '149.00', '155.00', '0.00', '1', '0');
+INSERT INTO `t_product_info` VALUES ('2', '小米手环2', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '150.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('3', '小米手环3', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '151.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('4', '小米手环4', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '152.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('5', '小米手环5', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '153.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('6', '小米手环6', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '154.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('7', '小米手环7', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '155.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('8', '小米手环8', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '156.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('9', '小米手环9', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '157.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('10', '小米手环10', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '158.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('11', '小米手环11', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '159.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('12', '小米手环12', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '160.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('13', '小米手环13', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '161.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('14', '小米手环14', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '162.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('15', '小米手环15', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '163.00', '200.00', '0.00', '-1', '0');
 
 -- ----------------------------
 -- Table structure for t_product_order

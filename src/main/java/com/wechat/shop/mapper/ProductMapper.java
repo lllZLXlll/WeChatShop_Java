@@ -75,6 +75,6 @@ public interface ProductMapper {
 
 	public int queryAdminSelectProductListCount(String _productName);
 
-	public List<Map<String, Object>> queryHomeBanner(Integer type);
+	public List<Map<String, Object>> queryHomeBanner();
 
 }

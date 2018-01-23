@@ -612,7 +612,7 @@ public class ProductServiceImpl implements ProductService {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		// banner数据
-		List<Map<String, Object>> bannerList = productMapper.queryHomeBanner(1);
+		List<Map<String, Object>> bannerList = productMapper.queryHomeBanner();
 		
 		resultMap.put(ReturnCode.BANNERLIST, bannerList);
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);

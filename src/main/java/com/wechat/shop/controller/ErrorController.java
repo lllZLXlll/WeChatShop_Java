@@ -33,6 +33,7 @@ public class ErrorController {
 		logger.error("---!!!---出现异常处理ErrorController，异常信息为：" + e.toString() + "---!!!---");
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("statusCode", "300");
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_FAIL_CODE_0007);
 		resultMap.put(ReturnCode.MESSAGE, ReturnCode.FAIL_0007_MESSAGE);
 		return resultMap;
