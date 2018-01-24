@@ -77,4 +77,8 @@ public interface ProductMapper {
 
 	public List<Map<String, Object>> queryHomeBanner();
 
+	public List<Map<String, Object>> queryHomeRecommended();
+
+	public List<String> queryProductImageTop3(Long productId);
+
 }

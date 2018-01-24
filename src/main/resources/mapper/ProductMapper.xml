@@ -291,4 +291,20 @@
 		SELECT productId, image FROM t_home_banner WHERE status = 1 ORDER BY sort
 	</select>
 	
+	<select id="queryHomeRecommended" resultType="map">
+		SELECT t1.productId, t2.name productName FROM t_home_recommended t1 
+		LEFT JOIN t_product_info t2 ON t1.productId = t2.id
+		WHERE t1.status = 1 ORDER BY t1.sort
+	</select>
+	
+	<select id="queryProductImageTop3" resultType="string">
+		SELECT
+			image
+		FROM
+			t_product_image
+		WHERE
+			productId = #{param1}
+		LIMIT 0, 3
+	</select>
+	
 </mapper>

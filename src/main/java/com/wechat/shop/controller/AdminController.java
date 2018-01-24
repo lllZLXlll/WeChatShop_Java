@@ -193,5 +193,84 @@ public class AdminController {
 			throw e;
 		}
 	}
+	
+	/**
+	 * 查询首页推荐商品
+	 */
+	@RequestMapping("/homeRecommended")
+	public String homeRecommended(Model model, String tabid, Integer pageCurrent, Integer pageSize) {
+		try {
+			adminService.homeRecommended(model, tabid, 1, pageCurrent, pageSize);
+			return "/home/home-recommended";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeRecommended 查询首页推荐商品 异常" + e.toString());
+			throw e;
+		}
+	}
 
+	/**
+	 * 添加首页推荐商品，页面跳转
+	 */
+	@RequestMapping("/homeRecommendedAddInit")
+	public String homeRecommendedAddInit(Model model, String tabid, Integer pageCurrent, Integer pageSize) {
+		adminService.homeRecommendedAddInit(model, tabid, pageCurrent, pageSize);
+		return "/home/home-recommended-add";
+	}
+	
+	/**
+	 * 添加首页推荐商品
+	 */
+	@RequestMapping("/homeRecommendedAdd")
+	@ResponseBody
+	public Map<String, Object> homeRecommendedAdd(String tabid, Integer id, Integer productId, Integer status,
+			Integer sort) {
+		try {
+			return adminService.homeRecommendedAdd(tabid, productId, status, sort);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeRecommendedAdd 添加首页推荐商品 异常" + e.toString());
+			throw e;
+		}
+	}
+	
+	/**
+	 * 管理员修改推荐商品状态
+	 */
+	@RequestMapping("/homeRecommendedUpdateStatus")
+	@ResponseBody
+	public Map<String, Object> homeRecommendedUpdateStatus(Integer id) {
+		try {
+			return adminService.homeRecommendedUpdateStatus(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeRecommendedUpdateStatus 管理员修改推荐商品状态 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 编辑首页推荐商品，页面跳转
+	 */
+	@RequestMapping("/homeRecommendedEditInit")
+	public String homeRecommendedEditInit(Model model, String tabid, Integer id, Integer pageCurrent, Integer pageSize) {
+		adminService.homeRecommendedEditInit(model, tabid, id, pageCurrent, pageSize);
+		return "/home/home-recommended-edit";
+	}
+
+	/**
+	 * 编辑首页推荐商品
+	 */
+	@RequestMapping("/homeRecommendedEdit")
+	@ResponseBody
+	public Map<String, Object> homeRecommendedEdit(String tabid, Integer id, Integer productId, Integer status,
+			Integer sort) {
+		try {
+			return adminService.homeRecommendedEdit(tabid, id, productId, status, sort);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeRecommendedEdit 编辑首页推荐商品 异常" + e.toString());
+			throw e;
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package com.wechat.shop.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -610,11 +611,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> queryHomeData() {
 		Map<String, Object> resultMap = new HashMap<>();
-		
+
 		// banner数据
 		List<Map<String, Object>> bannerList = productMapper.queryHomeBanner();
-		
+
+		// 推荐商品数据
+		List<Map<String, Object>> recommendedList = productMapper.queryHomeRecommended();
+		for (Map<String, Object> recommendedMap : recommendedList) {
+			Long productId = PamarParse.getParseLong(recommendedMap.get("productId"));
+			// 将每件商品前三张图片放入map中
+			List<String> imageList = productMapper.queryProductImageTop3(productId);
+			recommendedMap.put("imageList", imageList);
+		}
+
 		resultMap.put(ReturnCode.BANNERLIST, bannerList);
+		resultMap.put(ReturnCode.RECOMMENDEDLIST, recommendedList);
 		resultMap.put(ReturnCode.ERROR, ReturnCode.RETURN_SUCCESS_CODE);
 		return resultMap;
 	}

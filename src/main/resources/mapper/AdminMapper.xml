@@ -67,5 +67,52 @@
 		)
 	</insert>
 
+	<select id="homeRecommended" resultType="map">
+		SELECT th.*, tp.name FROM
+		t_home_recommended th
+		LEFT JOIN t_product_info tp ON th.productId = tp.id
+		WHERE
+		status != 3
+		ORDER BY sort
+		LIMIT #{param1},
+		#{param2}
+	</select>
+
+	<select id="homeRecommendedCount" resultType="int">
+		SELECT COUNT(id) FROM
+		t_home_recommended
+		WHERE
+		status != 3
+	</select>
+
+	<select id="queryHomeRecommendedMaxSort" resultType="int">
+		SELECT MAX(sort) + 1 FROM t_home_recommended
+	</select>
+	
+	<insert id="homeRecommendedAdd">
+		insert into t_home_recommended (
+			productId, status, sort, lastUpdateTime, addTime
+		) values (
+			#{param1}, #{param2}, #{param3}, NOW(), NOW()
+		)
+	</insert>
+
+	<update id="homeRecommendedUpdateStatus">
+		UPDATE t_home_recommended SET status = 3 WHERE id =
+		#{param1}
+	</update>
+
+	<select id="queryHomeRecommendedById" resultType="map">
+		SELECT t1.*, t2.name FROM
+		t_home_recommended t1 LEFT JOIN t_product_info t2
+		ON t1.productId = t2.id 
+		WHERE t1.id = #{param1}
+	</select>
+
+	<update id="homeRecommendedEdit">
+		UPDATE t_home_recommended SET 
+		productId = #{param2}, status = #{param3}, 
+		sort = #{param4}, lastUpdateTime = NOW() WHERE id = #{param1}
+	</update>
 
 </mapper>

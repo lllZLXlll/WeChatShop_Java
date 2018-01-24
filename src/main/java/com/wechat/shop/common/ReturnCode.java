@@ -34,6 +34,11 @@ public class ReturnCode {
 	public static final String BANNERLIST = "bannerList";
 	
 	/**
+	 * 返回推荐商品 List数据 key
+	 */
+	public static final String RECOMMENDEDLIST = "recommendedList";
+	
+	/**
 	 * 返回分页数据 key
 	 */
 	public static final String PAGE = "page";

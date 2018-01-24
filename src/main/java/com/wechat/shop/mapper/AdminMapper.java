@@ -21,8 +21,22 @@ public interface AdminMapper {
 
 	int homeBannerEdit(Integer id, Integer productId, String image, Integer status, Integer sort);
 
-	int queryHomeBannerMaxSort();
+	Integer queryHomeBannerMaxSort();
 
 	int homeBannerAdd(Integer productId, String image, Integer status, Integer sort);
+
+	List<Map<String, Object>> homeRecommended(Integer pageBeginNum, Integer pageSize);
+
+	Integer homeRecommendedCount();
+
+	Integer queryHomeRecommendedMaxSort();
+
+	int homeRecommendedAdd(Integer productId, Integer status, Integer sort);
+
+	int homeRecommendedUpdateStatus(Integer id);
+
+	Map<String, Object> queryHomeRecommendedById(Integer id);
+
+	int homeRecommendedEdit(Integer id, Integer productId, Integer status, Integer sort);
 
 }

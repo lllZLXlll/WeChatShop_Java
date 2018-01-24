@@ -30,4 +30,17 @@ public interface AdminService {
 
 	void queryAdminSelectProductList(Model model, Integer pageCurrent, String _productName, Integer pageSize, Integer pageSize2);
 
+	void homeRecommended(Model model, String tabid, int i, Integer pageCurrent, Integer pageSize);
+
+	void homeRecommendedAddInit(Model model, String tabid, Integer pageCurrent, Integer pageSize);
+
+	Map<String, Object> homeRecommendedAdd(String tabid, Integer productId, Integer status, Integer sort);
+
+	Map<String, Object> homeRecommendedUpdateStatus(Integer id);
+
+	void homeRecommendedEditInit(Model model, String tabid, Integer id, Integer pageCurrent, Integer pageSize);
+
+	Map<String, Object> homeRecommendedEdit(String tabid, Integer id, Integer productId, Integer status,
+			Integer sort);
+
 }

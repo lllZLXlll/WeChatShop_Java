@@ -200,7 +200,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void homeBannerAddInit(Model model, String tabid, Integer pageNum, Integer pageSize) {
 		// 查询当前最大序号
-		int maxSort = adminMapper.queryHomeBannerMaxSort();
+		Integer maxSort = adminMapper.queryHomeBannerMaxSort();
+		if (maxSort == null)
+			maxSort = 1;
 
 		queryAdminSelectProductList(model, null, null, pageNum, pageSize);
 
@@ -227,7 +229,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void queryAdminSelectProductList(Model model, Integer _productId, String _productName, Integer pageNum, Integer pageSize) {
+	public void queryAdminSelectProductList(Model model, Integer _productId, String _productName, Integer pageNum,
+			Integer pageSize) {
 		Page page = new Page();
 		page.setPageNum(pageNum == null ? 1 : pageNum);
 		if (pageSize != null)
@@ -245,6 +248,92 @@ public class AdminServiceImpl implements AdminService {
 		// 从编辑页面传入的商品id，传回给home-banner-product.jsp页面，如果商品列表中的id与此id相等，让单选框选中
 		model.addAttribute("_productId", _productId);
 		model.addAttribute("_productName", _productName);
+	}
+
+	@Override
+	public void homeRecommended(Model model, String tabid, int type, Integer pageNum, Integer pageSize) {
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
+
+		List<Map<String, Object>> list = adminMapper.homeRecommended(page.getPageBeginNum(), page.getPageSize());
+		Integer pageTotalCount = adminMapper.homeRecommendedCount();
+
+		page.setPage(list);
+		page.setPageTotalCount(pageTotalCount);
+
+		model.addAttribute("page", page);
+		model.addAttribute("tabid", tabid);
+	}
+
+	@Override
+	public void homeRecommendedAddInit(Model model, String tabid, Integer pageNum, Integer pageSize) {
+		// 查询当前最大序号
+		Integer maxSort = adminMapper.queryHomeRecommendedMaxSort();
+		if (maxSort == null)
+			maxSort = 1;
+
+		queryAdminSelectProductList(model, null, null, pageNum, pageSize);
+
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("sort", maxSort);
+	}
+
+	@Override
+	public Map<String, Object> homeRecommendedAdd(String tabid, Integer productId, Integer status, Integer sort) {
+
+		if (productId == null || status == null || sort == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
+
+		int result = adminMapper.homeRecommendedAdd(productId, status, sort);
+
+		if (!(result > 0))
+			return BJUI.ajaxDoneInfo("300", "添加失败，请稍后重试", "", "");
+
+		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
+	}
+
+	@Override
+	public Map<String, Object> homeRecommendedUpdateStatus(Integer id) {
+		// 参数校验
+		if (id == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空，修改失败", "", "");
+
+		// 修改状态
+		int result = adminMapper.homeRecommendedUpdateStatus(id);
+
+		if (!(result > 0)) {
+			return BJUI.ajaxDoneInfo("300", "删除失败", "", "");
+		}
+
+		return BJUI.ajaxDoneInfo("200", "删除成功", "", "");
+	}
+
+	@Override
+	public void homeRecommendedEditInit(Model model, String tabid, Integer id, Integer pageNum, Integer pageSize) {
+		// 编辑商品信息
+		Map<String, Object> bannerMap = adminMapper.queryHomeRecommendedById(id);
+
+		queryAdminSelectProductList(model, null, null, pageNum, pageSize);
+
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("item", bannerMap);
+	}
+
+	@Override
+	public Map<String, Object> homeRecommendedEdit(String tabid, Integer id, Integer productId, Integer status,
+			Integer sort) {
+
+		if (id == null || productId == null || status == null || sort == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
+
+		int result = adminMapper.homeRecommendedEdit(id, productId, status, sort);
+
+		if (!(result > 0))
+			return BJUI.ajaxDoneInfo("300", "修改失败，请稍后重试", "", "");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
 	}
 
 }
