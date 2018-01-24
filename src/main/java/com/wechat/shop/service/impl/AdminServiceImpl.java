@@ -336,4 +336,98 @@ public class AdminServiceImpl implements AdminService {
 		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
 	}
 
+	@Override
+	public void productType(Model model, String tabid, int type, Integer pageNum, Integer pageSize) {
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
+
+		List<Map<String, Object>> list = adminMapper.productType(page.getPageBeginNum(), page.getPageSize());
+		Integer pageTotalCount = adminMapper.productTypeCount();
+
+		page.setPage(list);
+		page.setPageTotalCount(pageTotalCount);
+
+		model.addAttribute("page", page);
+		model.addAttribute("tabid", tabid);
+	}
+
+	@Override
+	public Map<String, Object> productTypeUpdateStatus(Integer id) {
+		// 参数校验
+		if (id == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空，修改失败", "", "");
+
+		// 修改状态
+		int result = adminMapper.productTypeUpdateStatus(id);
+
+		if (!(result > 0)) {
+			return BJUI.ajaxDoneInfo("300", "删除失败", "", "");
+		}
+
+		return BJUI.ajaxDoneInfo("200", "删除成功", "", "");
+	}
+
+	@Override
+	public Map<String, Object> productTypeAdd(String tabid, String type, String detils, Integer status, Integer sort) {
+		type = PamarParse.getParseString(type);
+		detils = PamarParse.getParseString(detils);
+
+		if (type == null || type.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请填写类型", "", "");
+		if (detils == null || detils.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请填写类型描述", "", "");
+		if (status == null || sort == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
+
+		int result = adminMapper.productTypeAdd(type, detils, status, sort);
+
+		if (!(result > 0))
+			return BJUI.ajaxDoneInfo("300", "添加失败，请稍后重试", "", "");
+
+		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
+	}
+
+	@Override
+	public void productTypeEditInit(Model model, String tabid, Integer id) {
+		// 编辑商品信息
+		Map<String, Object> productTypeMap = adminMapper.queryProductTypeById(id);
+
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("item", productTypeMap);
+	}
+
+	@Override
+	public Map<String, Object> productTypeAddEdit(String tabid, Integer id, String type, String detils, Integer status,
+			Integer sort) {
+		type = PamarParse.getParseString(type);
+		detils = PamarParse.getParseString(detils);
+
+		if (type == null || type.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请填写类型", "", "");
+		if (detils == null || detils.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请填写类型描述", "", "");
+
+		if (id == null || status == null || sort == null)
+			return BJUI.ajaxDoneInfo("300", "参数为空", "", "");
+
+		int result = adminMapper.productTypeAddEdit(id, type, detils, status, sort);
+
+		if (!(result > 0))
+			return BJUI.ajaxDoneInfo("300", "修改失败，请稍后重试", "", "");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
+	}
+
+	@Override
+	public void productTypeAddInit(Model model, String tabid) {
+		Integer maxSort = adminMapper.queryProductTypeMaxSort();
+		if (maxSort == null)
+			maxSort = 1;
+
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("sort", maxSort);
+	}
+
 }

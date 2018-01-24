@@ -43,4 +43,16 @@ public interface AdminService {
 	Map<String, Object> homeRecommendedEdit(String tabid, Integer id, Integer productId, Integer status,
 			Integer sort);
 
+	void productType(Model model, String tabid, int i, Integer pageCurrent, Integer pageSize);
+
+	Map<String, Object> productTypeUpdateStatus(Integer id);
+
+	Map<String, Object> productTypeAdd(String tabid, String type, String detils, Integer status, Integer sort);
+
+	void productTypeEditInit(Model model, String tabid, Integer id);
+
+	Map<String, Object> productTypeAddEdit(String tabid, Integer id, String type, String detils, Integer status, Integer sort);
+
+	void productTypeAddInit(Model model, String tabid);
+
 }

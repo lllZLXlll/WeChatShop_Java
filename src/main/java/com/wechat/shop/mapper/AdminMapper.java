@@ -39,4 +39,18 @@ public interface AdminMapper {
 
 	int homeRecommendedEdit(Integer id, Integer productId, Integer status, Integer sort);
 
+	List<Map<String, Object>> productType(Integer pageBeginNum, Integer pageSize);
+
+	Integer productTypeCount();
+
+	int productTypeUpdateStatus(Integer id);
+
+	int productTypeAdd(String type, String detils, Integer status, Integer sort);
+
+	Map<String, Object> queryProductTypeById(Integer id);
+
+	int productTypeAddEdit(Integer id, String type, String detils, Integer status, Integer sort);
+
+	Integer queryProductTypeMaxSort();
+
 }

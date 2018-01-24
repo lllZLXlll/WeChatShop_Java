@@ -193,7 +193,7 @@ public class AdminController {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 查询首页推荐商品
 	 */
@@ -217,7 +217,7 @@ public class AdminController {
 		adminService.homeRecommendedAddInit(model, tabid, pageCurrent, pageSize);
 		return "/home/home-recommended-add";
 	}
-	
+
 	/**
 	 * 添加首页推荐商品
 	 */
@@ -233,7 +233,7 @@ public class AdminController {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 管理员修改推荐商品状态
 	 */
@@ -253,7 +253,8 @@ public class AdminController {
 	 * 编辑首页推荐商品，页面跳转
 	 */
 	@RequestMapping("/homeRecommendedEditInit")
-	public String homeRecommendedEditInit(Model model, String tabid, Integer id, Integer pageCurrent, Integer pageSize) {
+	public String homeRecommendedEditInit(Model model, String tabid, Integer id, Integer pageCurrent,
+			Integer pageSize) {
 		adminService.homeRecommendedEditInit(model, tabid, id, pageCurrent, pageSize);
 		return "/home/home-recommended-edit";
 	}
@@ -273,4 +274,84 @@ public class AdminController {
 			throw e;
 		}
 	}
+
+	/**
+	 * 查询商品类型
+	 */
+	@RequestMapping("/productType")
+	public String productType(Model model, String tabid, Integer pageCurrent, Integer pageSize) {
+		try {
+			adminService.productType(model, tabid, 1, pageCurrent, pageSize);
+			return "/product/product-type";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productType 查询首页推荐商品 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 管理员修改商品类型状态
+	 */
+	@RequestMapping("/productTypeUpdateStatus")
+	@ResponseBody
+	public Map<String, Object> productTypeUpdateStatus(Integer id) {
+		try {
+			return adminService.productTypeUpdateStatus(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productTypeUpdateStatus 管理员修改类型状态 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 添加商品类型，页面跳转
+	 */
+	@RequestMapping("/productTypeAddInit")
+	public String productTypeAddInit(Model model, String tabid) {
+		adminService.productTypeAddInit(model, tabid);
+		return "/product/product-type-add";
+	}
+
+	/**
+	 * 添加商品类型
+	 */
+	@RequestMapping("/productTypeAdd")
+	@ResponseBody
+	public Map<String, Object> productTypeAdd(String tabid, String type, String detils, Integer status, Integer sort) {
+		try {
+			return adminService.productTypeAdd(tabid, type, detils, status, sort);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- homeRecommendedAdd 添加首页推荐商品 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 编辑商品类型，页面跳转
+	 */
+	@RequestMapping("/productTypeEditInit")
+	public String productTypeEditInit(Model model, String tabid, Integer id) {
+		adminService.productTypeEditInit(model, tabid, id);
+		return "/home/home-recommended-edit";
+	}
+
+	/**
+	 * 编辑商品类型
+	 */
+	@RequestMapping("/productTypeAddEdit")
+	@ResponseBody
+	public Map<String, Object> productTypeAddEdit(String tabid, Integer id, String type, String detils, Integer status,
+			Integer sort) {
+		try {
+			return adminService.productTypeAddEdit(tabid, id, type, detils, status, sort);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productTypeAddEdit 编辑商品类型 异常" + e.toString());
+			throw e;
+		}
+	}
+
 }

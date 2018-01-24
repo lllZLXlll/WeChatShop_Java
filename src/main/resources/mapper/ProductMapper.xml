@@ -51,7 +51,7 @@
 	</select>
 
 	<select id="queryProductType" resultType="map">
-		SELECT * FROM t_product_type
+		SELECT * FROM t_product_type WHERE status = 1 ORDER BY sort
 	</select>
 
 	<select id="queryProductDetailInfoById" resultType="map">

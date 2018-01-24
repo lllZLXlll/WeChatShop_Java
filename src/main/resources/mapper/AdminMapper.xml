@@ -42,35 +42,41 @@
 	</update>
 
 	<select id="queryHomeBannerById" resultType="map">
-		SELECT t1.*, t2.name FROM
+		SELECT t1.*, t2.name
+		FROM
 		t_home_banner t1 LEFT JOIN t_product_info t2
-		ON t1.productId = t2.id 
+		ON t1.productId =
+		t2.id
 		WHERE t1.id = #{param1}
 	</select>
 
 	<update id="homeBannerEdit">
-		UPDATE t_home_banner SET productId = #{param2}, image =
+		UPDATE t_home_banner SET productId = #{param2}, image
+		=
 		#{param3}, status = #{param4}, sort = #{param5}, lastUpdateTime =
 		NOW() WHERE id =
 		#{param1}
 	</update>
 
 	<select id="queryHomeBannerMaxSort" resultType="int">
-		SELECT MAX(sort) + 1 FROM t_home_banner
+		SELECT MAX(sort)
+		+ 1 FROM t_home_banner
 	</select>
-	
+
 	<insert id="homeBannerAdd">
 		insert into t_home_banner (
-			productId, image, status, sort, lastUpdateTime, addTime
+		productId, image, status, sort, lastUpdateTime, addTime
 		) values (
-			#{param1}, #{param2}, #{param3}, #{param4}, NOW(), NOW()
+		#{param1}, #{param2}, #{param3}, #{param4}, NOW(), NOW()
 		)
 	</insert>
 
 	<select id="homeRecommended" resultType="map">
-		SELECT th.*, tp.name FROM
+		SELECT th.*, tp.name
+		FROM
 		t_home_recommended th
-		LEFT JOIN t_product_info tp ON th.productId = tp.id
+		LEFT JOIN t_product_info tp ON th.productId =
+		tp.id
 		WHERE
 		status != 3
 		ORDER BY sort
@@ -79,21 +85,23 @@
 	</select>
 
 	<select id="homeRecommendedCount" resultType="int">
-		SELECT COUNT(id) FROM
+		SELECT COUNT(id)
+		FROM
 		t_home_recommended
 		WHERE
 		status != 3
 	</select>
 
 	<select id="queryHomeRecommendedMaxSort" resultType="int">
-		SELECT MAX(sort) + 1 FROM t_home_recommended
+		SELECT
+		MAX(sort) + 1 FROM t_home_recommended
 	</select>
-	
+
 	<insert id="homeRecommendedAdd">
 		insert into t_home_recommended (
-			productId, status, sort, lastUpdateTime, addTime
+		productId, status, sort, lastUpdateTime, addTime
 		) values (
-			#{param1}, #{param2}, #{param3}, NOW(), NOW()
+		#{param1}, #{param2}, #{param3}, NOW(), NOW()
 		)
 	</insert>
 
@@ -103,16 +111,65 @@
 	</update>
 
 	<select id="queryHomeRecommendedById" resultType="map">
-		SELECT t1.*, t2.name FROM
+		SELECT t1.*,
+		t2.name FROM
 		t_home_recommended t1 LEFT JOIN t_product_info t2
-		ON t1.productId = t2.id 
+		ON
+		t1.productId = t2.id
 		WHERE t1.id = #{param1}
 	</select>
 
 	<update id="homeRecommendedEdit">
-		UPDATE t_home_recommended SET 
-		productId = #{param2}, status = #{param3}, 
+		UPDATE t_home_recommended SET
+		productId = #{param2}, status = #{param3},
 		sort = #{param4}, lastUpdateTime = NOW() WHERE id = #{param1}
 	</update>
+
+	<select id="productType" resultType="map">
+		SELECT * FROM
+		t_product_type
+		WHERE
+		status != 3
+		ORDER BY sort
+		LIMIT #{param1},
+		#{param2}
+	</select>
+
+	<select id="productTypeCount" resultType="int">
+		SELECT COUNT(id) FROM
+		t_product_type
+		WHERE
+		status != 3
+		ORDER BY sort
+	</select>
+
+	<update id="productTypeUpdateStatus">
+		UPDATE t_product_type SET status = 3 WHERE id =
+		#{param1}
+	</update>
+
+	<insert id="productTypeAdd">
+		insert into t_product_type (
+		type, detils, status, sort, lastUpdateTime, addTime
+		) values (
+		#{param1}, #{param2}, #{param3}, #{param4}, NOW(), NOW()
+		)
+	</insert>
+
+	<select id="queryProductTypeById" resultType="map">
+		SELECT * FROM
+		t_product_type WHERE id = #{param1}
+	</select>
+
+	<update id="productTypeAddEdit">
+		UPDATE t_product_type SET type = #{param2}, detils =
+		#{param3}, status = #{param4}, sort = #{param5} WHERE id =
+		#{param1}
+	</update>
+
+	<select id="queryProductTypeMaxSort" resultType="int">
+		SELECT
+		MAX(sort) + 1 FROM t_product_type
+	</select>
 
 </mapper>
