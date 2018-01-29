@@ -172,4 +172,18 @@
 		MAX(sort) + 1 FROM t_product_type
 	</select>
 
+	<select id="productInfo" resultType="map">
+		SELECT t1.*, t2.type FROM t_product_info t1
+		LEFT JOIN t_product_type t2 ON t1.typeId = t2.id
+		LIMIT #{param1}, #{param2} 
+	</select>
+
+	<select id="productInfoCount" resultType="int">
+		SELECT COUNT(id) FROM t_product_info
+	</select>
+
+	<select id="productTypeList" resultType="map">
+		SELECT id, type FROM t_product_type
+	</select>
+
 </mapper>

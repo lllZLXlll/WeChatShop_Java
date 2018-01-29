@@ -10,13 +10,13 @@
             	<tr>
                     <td>
                         <label for="j_custom_total" class="control-label x85">类型：</label>
-                        <input type="text" name="type" value="" size="15">
+                        <input type="text" name="type" value="" size="15" data-rule="required">
                     </td>
                 </tr>
             	<tr>
                     <td>
                         <label for="j_custom_total" class="control-label x85">类型描述：</label>
-				        <textarea cols="30" rows="4" name="detils"></textarea>
+				        <textarea cols="30" rows="4" name="detils" data-rule="required"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -29,7 +29,7 @@
                 <tr>
                     <td>
                         <label for="j_custom_total" class="control-label x85">序号：</label>
-                        <input type="text" data-toggle="spinner" readonly name="sort" value="" size="5" data-min="1">
+                        <input type="text" data-toggle="spinner" readonly name="sort" value="${sort }" size="5" data-min="1">
                     </td>
                 </tr>
             </tbody>

@@ -259,9 +259,9 @@ $(function(){
                     <li><a href="javascript:;" data-toggle="slidebar">商品管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="商品管理">
-                                <li data-url="${path }/admin/productType?tabid=submenu-tab-4" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品分类</li>
+                                <li data-url="${path }/admin/productType?tabid=submenu-tab-4" data-tabid="submenu-tab-4" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品分类</li>
+                                <li data-url="${path }/admin/productInfo?tabid=submenu-tab-5" data-tabid="submenu-tab-5" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品信息管理</li>
                                 <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品上下架</li>
-                                <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品信息管理</li>
                             </ul>
                         </div>
                     </li>

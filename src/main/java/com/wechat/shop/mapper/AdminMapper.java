@@ -53,4 +53,10 @@ public interface AdminMapper {
 
 	Integer queryProductTypeMaxSort();
 
+	List<Map<String, Object>> productInfo(Integer pageBeginNum, Integer pageSize);
+
+	Integer productInfoCount();
+
+	List<Map<String, Object>> productTypeList();
+
 }

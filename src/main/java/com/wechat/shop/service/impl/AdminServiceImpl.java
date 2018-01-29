@@ -430,4 +430,29 @@ public class AdminServiceImpl implements AdminService {
 		model.addAttribute("sort", maxSort);
 	}
 
+	@Override
+	public void productInfo(Model model, String tabid, Integer pageNum, Integer pageSize) {
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
+
+		List<Map<String, Object>> list = adminMapper.productInfo(page.getPageBeginNum(), page.getPageSize());
+		Integer pageTotalCount = adminMapper.productInfoCount();
+
+		page.setPage(list);
+		page.setPageTotalCount(pageTotalCount);
+
+		model.addAttribute("page", page);
+		model.addAttribute("tabid", tabid);
+	}
+
+	@Override
+	public void productInfoAddInit(Model model, String tabid) {
+		List<Map<String, Object>> typeList = adminMapper.productTypeList();
+		
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("typeList", typeList);
+	}
+
 }

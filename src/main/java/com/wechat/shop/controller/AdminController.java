@@ -335,7 +335,7 @@ public class AdminController {
 	@RequestMapping("/productTypeEditInit")
 	public String productTypeEditInit(Model model, String tabid, Integer id) {
 		adminService.productTypeEditInit(model, tabid, id);
-		return "/home/home-recommended-edit";
+		return "/product/product-type-edit";
 	}
 
 	/**
@@ -353,5 +353,44 @@ public class AdminController {
 			throw e;
 		}
 	}
+	
+	/**
+	 * 查询商品信息管理
+	 */
+	@RequestMapping("/productInfo")
+	public String productInfo(Model model, String tabid, Integer pageCurrent, Integer pageSize) {
+		try {
+			adminService.productInfo(model, tabid, pageCurrent, pageSize);
+			return "/product/product-info";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productInfo 查询商品信息管理 异常" + e.toString());
+			throw e;
+		}
+	}
+	
+	/**
+	 * 添加商品信息，页面跳转
+	 */
+	@RequestMapping("/productInfoAddInit")
+	public String productInfoAddInit(Model model, String tabid) {
+		adminService.productInfoAddInit(model, tabid);
+		return "/product/product-info-add";
+	}
+	
+//	/**
+//	 * 添加商品信息
+//	 */
+//	@RequestMapping("/productInfoAdd")
+//	@ResponseBody
+//	public Map<String, Object> productInfoAdd(String tabid, String type, String detils, Integer status, Integer sort) {
+//		try {
+//			return adminService.productInfoAdd(tabid, type, detils, status, sort);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			logger.error("---!!!--- productInfoAdd 添加商品信息 异常" + e.toString());
+//			throw e;
+//		}
+//	}
 
 }
