@@ -242,7 +242,7 @@ public class UserServiceImpl implements UserService {
 		JSONArray jsonArray = json.getJSONArray("Traces");
 
 		List<Map<String, Object>> traces = new ArrayList<Map<String, Object>>();
-		for (int i = jsonArray.length() - 1, j = 0; i >= 0; i--, j++) {
+		for (int i = jsonArray.length() - 1; i >= 0; i--) {
 			json = new JSONObject(jsonArray.get(i).toString());
 			resultMap.put("acceptTime", json.getString("AcceptTime"));
 			resultMap.put("acceptStation", json.getString("AcceptStation"));
