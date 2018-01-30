@@ -59,4 +59,16 @@ public interface AdminMapper {
 
 	List<Map<String, Object>> productTypeList();
 
+	int addProductInfo(Map<String, Object> productMap);
+
+	int addProductImg(long productId, String image);
+
+	Map<String, Object> queryProductInfoById(Integer id);
+
+	List<Map<String, Object>> queryProductImgById(Integer id);
+
+	long editProductInfo(Map<String, Object> productMap);
+
+	long delProductImg(Long id);
+
 }

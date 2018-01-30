@@ -1,5 +1,6 @@
 package com.wechat.shop.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -450,9 +451,154 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void productInfoAddInit(Model model, String tabid) {
 		List<Map<String, Object>> typeList = adminMapper.productTypeList();
-		
+
 		model.addAttribute("tabid", tabid);
 		model.addAttribute("typeList", typeList);
+	}
+
+	@Override
+	public Map<String, Object> productInfoAdd(String tabid, String name, String productImage, Integer typeId,
+			Double price, Double showPrice, Double expressFee, Integer buyCount, String[] detilsImage) {
+		name = PamarParse.getParseString(name);
+		productImage = PamarParse.getParseString(productImage);
+		price = PamarParse.getParseDouble(price);
+		showPrice = PamarParse.getParseDouble(showPrice);
+		expressFee = PamarParse.getParseDouble(expressFee);
+
+		// 参数校验
+		if (detilsImage != null && detilsImage.length <= 0)
+			return BJUI.ajaxDoneInfo("300", "请先上传商品详情图", "", "");
+		if (name == null || name.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写商品名称", "", "");
+		if (productImage == null || productImage.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先上传商品主图", "", "");
+		if (typeId == null || typeId == -1)
+			return BJUI.ajaxDoneInfo("300", "请先选择分类", "", "");
+		if (price == null || price == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写价格", "", "");
+		if (showPrice == null || showPrice == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写展示价格", "", "");
+		if (expressFee == null || expressFee == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写快递费", "", "");
+		if (buyCount == null)
+			return BJUI.ajaxDoneInfo("300", "请先限购数量", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("id", "");
+		productMap.put("name", name);
+		productMap.put("productImage", productImage);
+		productMap.put("typeId", typeId);
+		productMap.put("price", price);
+		productMap.put("showPrice", showPrice);
+		productMap.put("expressFee", expressFee);
+		productMap.put("buyCount", buyCount);
+
+		// 将基本信息写入商品信息表
+		long result = adminMapper.addProductInfo(productMap);
+		if (result <= 0)
+			throw new RuntimeException("添加商品失败");
+
+		// 将商品详情图循环写入商品图片表
+		for (String image : detilsImage) {
+			image = PamarParse.getParseString(image);
+			if (image == null || image.equals(""))
+				continue;
+			result = adminMapper.addProductImg(PamarParse.getParseLong(productMap.get("id")), image);
+			if (result <= 0)
+				throw new RuntimeException("添加商品失败");
+		}
+
+		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
+	}
+
+	@Override
+	public void productInfoEditInit(Model model, String tabid, Integer id) {
+		// 商品基本信息
+		Map<String, Object> productMap = adminMapper.queryProductInfoById(id);
+
+		// 商品图片信息
+		List<Map<String, Object>> imageList = adminMapper.queryProductImgById(id);
+		Map<String, Object> imageMap = new HashMap<String, Object>();
+		for (int i = 0; i < 5; i++) {
+			try {
+				imageMap.put("image_" + (i + 1), imageList.get(i).get("image"));
+			} catch (Exception e) {
+				imageMap.put("image_" + (i + 1), "");
+			}
+		}
+
+		// 商品分类信息
+		List<Map<String, Object>> typeList = adminMapper.productTypeList();
+
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("product", productMap);
+		model.addAttribute("image", imageMap);
+		model.addAttribute("typeList", typeList);
+	}
+
+	@Override
+	public Map<String, Object> productInfoEdit(String tabid, Long id, String name, String productImage, Integer typeId,
+			Double price, Double showPrice, Double expressFee, Integer buyCount, String[] detilsImage) {
+		name = PamarParse.getParseString(name);
+		productImage = PamarParse.getParseString(productImage);
+		price = PamarParse.getParseDouble(price);
+		showPrice = PamarParse.getParseDouble(showPrice);
+		expressFee = PamarParse.getParseDouble(expressFee);
+
+		// 参数校验
+		if (detilsImage != null && detilsImage.length <= 0)
+			return BJUI.ajaxDoneInfo("300", "请先上传商品详情图", "", "");
+		if (name == null || name.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写商品名称", "", "");
+		if (productImage == null || productImage.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先上传商品主图", "", "");
+		if (typeId == null || typeId == -1)
+			return BJUI.ajaxDoneInfo("300", "请先选择分类", "", "");
+		if (price == null || price == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写价格", "", "");
+		if (showPrice == null || showPrice == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写展示价格", "", "");
+		if (expressFee == null || expressFee == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写快递费", "", "");
+		if (buyCount == null)
+			return BJUI.ajaxDoneInfo("300", "请先限购数量", "", "");
+		if (id == null)
+			return BJUI.ajaxDoneInfo("300", "商品id为空", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("id", id);
+		productMap.put("name", name);
+		productMap.put("productImage", productImage);
+		productMap.put("typeId", typeId);
+		productMap.put("price", price);
+		productMap.put("showPrice", showPrice);
+		productMap.put("expressFee", expressFee);
+		productMap.put("buyCount", buyCount);
+
+		// 将基本信息写入商品信息表
+		long result = adminMapper.editProductInfo(productMap);
+		if (result <= 0)
+			throw new RuntimeException("修改商品失败");
+
+		// 将原先的图片删除，再插入原来的图片
+		result = adminMapper.delProductImg(id);
+		if (result <= 0)
+			throw new RuntimeException("修改商品失败");
+
+		result = -1;
+		// 将商品详情图循环写入商品图片表
+		for (String image : detilsImage) {
+			image = PamarParse.getParseString(image);
+			if (image == null || image.equals(""))
+				continue;
+			result = adminMapper.addProductImg(id, image);
+			if (result <= 0)
+				throw new RuntimeException("修改商品失败");
+		}
+		if (result <= 0)
+			throw new RuntimeException("至少要有一张商品详情图");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
 	}
 
 }

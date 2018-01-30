@@ -59,4 +59,12 @@ public interface AdminService {
 
 	void productInfoAddInit(Model model, String tabid);
 
+	Map<String, Object> productInfoAdd(String tabid, String name, String productImage, Integer typeId, Double price,
+			Double showPrice, Double expressFee, Integer buyCount, String[] detilsImage);
+
+	void productInfoEditInit(Model model, String tabid, Integer id);
+
+	Map<String, Object> productInfoEdit(String tabid, Long id, String name, String productImage, Integer typeId, Double price,
+			Double showPrice, Double expressFee, Integer buyCount, String[] detilsImage);
+
 }

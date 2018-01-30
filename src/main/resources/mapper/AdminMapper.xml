@@ -175,6 +175,7 @@
 	<select id="productInfo" resultType="map">
 		SELECT t1.*, t2.type FROM t_product_info t1
 		LEFT JOIN t_product_type t2 ON t1.typeId = t2.id
+		ORDER BY t1.id DESC
 		LIMIT #{param1}, #{param2} 
 	</select>
 
@@ -185,5 +186,50 @@
 	<select id="productTypeList" resultType="map">
 		SELECT id, type FROM t_product_type
 	</select>
+	
+	<insert id="addProductInfo">
+		INSERT INTO t_product_info(
+			name, productImage, typeId, price,
+			showPrice, expressFee, buyCount
+		) VALUES (
+			#{name}, #{productImage}, #{typeId}, #{price},
+			#{showPrice}, #{expressFee}, #{buyCount}
+		)
+		<selectKey keyProperty="id" resultType="long">
+      		SELECT LAST_INSERT_ID() AS id
+      	</selectKey>
+	</insert>
+	
+	<insert id="addProductImg" >
+		INSERT INTO t_product_image(
+			productId, image, addImageTime
+		) VALUES (
+			#{param1}, #{param2}, NOW()
+		)
+	</insert>
+	
+	<select id="queryProductInfoById" resultType="map">
+		SELECT t1.*, t2.type FROM t_product_info t1
+		LEFT JOIN t_product_type t2 ON t1.typeId = t2.id
+		WHERE t1.id = #{param1}
+	</select>
+	
+	<select id="queryProductImgById" resultType="map">
+		SELECT image FROM t_product_image WHERE productId = #{param1}
+	</select>
+	
+	<update id="editProductInfo">
+		UPDATE t_product_info SET
+		name = #{name}, productImage = #{productImage}, 
+		typeId = #{typeId}, price = #{price},
+		showPrice = #{showPrice}, 
+		expressFee = #{expressFee}, 
+		buyCount = #{buyCount}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delProductImg">
+		DELETE FROM t_product_image WHERE productId = #{param1}
+	</delete>
 
 </mapper>

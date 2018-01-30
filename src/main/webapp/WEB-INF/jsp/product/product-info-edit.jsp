@@ -3,14 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="bjui-pageContent" style="overflow: auto;">
-    <form action="${path }/admin/productInfoAdd" data-toggle="validate">
+    <form action="${path }/admin/productInfoEdit" data-toggle="validate">
         <input type="hidden" name="tabid" value="${tabid }">
+        <input type="hidden" name="id" value="${product.id }">
         <table class="table table-bordered table-hover table-striped">
             <tbody>
             	<tr>
                     <td>
                         <label for="j_custom_total" class="control-label x120">商品名称：</label>
-                        <input type="text" name="name" value="" size="26" data-rule="required">
+                        <input type="text" name="name" value="${product.name }" size="26" data-rule="required">
                     </td>
                 </tr>
                 <tr>
@@ -27,10 +28,12 @@
 						        data-drag-drop="true"
 						        data-file-obj-name="imageFile"
 						        data-button-text="选择图片">
-						        <input type="hidden" name="productImage" value="" id="doc_pic" data-rule="required">
+						        <input type="hidden" name="productImage" value="${product.productImage }" id="doc_pic" data-rule="required">
 					        </div>
 						</div>
-                        <span id="doc_span_pic"></span>
+                        <span id="doc_span_pic">
+                        	<img src="${product.productImage }" width="90" height="90">
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -39,7 +42,7 @@
                         <select data-toggle="selectpicker" name="typeId" data-rule="required">
                         	<option value="-1">-请选择-</option>
                         	<c:forEach items="${typeList }" var="item">
-                        		<option value="${item.id }">${item.type }</option>
+                        		<option value="${item.id }" ${product.typeId == item.id ? 'selected' : null }>${item.type }</option>
                         	</c:forEach>
                         </select>
                     </td>
@@ -47,25 +50,25 @@
                 <tr>
                     <td>
                         <label for="j_custom_total" class="control-label x120">商品价格：</label>
-                        <input name="price" value="" size="15" data-rule="required;number">
+                        <input name="price" value="${product.price }" size="15" data-rule="required;number">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="j_custom_total" class="control-label x120">商品展示价格：</label>
-                        <input name="showPrice" value="" size="15" data-rule="required;number">
+                        <input name="showPrice" value="${product.showPrice }" size="15" data-rule="required;number">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="j_custom_total" class="control-label x120">商品快递费：</label>
-                        <input name="expressFee" value="" size="15" data-rule="required;number">
+                        <input name="expressFee" value="${product.expressFee }" size="15" data-rule="required;number">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="j_custom_total" class="control-label x120">限购数量：</label>
-                        <input name="buyCount" value="" size="15" data-toggle="spinner" data-min="-1">
+                        <input name="buyCount" value="${product.buyCount }" size="15" data-toggle="spinner" data-min="-1">
                         <label for="j_custom_total" class="control-label x120" style="color: red;">'-1' 代表不限制数量</label>
                     </td>
                 </tr>
@@ -89,10 +92,15 @@
 						        data-drag-drop="true" 
 						        data-file-obj-name="imageFile"
 						        data-button-text="选择图片">
-						        <input type="hidden" name="detilsImage" value="" id="doc_pic1">
+						        <input type="hidden" name="detilsImage" value="${image.image_1 }" id="doc_pic1">
 					        </div>
 						</div>
-                        <span id="doc_span_pic1"></span>
+                        <span id="doc_span_pic1">
+                        	<c:if test="${image.image_1 != ''}">
+                        		<img src="${image.image_1 }" width="90" height="90">
+                        	</c:if>
+                        </span>
+                        <a class="btn btn-red" href="javascript:;" onclick="cancel_select_img(1)">删除</a>
                     </td>
                 </tr>
                 <tr>
@@ -109,10 +117,14 @@
 						        data-drag-drop="true"
 						        data-file-obj-name="imageFile"
 						        data-button-text="选择图片">
-						        <input type="hidden" name="detilsImage" value="" id="doc_pic2">
+						        <input type="hidden" name="detilsImage" value="${image.image_2 }" id="doc_pic2">
 					        </div>
 						</div>
-                        <span id="doc_span_pic2"></span>
+                        <span id="doc_span_pic2">
+	                        <c:if test="${image.image_2 != ''}">
+	                        	<img src="${image.image_2 }" width="90" height="90">
+                        	</c:if>
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -129,10 +141,14 @@
 						        data-drag-drop="true"
 						        data-file-obj-name="imageFile"
 						        data-button-text="选择图片">
-						        <input type="hidden" name="detilsImage" value="" id="doc_pic3">
+						        <input type="hidden" name="detilsImage" value="${image.image_3 }" id="doc_pic3">
 					        </div>
 						</div>
-                        <span id="doc_span_pic3"></span>
+                        <span id="doc_span_pic3">
+                        	<c:if test="${image.image_3 != ''}">
+                        		<img src="${image.image_3 }" width="90" height="90">
+                       		</c:if>
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -149,10 +165,14 @@
 						        data-drag-drop="true"
 						        data-file-obj-name="imageFile"
 						        data-button-text="选择图片">
-						        <input type="hidden" name="detilsImage" value="" id="doc_pic4">
+						        <input type="hidden" name="detilsImage" value="${image.image_4 }" id="doc_pic4">
 					        </div>
 						</div>
-                        <span id="doc_span_pic4"></span>
+                        <span id="doc_span_pic4">
+                        	<c:if test="${image.image_4 != ''}">
+                        		<img src="${image.image_4 }" width="90" height="90">
+                        	</c:if>
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -169,10 +189,14 @@
 						        data-drag-drop="true"
 						        data-file-obj-name="imageFile"
 						        data-button-text="选择图片">
-						        <input type="hidden" name="detilsImage" value="" id="doc_pic5">
+						        <input type="hidden" name="detilsImage" value="${image.image_5 }" id="doc_pic5">
 					        </div>
 						</div>
-                        <span id="doc_span_pic5"></span>
+                        <span id="doc_span_pic5">
+                        	<c:if test="${image.image_5 != '' }">
+                        		<img src="${image.image_5 }" width="90" height="90">
+                        	</c:if>
+                        </span>
                     </td>
                 </tr>
                 
@@ -248,6 +272,14 @@
             $('#doc_pic5').val('${path}' + json.fileName)
             $('#doc_span_pic5').html('已上传图片：<img src="../'+ json.fileName +'" width="90" height="90">')
         }
+    }
+    
+    // 取消选择图片
+    function cancel_select_img(id) {
+    	$(this).alertmsg('confirm', '删除后将无法恢复！确定删除吗？', {title:'确定删除？', okCall: function() {
+    		$('#doc_pic' + id).val('');
+    		$('#doc_span_pic' + id).html('');
+    	}})
     }
 
 </script>

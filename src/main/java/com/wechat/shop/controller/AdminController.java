@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wechat.shop.common.BJUI;
 import com.wechat.shop.common.Constants;
 import com.wechat.shop.service.AdminService;
 import com.wechat.shop.utils.VerifyCodeUtils;
@@ -100,7 +101,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- changePwd 管理员修改登陆密码 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "管理员修改登陆密码异常", "", "");
 		}
 	}
 
@@ -130,7 +131,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeBannerUpdateStatus 管理员修改banner状态 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "修改banner状态异常", "", "");
 		}
 	}
 
@@ -155,7 +156,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeBannerEdit 编辑首页banner 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "编辑首页banner异常", "", "");
 		}
 	}
 
@@ -190,7 +191,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeBannerAdd 添加首页banner 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "添加首页banner异常", "", "");
 		}
 	}
 
@@ -230,7 +231,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeRecommendedAdd 添加首页推荐商品 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "添加首页推荐商品异常", "", "");
 		}
 	}
 
@@ -245,7 +246,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeRecommendedUpdateStatus 管理员修改推荐商品状态 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "修改推荐商品状态异常", "", "");
 		}
 	}
 
@@ -271,7 +272,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeRecommendedEdit 编辑首页推荐商品 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "编辑首页推荐商品异常", "", "");
 		}
 	}
 
@@ -301,7 +302,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- productTypeUpdateStatus 管理员修改类型状态 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "修改类型状态异常", "", "");
 		}
 	}
 
@@ -325,7 +326,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- homeRecommendedAdd 添加首页推荐商品 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "添加首页推荐商品异常", "", "");
 		}
 	}
 
@@ -350,10 +351,10 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("---!!!--- productTypeAddEdit 编辑商品类型 异常" + e.toString());
-			throw e;
+			return BJUI.ajaxDoneInfo("300", "编辑商品类型异常", "", "");
 		}
 	}
-	
+
 	/**
 	 * 查询商品信息管理
 	 */
@@ -368,7 +369,7 @@ public class AdminController {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 添加商品信息，页面跳转
 	 */
@@ -377,20 +378,48 @@ public class AdminController {
 		adminService.productInfoAddInit(model, tabid);
 		return "/product/product-info-add";
 	}
+
+	/**
+	 * 添加商品信息
+	 */
+	@RequestMapping("/productInfoAdd")
+	@ResponseBody
+	public Map<String, Object> productInfoAdd(String tabid, String name, String productImage, Integer typeId,
+			Double price, Double showPrice, Double expressFee, Integer buyCount, String[] detilsImage) {
+		try {
+			return adminService.productInfoAdd(tabid, name, productImage, typeId, price, showPrice, expressFee,
+					buyCount, detilsImage);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productInfoAdd 添加商品信息 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", "添加商品信息异常", "", "");
+		}
+	}
 	
-//	/**
-//	 * 添加商品信息
-//	 */
-//	@RequestMapping("/productInfoAdd")
-//	@ResponseBody
-//	public Map<String, Object> productInfoAdd(String tabid, String type, String detils, Integer status, Integer sort) {
-//		try {
-//			return adminService.productInfoAdd(tabid, type, detils, status, sort);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			logger.error("---!!!--- productInfoAdd 添加商品信息 异常" + e.toString());
-//			throw e;
-//		}
-//	}
+	/**
+	 * 编辑商品信息，页面跳转
+	 */
+	@RequestMapping("/productInfoEditInit")
+	public String productInfoEditInit(Model model, String tabid, Integer id) {
+		adminService.productInfoEditInit(model, tabid, id);
+		return "/product/product-info-edit";
+	}
+	
+	/**
+	 * 修改商品信息
+	 */
+	@RequestMapping("/productInfoEdit")
+	@ResponseBody
+	public Map<String, Object> productInfoEdit(String tabid, Long id, String name, String productImage, Integer typeId,
+			Double price, Double showPrice, Double expressFee, Integer buyCount, String[] detilsImage) {
+		try {
+			return adminService.productInfoEdit(tabid, id, name, productImage, typeId, price, showPrice, expressFee,
+					buyCount, detilsImage);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productInfoEdit 修改商品信息 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
 
 }

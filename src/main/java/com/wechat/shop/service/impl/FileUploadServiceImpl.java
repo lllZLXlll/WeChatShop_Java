@@ -1,6 +1,7 @@
 package com.wechat.shop.service.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wechat.shop.common.BJUI;
@@ -20,8 +20,16 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 	private Logger logger = Logger.getLogger(FileUploadServiceImpl.class);
 
+	/**
+	 * 上传图片方法 imageFile： 图片文件 session： HttpSession folderPath: 保存文件的相对地址
+	 * 
+	 * @throws IOException
+	 * @throws IllegalStateException
+	 * 
+	 */
 	@Override
-	public Map<String, Object> uploadHomeBannerImg(MultipartFile imageFile, HttpSession session) {
+	public Map<String, Object> uploadImage(MultipartFile imageFile, HttpSession session, String folderPath)
+			throws Exception {
 		if (imageFile.isEmpty()) {
 			return BJUI.ajaxDoneInfo("300", "上传图片不能为空", "", "");
 		}
@@ -32,8 +40,6 @@ public class FileUploadServiceImpl implements FileUploadService {
 		String suffixName = fileName.substring(fileName.lastIndexOf("."));
 		logger.info("上传的后缀名为：" + suffixName);
 
-		// 文件夹相对路径
-		String folderPath = "resources/admin/upload/home/";
 		// 文件上传后的路径
 		String filePath = session.getServletContext().getRealPath("/") + folderPath;
 		String saveFileName = DateUtil.getDateTimeStr() + suffixName;
@@ -44,20 +50,15 @@ public class FileUploadServiceImpl implements FileUploadService {
 		if (!dest.getParentFile().exists()) {
 			dest.getParentFile().mkdirs();
 		}
-		try {
-			// 将图片保存写出到文件夹
-			imageFile.transferTo(dest);
-			// 将图片相对地址返回到前台
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("statusCode", "200");
-			resultMap.put("message", "上传图片成功");
-			resultMap.put("fileName", folderPath + saveFileName);
-			return resultMap;
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("---!!!--- uploadHomeBannerImg 上传首页banner图片 异常" + e.toString());
-		}
-		return BJUI.ajaxDoneInfo("300", "上传图片失败", "", "");
+
+		// 将图片保存写出到文件夹
+		imageFile.transferTo(dest);
+		// 将图片相对地址返回到前台
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("statusCode", "200");
+		resultMap.put("message", "上传图片成功");
+		resultMap.put("fileName", folderPath + saveFileName);
+		return resultMap;
 	}
 
 }

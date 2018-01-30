@@ -13,7 +13,7 @@
                         <div style="display:inline-block; vertical-align:middle;">
 						    <div id="doc_pic_up" data-toggle="upload" 
 						    	data-uploader="${path }/upload/uploadHomeBannerImg"
-						        data-file-size-limit="1024000000"
+						        data-file-size-limit="10240"
 						        data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
 						        data-multi="true"
 						        data-on-upload-success="doc_upload_success"

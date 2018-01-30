@@ -14,7 +14,7 @@
         
         <div class="bjui-searchBar">
         	<!-- 添加banner -->
-        	<a class="btn btn-default" href="${path }/admin/productInfoAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加轮播图">添加轮播图</a>
+        	<a class="btn btn-default" href="${path }/admin/productInfoAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加商品">添加商品</a>
         </div>
     </form>
 </div>
@@ -26,7 +26,7 @@
 	    <thead>
 	        <tr height="35">
 	            <th title="编号" align="center">NO</th>
-	            <th title="商品名称" align="center">商品名称</th>
+	            <th title="商品名称" align="center" width="20%">商品名称</th>
 	            <th title="商品主图" align="center">商品主图</th>
 	            <th title="商品类型" align="center">商品类型</th>
 	            <th title="商品价格" align="center">商品价格</th>
@@ -50,13 +50,13 @@
 			    	<c:forEach items="${page.page }" var="item" varStatus="status">
 				        <tr height="80">
 				        	<td align="center">${status.index + 1 + count }</td>
-				            <td align="center">${item.name }</td>
+				            <td align="center" width="20%">${item.name }</td>
 				            <td align="center">
 				            	<a href="${item.productImage }" target="_blank">
 				            		<img src="${item.productImage }" width="80" height="80"/>
 			            		</a>
 			            	</td>
-				            <td align="center">${item.typeId }</td>
+				            <td align="center">${item.type }</td>
 				            <td align="center">${item.price }</td>
 				            <td align="center">${item.showPrice }</td>
 				            <td align="center">${item.expressFee }</td>
@@ -69,7 +69,7 @@
 				            	<c:if test="${item.downShelves == 0 }">已上架</c:if>
 				            </td>
 				            <td align="center">
-			            		<a class="btn btn-default" href="${path }/admin/homeBannerEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-id="homeBannerEditInit" data-title="轮播图编辑">编辑</a>
+			            		<a class="btn btn-default" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-id="homeBannerEditInit" data-title="商品编辑">编辑</a>
 								&nbsp;|&nbsp;
 								<a class="btn btn-red" href="${path }/admin/homeBannerUpdateStatus?id=${item.id }&status=3" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a>
 							</td>
