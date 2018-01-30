@@ -10,7 +10,7 @@
     <form id="pagerForm" data-toggle="ajaxsearch" action="${path }/admin/productInfo" method="post">
         <input type="hidden" name="pageSize" value="${page.pageSize }">
         <input type="hidden" name="pageCurrent" value="${page.pageNum }">
-        <input type="hidden" name="_" value="${tabid }">
+        <input type="hidden" name="tabid" value="${tabid }">
         
         <div class="bjui-searchBar">
         	<!-- 添加商品信息 -->
@@ -54,7 +54,7 @@
 	    <thead>
 	        <tr height="35">
 	            <th title="编号" align="center">NO</th>
-	            <th title="商品名称" align="center" width="20%">商品名称</th>
+	            <th title="商品名称" align="center" width="15%">商品名称</th>
 	            <th title="商品主图" align="center">商品主图</th>
 	            <th title="商品类型" align="center">商品类型</th>
 	            <th title="商品价格" align="center">商品价格</th>
@@ -78,7 +78,7 @@
 			    	<c:forEach items="${page.page }" var="item" varStatus="status">
 				        <tr height="80">
 				        	<td align="center">${status.index + 1 + count }</td>
-				            <td align="center" width="20%">${item.name }</td>
+				            <td align="center" width="15%">${item.name }</td>
 				            <td align="center">
 				            	<a href="${item.productImage }" target="_blank">
 				            		<img src="${item.productImage }" width="80" height="80"/>
@@ -97,8 +97,10 @@
 				            	<c:if test="${item.downShelves == 0 }">已上架</c:if>
 				            </td>
 				            <td align="center">
-			            		<a class="btn btn-default" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-id="homeBannerEditInit" data-title="商品编辑">编辑</a>
-								&nbsp;|&nbsp;
+			            		<a class="btn btn-default" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="编辑">编辑</a>
+								<a class="btn ${item.classCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="分类">分类</a>
+								<a class="btn ${item.paramCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="参数">参数</a>
+								<a class="btn ${item.imageTextCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="图文详情">图文详情</a>
 								<a class="btn btn-red" href="${path }/admin/productInfoUpdateStatus?id=${item.id }" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a>
 							</td>
 				        </tr>

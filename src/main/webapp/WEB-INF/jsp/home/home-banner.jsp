@@ -10,7 +10,7 @@
     <form id="pagerForm" data-toggle="ajaxsearch" action="${path }/admin/homeBanner" method="post">
         <input type="hidden" name="pageSize" value="${page.pageSize }">
         <input type="hidden" name="pageCurrent" value="${page.pageNum }">
-        <input type="hidden" name="_" value="${tabid }">
+        <input type="hidden" name="tabid" value="${tabid }">
         
         <div class="bjui-searchBar">
         	<!-- 添加banner -->

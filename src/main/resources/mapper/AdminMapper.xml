@@ -173,7 +173,11 @@
 	</select>
 
 	<select id="productInfo" resultType="map">
-		SELECT t1.*, t2.type FROM t_product_info t1
+		SELECT t1.*, t2.type, 
+		(select COUNT(productId) from t_product_class where productId = t1.id ) classCount,
+		(select COUNT(productId) from t_product_param where productId = t1.id ) paramCount,
+		(select COUNT(productId) from t_product_imageText where productId = t1.id ) imageTextCount
+		FROM t_product_info t1
 		LEFT JOIN t_product_type t2 ON t1.typeId = t2.id
 		WHERE delStatus = 0
 		<if test='param3 != null and param3 != ""'>

@@ -100,7 +100,9 @@
                         		<img src="${image.image_1 }" width="90" height="90">
                         	</c:if>
                         </span>
-                        <a class="btn btn-red" href="javascript:;" onclick="cancel_select_img(1)">删除</a>
+                        <c:if test="${image.image_1 != ''}">
+                        	<a class="btn btn-red" href="javascript:;" onclick="cancel_select_img(1)">删除</a>
+                        </c:if>
                     </td>
                 </tr>
                 <tr>
@@ -125,6 +127,9 @@
 	                        	<img src="${image.image_2 }" width="90" height="90">
                         	</c:if>
                         </span>
+                        <c:if test="${image.image_2 != ''}">
+                        	<a class="btn btn-red" href="javascript:;" onclick="cancel_select_img(2)">删除</a>
+                       	</c:if>
                     </td>
                 </tr>
                 <tr>
@@ -149,6 +154,9 @@
                         		<img src="${image.image_3 }" width="90" height="90">
                        		</c:if>
                         </span>
+                        <c:if test="${image.image_3 != ''}">
+                        	<a class="btn btn-red" href="javascript:;" onclick="cancel_select_img(3)">删除</a>
+                       	</c:if>
                     </td>
                 </tr>
                 <tr>
@@ -173,6 +181,9 @@
                         		<img src="${image.image_4 }" width="90" height="90">
                         	</c:if>
                         </span>
+                        <c:if test="${image.image_4 != ''}">
+                        	<a class="btn btn-red" href="javascript:;" onclick="cancel_select_img(4)">删除</a>
+                        </c:if>
                     </td>
                 </tr>
                 <tr>
@@ -197,9 +208,11 @@
                         		<img src="${image.image_5 }" width="90" height="90">
                         	</c:if>
                         </span>
+                        <c:if test="${image.image_5 != '' }">
+                        	<a class="btn btn-red" href="javascript:;" onclick="cancel_select_img(5)">删除</a>
+                       	</c:if>
                     </td>
                 </tr>
-                
             </tbody>
         </table>
     </form>
