@@ -13,9 +13,37 @@
         <input type="hidden" name="_" value="${tabid }">
         
         <div class="bjui-searchBar">
-        	<!-- 添加banner -->
-        	<a class="btn btn-default" href="${path }/admin/productInfoAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加商品">添加商品</a>
-        </div>
+        	<!-- 添加商品信息 -->
+        	<a class="btn btn-blue" href="${path }/admin/productInfoAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加商品">添加商品</a>
+        
+        	&nbsp;
+        	<!-- 商品名称 -->
+        	<label for="j_custom_total" class="control-label x70">商品名称：</label>
+            <input type="text" name="name" value="${name }" size="12">
+            
+            &nbsp;
+            <!-- 商品类型 -->
+            <label for="j_custom_total" class="control-label x70">商品类型：</label>
+            <select data-toggle="selectpicker" name="typeId" data-rule="required">
+            	<option value="-1">-请选择-</option>
+            	<c:forEach items="${typeList }" var="item">
+            		<option value="${item.id }" ${typeId == item.id ? 'selected' : null }>${item.type }</option>
+            	</c:forEach>
+            </select>
+            
+            &nbsp;
+            <!-- 商品状态 -->
+            <label for="j_custom_total" class="control-label x70">商品状态：</label>
+            <select data-toggle="selectpicker" name="downShelves" data-rule="required">
+            	<option value="-1">-请选择-</option>
+            	<option value="0" ${downShelves == 0 ? 'selected' : null}>已上架</option>
+            	<option value="1" ${downShelves == 1 ? 'selected' : null}>已下架</option>
+            </select>
+            
+            &nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+       	</div>
     </form>
 </div>
 

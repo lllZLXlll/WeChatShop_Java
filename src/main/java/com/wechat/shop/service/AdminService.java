@@ -55,7 +55,7 @@ public interface AdminService {
 
 	void productTypeAddInit(Model model, String tabid);
 
-	void productInfo(Model model, String tabid, Integer pageCurrent, Integer pageSize);
+	void productInfo(Model model, String tabid, Integer pageCurrent, Integer pageSize, String name, Integer typeId, Integer downShelves);
 
 	void productInfoAddInit(Model model, String tabid);
 

@@ -359,9 +359,10 @@ public class AdminController {
 	 * 查询商品信息管理
 	 */
 	@RequestMapping("/productInfo")
-	public String productInfo(Model model, String tabid, Integer pageCurrent, Integer pageSize) {
+	public String productInfo(Model model, String tabid, Integer pageCurrent, Integer pageSize, String name,
+			Integer typeId, Integer downShelves) {
 		try {
-			adminService.productInfo(model, tabid, pageCurrent, pageSize);
+			adminService.productInfo(model, tabid, pageCurrent, pageSize, name, typeId, downShelves);
 			return "/product/product-info";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -395,7 +396,7 @@ public class AdminController {
 			return BJUI.ajaxDoneInfo("300", "添加商品信息异常", "", "");
 		}
 	}
-	
+
 	/**
 	 * 编辑商品信息，页面跳转
 	 */
@@ -404,7 +405,7 @@ public class AdminController {
 		adminService.productInfoEditInit(model, tabid, id);
 		return "/product/product-info-edit";
 	}
-	
+
 	/**
 	 * 修改商品信息
 	 */

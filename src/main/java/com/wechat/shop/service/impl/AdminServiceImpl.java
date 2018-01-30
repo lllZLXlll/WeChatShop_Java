@@ -432,18 +432,27 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void productInfo(Model model, String tabid, Integer pageNum, Integer pageSize) {
+	public void productInfo(Model model, String tabid, Integer pageNum, Integer pageSize, String name, Integer typeId,
+			Integer downShelves) {
 		Page page = new Page();
 		page.setPageNum(pageNum == null ? 1 : pageNum);
 		if (pageSize != null)
 			page.setPageSize(pageSize);
 
-		List<Map<String, Object>> list = adminMapper.productInfo(page.getPageBeginNum(), page.getPageSize());
-		Integer pageTotalCount = adminMapper.productInfoCount();
+		List<Map<String, Object>> list = adminMapper.productInfo(page.getPageBeginNum(), page.getPageSize(), name,
+				typeId, downShelves);
+		Integer pageTotalCount = adminMapper.productInfoCount(name, typeId, downShelves);
 
 		page.setPage(list);
 		page.setPageTotalCount(pageTotalCount);
 
+		// 商品分类信息
+		List<Map<String, Object>> typeList = adminMapper.productTypeList();
+
+		model.addAttribute("name", name);
+		model.addAttribute("typeId", typeId);
+		model.addAttribute("downShelves", downShelves);
+		model.addAttribute("typeList", typeList);
 		model.addAttribute("page", page);
 		model.addAttribute("tabid", tabid);
 	}
