@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-01-23 17:09:57
+Date: 2018-01-30 17:20:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -83,11 +83,17 @@ CREATE TABLE `t_home_recommended` (
   `lastUpdateTime` datetime NOT NULL COMMENT '最后一次修改时间',
   `addTime` datetime NOT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='首页推荐商品数据表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='首页推荐商品数据表';
 
 -- ----------------------------
 -- Records of t_home_recommended
 -- ----------------------------
+INSERT INTO `t_home_recommended` VALUES ('1', '1', '1', '1', '2018-01-24 10:59:51', '2018-01-24 10:23:14');
+INSERT INTO `t_home_recommended` VALUES ('2', '2', '3', '3', '2018-01-24 10:34:05', '2018-01-24 10:33:42');
+INSERT INTO `t_home_recommended` VALUES ('3', '1', '4', '1', '2018-01-24 11:00:04', '2018-01-24 10:34:53');
+INSERT INTO `t_home_recommended` VALUES ('4', '1', '5', '1', '2018-01-24 11:00:19', '2018-01-24 10:35:01');
+INSERT INTO `t_home_recommended` VALUES ('5', '1', '6', '1', '2018-01-24 10:35:16', '2018-01-24 10:35:16');
+INSERT INTO `t_home_recommended` VALUES ('6', '1', '7', '2', '2018-01-24 11:19:42', '2018-01-24 10:35:37');
 
 -- ----------------------------
 -- Table structure for t_product_class
@@ -156,7 +162,7 @@ CREATE TABLE `t_product_image` (
   `image` varchar(255) NOT NULL COMMENT '图片',
   `addImageTime` datetime NOT NULL COMMENT '添加图片时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='商品图片表';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='商品图片表';
 
 -- ----------------------------
 -- Records of t_product_image
@@ -180,6 +186,7 @@ INSERT INTO `t_product_image` VALUES ('16', '12', 'http://image3.suning.cn/uimg/
 INSERT INTO `t_product_image` VALUES ('17', '13', 'http://image3.suning.cn/uimg/shp/userItems/146830531247012594_1.jpg', '2017-12-20 11:18:23');
 INSERT INTO `t_product_image` VALUES ('18', '14', 'http://image3.suning.cn/uimg/shp/userItems/146830531247012594_1.jpg', '2017-12-20 11:18:23');
 INSERT INTO `t_product_image` VALUES ('19', '15', 'http://image3.suning.cn/uimg/shp/userItems/146830531247012594_1.jpg', '2017-12-20 11:18:23');
+INSERT INTO `t_product_image` VALUES ('48', '24', 'http://image3.suning.cn/uimg/shp/userItems/146830531247012594_1.jpg', '2018-01-30 16:07:14');
 
 -- ----------------------------
 -- Table structure for t_product_imageText
@@ -229,28 +236,30 @@ CREATE TABLE `t_product_info` (
   `showPrice` decimal(10,2) DEFAULT NULL COMMENT '商品展示价格，就是打折前的价格',
   `expressFee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品快递费',
   `buyCount` int(11) NOT NULL DEFAULT '-1' COMMENT '此商品每个用户限购数量 -1：不限制',
-  `downShelves` int(1) NOT NULL DEFAULT '0' COMMENT '是否下架 0：否 1：是',
+  `downShelves` int(1) NOT NULL DEFAULT '1' COMMENT '是否下架 0：否 1：是',
+  `delStatus` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 0：否 1：是',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='商品信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='商品信息表';
 
 -- ----------------------------
 -- Records of t_product_info
 -- ----------------------------
-INSERT INTO `t_product_info` VALUES ('1', '小米手环1', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '149.00', '155.00', '0.00', '1', '0');
-INSERT INTO `t_product_info` VALUES ('2', '小米手环2', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '150.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('3', '小米手环3', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '151.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('4', '小米手环4', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '152.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('5', '小米手环5', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '153.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('6', '小米手环6', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '154.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('7', '小米手环7', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '155.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('8', '小米手环8', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '156.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('9', '小米手环9', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '157.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('10', '小米手环10', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '158.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('11', '小米手环11', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '159.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('12', '小米手环12', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '160.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('13', '小米手环13', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '161.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('14', '小米手环14', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '162.00', '200.00', '0.00', '-1', '0');
-INSERT INTO `t_product_info` VALUES ('15', '小米手环15', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '163.00', '200.00', '0.00', '-1', '0');
+INSERT INTO `t_product_info` VALUES ('1', '小米手环1', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '149.00', '155.00', '0.00', '1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('2', '小米手环2', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '150.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('3', '小米手环3', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '151.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('4', '小米手环4', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '152.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('5', '小米手环5', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '153.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('6', '小米手环6', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '154.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('7', '小米手环7', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '155.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('8', '小米手环8', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '156.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('9', '小米手环9', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '157.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('10', '小米手环10', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '158.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('11', '小米手环11', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '159.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('12', '小米手环12', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '160.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('13', '小米手环13', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '161.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('14', '小米手环14', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '162.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('15', '小米手环15', '1', 'http://www.safetyemc.cn/file/upload/201606/03/101909601.jpg', '163.00', '200.00', '0.00', '-1', '0', '0');
+INSERT INTO `t_product_info` VALUES ('24', '温馨-保暖内衣男加绒', '2', 'http://localhost:8080/zlx/resources/admin/upload/product/20180130154011047.jpg', '99.10', '129.19', '15.10', '-1', '1', '1');
 
 -- ----------------------------
 -- Table structure for t_product_order
@@ -351,12 +360,11 @@ CREATE TABLE `t_product_shoppingCart` (
   `productClassId` bigint(20) NOT NULL COMMENT '商品分类表id',
   `addTime` datetime NOT NULL COMMENT '添加购物车时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COMMENT='购物车表';
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COMMENT='购物车表';
 
 -- ----------------------------
 -- Records of t_product_shoppingCart
 -- ----------------------------
-INSERT INTO `t_product_shoppingCart` VALUES ('94', 'wMM37KSHNhYUWmj9dhl7fg==', '2', '1', '3', '2018-01-18 17:10:14');
 
 -- ----------------------------
 -- Table structure for t_product_type
@@ -366,17 +374,26 @@ CREATE TABLE `t_product_type` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '商品类型id',
   `type` varchar(255) NOT NULL COMMENT '类型名称',
   `detils` varchar(255) DEFAULT NULL COMMENT '类型说明',
+  `status` int(11) DEFAULT '1' COMMENT '状态： 1：展示 2：隐藏 3：删除',
+  `sort` int(11) DEFAULT NULL COMMENT '序号',
+  `lastUpdateTime` datetime DEFAULT NULL COMMENT '最后一次修改时间',
+  `addTime` datetime DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='商品类型表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='商品类型表';
 
 -- ----------------------------
 -- Records of t_product_type
 -- ----------------------------
-INSERT INTO `t_product_type` VALUES ('1', '数码', '手机 手表 手环 电脑 笔记本 耳机');
-INSERT INTO `t_product_type` VALUES ('2', '日常家居', '毛巾 牙刷 杯子 热水壶 豆浆机');
-INSERT INTO `t_product_type` VALUES ('3', '旅游出行', '帐篷 U型枕 太阳镜');
-INSERT INTO `t_product_type` VALUES ('4', '收藏', '工艺品 针织纪念品');
-INSERT INTO `t_product_type` VALUES ('5', '二手转售', '二手商品');
+INSERT INTO `t_product_type` VALUES ('1', '数码', '手机 手表 手环 电脑 笔记本 耳机', '1', '1', '2018-01-24 13:57:08', '2018-01-24 13:57:24');
+INSERT INTO `t_product_type` VALUES ('2', '日常家居', '毛巾 牙刷 杯子 热水壶 豆浆机', '1', '2', '2018-01-24 13:57:10', '2018-01-24 13:57:27');
+INSERT INTO `t_product_type` VALUES ('3', '旅游出行', '帐篷 U型枕 太阳镜', '1', '3', '2018-01-24 13:57:13', '2018-01-24 13:57:30');
+INSERT INTO `t_product_type` VALUES ('4', '收藏', '工艺品 针织纪念品', '1', '4', '2018-01-24 13:57:18', '2018-01-24 13:57:32');
+INSERT INTO `t_product_type` VALUES ('5', '二手转售', '二手商品 二手车', '1', '5', '2018-01-24 13:57:21', '2018-01-24 13:57:35');
+INSERT INTO `t_product_type` VALUES ('6', '测试1', '1', '3', '1', '2018-01-24 16:05:06', '2018-01-24 16:05:06');
+INSERT INTO `t_product_type` VALUES ('7', '测试2', '2', '3', '2', '2018-01-24 16:09:22', '2018-01-24 16:09:22');
+INSERT INTO `t_product_type` VALUES ('8', '测试3', '测试描述', '3', '6', '2018-01-25 12:22:30', '2018-01-25 12:22:30');
+INSERT INTO `t_product_type` VALUES ('9', '测试4', '测试4', '3', '7', '2018-01-25 12:29:50', '2018-01-25 12:29:50');
+INSERT INTO `t_product_type` VALUES ('10', '测试5', '测试5', '3', '8', '2018-01-25 12:31:56', '2018-01-25 12:31:56');
 
 -- ----------------------------
 -- Table structure for t_receivingAddress
@@ -427,5 +444,5 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', 'oYbcT0b_x6Pq74_hhDEnmEohDn2I', 'wMM37KSHNhYUWmj9dhl7fg==', 'ubb+RQAEWtz6WPQjOJPYkA==', '张立享', '1', 'https://wx.qlogo.cn/mmopen/vi_32/TGNBoMw6PY80kVgrRtxWN1agniby403tjO4hwFgCDibygb7jcGibu0XplpLGyg8bqcj3w9s8leCzleAFBrbT4MYicw/0', '中国', '江西', '赣州', '2017-12-17 11:36:09', '2018-01-20 09:47:23');
+INSERT INTO `t_user` VALUES ('1', 'oYbcT0b_x6Pq74_hhDEnmEohDn2I', 'wMM37KSHNhYUWmj9dhl7fg==', 'ev3V/hI5HMMTSPD+nFRR4Q==', '张立享', '1', 'https://wx.qlogo.cn/mmopen/vi_32/TGNBoMw6PY80kVgrRtxWN1agniby403tjO4hwFgCDibygb7jcGibu0XplpLGyg8bqcj3w9s8leCzleAFBrbT4MYicw/0', '中国', '江西', '赣州', '2017-12-17 11:36:09', '2018-01-29 16:28:07');
 SET FOREIGN_KEY_CHECKS=1;
