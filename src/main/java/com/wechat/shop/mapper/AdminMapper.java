@@ -71,4 +71,8 @@ public interface AdminMapper {
 
 	long delProductImg(Long id);
 
+	int productInfoUpdateStatus(Long id);
+
+	int queryProductClassCountById(Long id);
+
 }

@@ -67,4 +67,6 @@ public interface AdminService {
 	Map<String, Object> productInfoEdit(String tabid, Long id, String name, String productImage, Integer typeId, Double price,
 			Double showPrice, Double expressFee, Integer buyCount, String[] detilsImage);
 
+	Map<String, Object> productInfoUpdateStatus(Long id);
+
 }

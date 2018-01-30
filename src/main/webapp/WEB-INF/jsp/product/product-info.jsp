@@ -99,7 +99,7 @@
 				            <td align="center">
 			            		<a class="btn btn-default" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-id="homeBannerEditInit" data-title="商品编辑">编辑</a>
 								&nbsp;|&nbsp;
-								<a class="btn btn-red" href="${path }/admin/homeBannerUpdateStatus?id=${item.id }&status=3" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a>
+								<a class="btn btn-red" href="${path }/admin/productInfoUpdateStatus?id=${item.id }" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a>
 							</td>
 				        </tr>
 			        </c:forEach>

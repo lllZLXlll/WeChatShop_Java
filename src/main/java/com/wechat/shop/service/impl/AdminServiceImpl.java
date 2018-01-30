@@ -610,4 +610,23 @@ public class AdminServiceImpl implements AdminService {
 		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
 	}
 
+	@Override
+	public Map<String, Object> productInfoUpdateStatus(Long id) {
+		id = PamarParse.getParseLong(id);
+		if (id == null || id == -1)
+			return BJUI.ajaxDoneInfo("300", "id为空", "", "");
+
+		// 查询是否此商品还有商品分类信息，如果有将不能删除
+		int count = adminMapper.queryProductClassCountById(id);
+		if (count > 0) {
+			return BJUI.ajaxDoneInfo("300", "该商品分类中还有商品数据，不能删除！", "", "");
+		}
+
+		int result = adminMapper.productInfoUpdateStatus(id);
+		if (result <= 0)
+			return BJUI.ajaxDoneInfo("300", "删除失败", "", "");
+
+		return BJUI.ajaxDoneInfo("200", "删除成功", "", "");
+	}
+
 }

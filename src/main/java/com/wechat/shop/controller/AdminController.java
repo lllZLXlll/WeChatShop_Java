@@ -422,5 +422,20 @@ public class AdminController {
 			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
 		}
 	}
+	
+	/**
+	 * 删除商品信息
+	 */
+	@RequestMapping("/productInfoUpdateStatus")
+	@ResponseBody
+	public Map<String, Object> productInfoUpdateStatus(Long id) {
+		try {
+			return adminService.productInfoUpdateStatus(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productInfoUpdateStatus 删除商品信息 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
 
 }
