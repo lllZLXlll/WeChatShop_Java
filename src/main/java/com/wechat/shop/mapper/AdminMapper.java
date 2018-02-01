@@ -75,4 +75,10 @@ public interface AdminMapper {
 
 	int queryProductClassCountById(Long id);
 
+	List<Map<String, Object>> productClass(Integer pageBeginNum, Integer pageSize, Integer id);
+
+	Integer productClassCount(Integer id);
+
+	long addProductClass(Map<String, Object> productMap);
+
 }

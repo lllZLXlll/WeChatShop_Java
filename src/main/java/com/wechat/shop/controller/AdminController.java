@@ -422,7 +422,7 @@ public class AdminController {
 			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
 		}
 	}
-	
+
 	/**
 	 * 删除商品信息
 	 */
@@ -435,6 +435,47 @@ public class AdminController {
 			e.printStackTrace();
 			logger.error("---!!!--- productInfoUpdateStatus 删除商品信息 异常" + e.toString());
 			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
+
+	/**
+	 * 查询商品分类
+	 */
+	@RequestMapping("/productClass")
+	public String productClass(Model model, String tabid, Integer pageCurrent, Integer pageSize, Integer id) {
+		try {
+			adminService.productClass(model, tabid, pageCurrent, pageSize, id);
+			return "/product/product-class";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productClass 查询商品分类 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 添加分类，页面跳转
+	 */
+	@RequestMapping("/productClassAddInit")
+	public String productClassAddInit(Model model, String tabid, Long productId) {
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("productId", productId);
+		return "/product/product-class-add";
+	}
+
+	/**
+	 * 添加分类
+	 */
+	@RequestMapping("/productClassAdd")
+	@ResponseBody
+	public Map<String, Object> productClassAdd(String tabid, Long productId, String className, String productImage,
+			Double price, Integer count) {
+		try {
+			return adminService.productClassAdd(tabid, productId, className, productImage, price, count);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productClassAdd 添加分类 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", "添加分类异常", "", "");
 		}
 	}
 

@@ -69,4 +69,9 @@ public interface AdminService {
 
 	Map<String, Object> productInfoUpdateStatus(Long id);
 
+	void productClass(Model model, String tabid, Integer pageCurrent, Integer pageSize, Integer id);
+
+	Map<String, Object> productClassAdd(String tabid, Long productId, String className, String productImage,
+			Double price, Integer count);
+
 }

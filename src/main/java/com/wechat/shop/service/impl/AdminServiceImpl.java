@@ -629,4 +629,63 @@ public class AdminServiceImpl implements AdminService {
 		return BJUI.ajaxDoneInfo("200", "删除成功", "", "");
 	}
 
+	@Override
+	public void productClass(Model model, String tabid, Integer pageNum, Integer pageSize, Integer id) {
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
+
+		List<Map<String, Object>> list = adminMapper.productClass(page.getPageBeginNum(), page.getPageSize(), id);
+		Integer pageTotalCount = adminMapper.productClassCount(id);
+
+		page.setPage(list);
+		page.setPageTotalCount(pageTotalCount);
+
+		// 商品分类信息
+		List<Map<String, Object>> typeList = adminMapper.productTypeList();
+
+		model.addAttribute("id", id);
+		model.addAttribute("typeList", typeList);
+		model.addAttribute("page", page);
+		model.addAttribute("tabid", tabid);
+		
+	}
+	
+	@Override
+	public Map<String, Object> productClassAdd(String tabid, Long productId, String className, String productImage,
+			Double price, Integer count) {
+		productId = PamarParse.getParseLong(productId);
+		className = PamarParse.getParseString(className);
+		productImage = PamarParse.getParseString(productImage);
+		price = PamarParse.getParseDouble(price);
+		count = PamarParse.getParseInteger(count);
+
+		// 参数校验
+		if (className == null || className.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写商品名称", "", "");
+		if (productImage == null || productImage.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先上传商品分类图", "", "");
+		if (productId == null || productId == -1)
+			return BJUI.ajaxDoneInfo("300", "参数为空，请重试", "", "");
+		if (price == null || price == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写价格", "", "");
+		if (count == null || count == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写库存", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("productId", productId);
+		productMap.put("class", className);
+		productMap.put("productImage", productImage);
+		productMap.put("price", price);
+		productMap.put("count", count);
+
+		// 将基本信息写入商品信息表
+		long result = adminMapper.addProductClass(productMap);
+		if (result <= 0)
+			throw new RuntimeException("添加失败，请重试");
+
+		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
+	}
+
 }

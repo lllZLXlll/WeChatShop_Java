@@ -14,7 +14,7 @@
         
         <div class="bjui-searchBar">
         	<!-- 添加banner -->
-        	<a class="btn btn-default" href="${path }/admin/homeRecommendedAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加推荐商品">添加推荐商品</a>
+        	<a class="btn btn-blue" href="${path }/admin/homeRecommendedAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加推荐商品">添加推荐商品</a>
         </div>
     </form>
 </div>

@@ -14,7 +14,7 @@
         
         <div class="bjui-searchBar">
         	<!-- 添加banner -->
-        	<a class="btn btn-default" href="${path }/admin/homeBannerAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加轮播图">添加轮播图</a>
+        	<a class="btn btn-blue" href="${path }/admin/homeBannerAddInit?tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加轮播图">添加轮播图</a>
         </div>
     </form>
 </div>

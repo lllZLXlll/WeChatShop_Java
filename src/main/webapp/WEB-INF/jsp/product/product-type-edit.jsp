@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="bjui-pageContent" style="height: 45%;overflow: auto;">
+<div class="bjui-pageContent" style="overflow: auto;">
     <form action="${path }/admin/productTypeAddEdit" data-toggle="validate">
         <input type="hidden" name="tabid" value="${tabid }">
         <input type="hidden" name="id" value="${item.id }">

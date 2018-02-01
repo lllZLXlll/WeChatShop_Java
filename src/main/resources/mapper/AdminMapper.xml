@@ -263,5 +263,23 @@
 	<select id="queryProductClassCountById" resultType="int">
 		SELECT COUNT(id) FROM t_product_class WHERE productId = #{param1}
 	</select>
+	
+	<select id="productClass" resultType="map">
+		SELECT *, class className FROM t_product_class WHERE productId = #{param3} 
+		ORDER BY id DESC
+		LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id="productClassCount" resultType="int">
+		SELECT COUNT(id) FROM t_product_class WHERE productId = #{param1}
+	</select>
+	
+	<insert id="addProductClass">
+		INSERT INTO t_product_class (
+			productId, class, productImage, price, count, addClassTime
+		) VALUES (
+			#{productId}, #{class}, #{productImage}, #{price}, #{count}, NOW()
+		)
+	</insert>
 
 </mapper>

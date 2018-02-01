@@ -247,10 +247,10 @@ $(function(){
                 <ul id="bjui-hnav-navbar">
                 	<li class="active"><a href="javascript:;" data-toggle="slidebar">小程序首页管理</a>
                         <div class="items hide" data-noinit="true">
-                            <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="小程序首页管理">
-                                <li data-url="${path }/admin/homeBanner?tabid=submenu-tab-1" data-tabid="submenu-tab-1" data-toggle="navtab" data-fresh="true" data-tabid="doc-file" data-faicon="caret-right">轮播图</li>
-                                <li data-url="${path }/admin/homeRecommended?tabid=submenu-tab-2" data-tabid="submenu-tab-2" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">推荐商品</li>
-                                <li data-url="${path }/admin/homeActivity?tabid=submenu-tab-3" data-tabid="submenu-tab-3" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">活动专区</li>
+                            <ul id="bjui-hnav-tree1" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="小程序首页管理">
+                                <li data-id="20" data-pid="0" data-url="${path }/admin/homeBanner?tabid=submenu-tab-1" data-tabid="submenu-tab-1" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">轮播图</li>
+                                <li data-id="21" data-pid="2" data-url="${path }/admin/homeRecommended?tabid=submenu-tab-2" data-tabid="submenu-tab-2" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">推荐商品</li>
+                                <li data-id="22" data-pid="2" data-url="${path }/admin/homeActivity?tabid=submenu-tab-3" data-tabid="submenu-tab-3" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">活动专区</li>
                                 
                             </ul>
                         </div>
@@ -258,10 +258,10 @@ $(function(){
                     
                     <li><a href="javascript:;" data-toggle="slidebar">商品管理</a>
                         <div class="items hide" data-noinit="true">
-                            <ul class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="商品管理">
-                                <li data-url="${path }/admin/productType?tabid=submenu-tab-4" data-tabid="submenu-tab-4" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">商品分类</li>
-                                <li data-url="${path }/admin/productInfo?tabid=submenu-tab-5"  data-tabid="submenu-tab-5" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">商品信息管理</li>
-                                <li data-url="doc/base/filelist.html" data-toggle="navtab" data-fresh="true"  data-tabid="doc-file" data-faicon="caret-right">商品上下架</li>
+                            <ul id="bjui-hnav-tree2" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="star-o" data-tit="商品管理">
+                                <li data-id="30" data-pid="0" data-url="${path }/admin/productType?tabid=submenu-tab-4" data-tabid="submenu-tab-4" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">商品分类</li>
+                                <li data-id="31" data-pid="3" data-url="${path }/admin/productInfo?tabid=submenu-tab-5" data-tabid="submenu-tab-5" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">商品信息管理</li>
+                                <li data-id="32" data-pid="3" data-url="${path }/admin/productInfo?tabid=submenu-tab-6" data-tabid="submenu-tab-6" data-toggle="navtab" data-fresh="true" data-faicon="caret-right">商品上下架</li>
                             </ul>
                         </div>
                     </li>
