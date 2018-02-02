@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-02-02 15:13:57
+Date: 2018-02-02 16:42:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -325,11 +325,11 @@ DROP TABLE IF EXISTS `t_product_param`;
 CREATE TABLE `t_product_param` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '商品参数表id',
   `productId` bigint(11) NOT NULL COMMENT '商品信息表id',
-  `key` varchar(255) NOT NULL COMMENT '商品参数key',
+  `paramKey` varchar(255) NOT NULL COMMENT '商品参数key',
   `detail` varchar(255) NOT NULL COMMENT '参数说明 value',
   `addParamTime` datetime NOT NULL COMMENT '添加参数时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='商品参数表';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='商品参数表';
 
 -- ----------------------------
 -- Records of t_product_param
@@ -355,6 +355,7 @@ INSERT INTO `t_product_param` VALUES ('18', '12', '设备类型', '智能手环1
 INSERT INTO `t_product_param` VALUES ('19', '13', '设备类型', '智能手环13', '2017-12-20 11:24:53');
 INSERT INTO `t_product_param` VALUES ('20', '14', '设备类型', '智能手环14', '2017-12-20 11:24:53');
 INSERT INTO `t_product_param` VALUES ('21', '15', '设备类型', '智能手环15', '2017-12-20 11:24:53');
+INSERT INTO `t_product_param` VALUES ('23', '26', '11', '11', '2018-02-02 16:29:25');
 
 -- ----------------------------
 -- Table structure for t_product_shoppingCart

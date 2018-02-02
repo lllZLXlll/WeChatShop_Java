@@ -74,5 +74,20 @@ public class FileUploadController {
 		}
 		return BJUI.ajaxDoneInfo("300", "上传图片失败", "", "");
 	}
+	
+	/**
+	 * 上传商品图文详情图片
+	 */
+	@RequestMapping("/uploadProductImageTextImg")
+	@ResponseBody
+	public Map<String, Object> uploadProductImageTextImg(MultipartFile imageFile, HttpSession session) {
+		try {
+			return fileUploadService.uploadImage(imageFile, session, "resources/admin/upload/product/imageText/");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- uploadProductImageTextImg 上传商品图文详情图片 异常" + e.toString());
+		}
+		return BJUI.ajaxDoneInfo("300", "上传图片失败", "", "");
+	}
 
 }

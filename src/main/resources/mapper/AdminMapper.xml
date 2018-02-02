@@ -292,4 +292,66 @@
 		WHERE id = #{id}
 	</update>
 
+	<select id="productParam" resultType="map">
+		SELECT * FROM t_product_param WHERE productId = #{param3} 
+		LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id="productParamCount" resultType="int">
+		SELECT COUNT(id) FROM t_product_param WHERE productId = #{param1}
+	</select>
+	
+	<insert id="productParamAdd">
+		INSERT INTO t_product_param (
+			productId, paramKey, detail, addParamTime
+		) VALUES (
+			#{productId}, #{paramKey}, #{detail}, NOW()
+		)
+	</insert>
+	
+	<select id="queryProductParamById" resultType="map">
+		SELECT * FROM t_product_param WHERE id = #{param1}
+	</select>
+	
+	<update id="productParamEdit">
+		UPDATE t_product_param
+		SET paramKey = #{paramKey}, detail = #{detail}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="productParamDel">
+		DELETE FROM t_product_param WHERE id = #{param1}
+	</delete>
+	
+	<select id="productImageText" resultType="map">
+		SELECT * FROM t_product_imageText WHERE productId = #{param3} 
+		LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id="productImageTextCount" resultType="int">
+		SELECT COUNT(id) FROM t_product_imageText WHERE productId = #{param1}
+	</select>
+	
+	<insert id="productImageTextAdd">
+		INSERT INTO t_product_imageText (
+			productId, detail, image
+		) VALUES (
+			#{productId}, #{detail}, #{image}
+		)
+	</insert>
+	
+	<select id="queryProductImageTextById" resultType="map">
+		SELECT * FROM t_product_imageText WHERE id = #{param1}
+	</select>
+	
+	<update id="productImageTextEdit">
+		UPDATE t_product_imageText
+		SET detail = #{detail}, image = #{image}
+		where id = #{id}
+	</update>
+	
+	<delete id="productImageTextDel">
+		DELETE FROM t_product_imageText WHERE id = #{param1}
+	</delete>
+	
 </mapper>

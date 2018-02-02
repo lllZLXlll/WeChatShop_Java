@@ -478,7 +478,7 @@ public class AdminController {
 			return BJUI.ajaxDoneInfo("300", "添加分类异常", "", "");
 		}
 	}
-	
+
 	/**
 	 * 编辑分类，页面跳转
 	 */
@@ -504,4 +504,161 @@ public class AdminController {
 		}
 	}
 
+	/**
+	 * 查询商品参数
+	 */
+	@RequestMapping("/productParam")
+	public String productParam(Model model, String tabid, Integer pageCurrent, Integer pageSize, Integer id) {
+		try {
+			adminService.productParam(model, tabid, pageCurrent, pageSize, id);
+			return "/product/product-param";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productParam 查询商品参数 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 添加参数，页面跳转
+	 */
+	@RequestMapping("/productParamAddInit")
+	public String productParamAddInit(Model model, String tabid, Long productId) {
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("productId", productId);
+		return "/product/product-param-add";
+	}
+
+	/**
+	 * 添加参数
+	 */
+	@RequestMapping("/productParamAdd")
+	@ResponseBody
+	public Map<String, Object> productParamAdd(String tabid, Long productId, String key, String detail) {
+		try {
+			return adminService.productParamAdd(tabid, productId, key, detail);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productParamAdd 添加参数 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", "添加参数异常", "", "");
+		}
+	}
+
+	/**
+	 * 编辑参数，页面跳转
+	 */
+	@RequestMapping("/productParamEditInit")
+	public String productParamEditInit(Model model, String tabid, Integer id) {
+		adminService.productParamEditInit(model, tabid, id);
+		return "/product/product-param-edit";
+	}
+
+	/**
+	 * 修改参数
+	 */
+	@RequestMapping("/productParamEdit")
+	@ResponseBody
+	public Map<String, Object> productParamEdit(String tabid, Long id, String key, String detail) {
+		try {
+			return adminService.productParamEdit(tabid, id, key, detail);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productParamEdit 修改参数 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
+
+	/**
+	 * 删除参数
+	 */
+	@RequestMapping("/productParamDel")
+	@ResponseBody
+	public Map<String, Object> productParamDel(Long id) {
+		try {
+			return adminService.productParamDel(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productParamDel 删除参数 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
+
+	/**
+	 * 查询商品图文详情
+	 */
+	@RequestMapping("/productImageText")
+	public String productImageText(Model model, String tabid, Integer pageCurrent, Integer pageSize, Integer id) {
+		try {
+			adminService.productImageText(model, tabid, pageCurrent, pageSize, id);
+			return "/product/product-imageText";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productClass 查询商品分类 异常" + e.toString());
+			throw e;
+		}
+	}
+
+	/**
+	 * 添加图文详情，页面跳转
+	 */
+	@RequestMapping("/productImageTextAddInit")
+	public String productImageTextAddInit(Model model, String tabid, Long productId) {
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("productId", productId);
+		return "/product/product-imageText-add";
+	}
+
+	/**
+	 * 添加图文详情
+	 */
+	@RequestMapping("/productImageTextAdd")
+	@ResponseBody
+	public Map<String, Object> productImageTextAdd(String tabid, Long productId, String detail, String image) {
+		try {
+			return adminService.productImageTextAdd(tabid, productId, detail, image);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productImageTextAdd 添加图文详情 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", "添加图文详情异常", "", "");
+		}
+	}
+
+	/**
+	 * 编辑图文详情，页面跳转
+	 */
+	@RequestMapping("/productImageTextEditInit")
+	public String productImageTextEditInit(Model model, String tabid, Integer id) {
+		adminService.productImageTextEditInit(model, tabid, id);
+		return "/product/product-imageText-edit";
+	}
+
+	/**
+	 * 编辑图文详情
+	 */
+	@RequestMapping("/productImageTextEdit")
+	@ResponseBody
+	public Map<String, Object> productImageTextEdit(String tabid, Long id, String detail, String image) {
+		try {
+			return adminService.productImageTextEdit(tabid, id, detail, image);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productParamEdit 编辑图文详情 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
+
+	/**
+	 * 删除图文详情
+	 */
+	@RequestMapping("/productImageTextDel")
+	@ResponseBody
+	public Map<String, Object> productImageTextDel(Long id) {
+		try {
+			return adminService.productImageTextDel(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productImageTextDel 删除图文详情 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
 }

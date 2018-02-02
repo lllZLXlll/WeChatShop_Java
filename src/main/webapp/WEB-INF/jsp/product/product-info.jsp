@@ -99,9 +99,9 @@
 				            <td align="center">
 			            		<a class="btn btn-default" href="${path }/admin/productInfoEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="编辑">编辑</a>
 								<a class="btn ${item.classCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productClass?id=${item.id }&tabid=productClassNavtab-${item.id }" data-toggle="navtab" data-tabid="productClassNavtab-${item.id }" data-id="productClassNavtab-${item.id }" data-title="${item.name }-分类">分类</a>
-								<a class="btn ${item.paramCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productParam?id=${item.id }&tabid=${tabid}" data-toggle="navtab" data-id="productParamNavtab-${item.id }" data-title="${item.name }-参数">参数</a>
-								<a class="btn ${item.imageTextCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productImageText?id=${item.id }&tabid=${tabid}" data-toggle="navtab" data-id="productImageTextNavtab-${item.id }" data-title="${item.name }-图文详情">图文详情</a>
-								<a class="btn btn-red" href="${path }/admin/productInfoUpdateStatus?id=${item.id }" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a>
+								<a class="btn ${item.paramCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productParam?id=${item.id }&tabid=productParamNavtab-${item.id }" data-toggle="navtab" data-tabid="productParamNavtab-${item.id }" data-id="productParamNavtab-${item.id }" data-title="${item.name }-参数">参数</a>
+								<a class="btn ${item.imageTextCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productImageText?id=${item.id }&tabid=productImageTextNavtab-${item.id }" data-toggle="navtab" data-tabid="productImageTextNavtab-${item.id }" data-id="productImageTextNavtab-${item.id }" data-title="${item.name }-图文详情">图文详情</a>
+								<%-- <a class="btn btn-red" href="${path }/admin/productInfoUpdateStatus?id=${item.id }" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a> --%>
 							</td>
 				        </tr>
 			        </c:forEach>

@@ -79,4 +79,24 @@ public interface AdminService {
 	Map<String, Object> productClassEdit(String tabid, Long id, String className, String productImage, Double price,
 			Integer count);
 
+	void productParam(Model model, String tabid, Integer pageCurrent, Integer pageSize, Integer id);
+
+	Map<String, Object> productParamAdd(String tabid, Long productId, String key, String detail);
+
+	void productParamEditInit(Model model, String tabid, Integer id);
+
+	Map<String, Object> productParamEdit(String tabid, Long productId, String key, String detail);
+
+	Map<String, Object> productParamDel(Long id);
+
+	void productImageText(Model model, String tabid, Integer pageCurrent, Integer pageSize, Integer id);
+
+	Map<String, Object> productImageTextAdd(String tabid, Long productId, String detail, String image);
+
+	void productImageTextEditInit(Model model, String tabid, Integer id);
+
+	Map<String, Object> productImageTextEdit(String tabid, Long id, String detail, String image);
+
+	Map<String, Object> productImageTextDel(Long id);
+
 }

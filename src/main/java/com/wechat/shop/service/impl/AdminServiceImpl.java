@@ -642,16 +642,12 @@ public class AdminServiceImpl implements AdminService {
 		page.setPage(list);
 		page.setPageTotalCount(pageTotalCount);
 
-		// 商品分类信息
-		List<Map<String, Object>> typeList = adminMapper.productTypeList();
-
 		model.addAttribute("id", id);
-		model.addAttribute("typeList", typeList);
 		model.addAttribute("page", page);
 		model.addAttribute("tabid", tabid);
-		
+
 	}
-	
+
 	@Override
 	public Map<String, Object> productClassAdd(String tabid, Long productId, String className, String productImage,
 			Double price, Integer count) {
@@ -667,7 +663,7 @@ public class AdminServiceImpl implements AdminService {
 		if (productImage == null || productImage.equals(""))
 			return BJUI.ajaxDoneInfo("300", "请先上传商品分类图", "", "");
 		if (productId == null || productId == -1)
-			return BJUI.ajaxDoneInfo("300", "参数为空，请重试", "", "");
+			return BJUI.ajaxDoneInfo("300", "参数为空，请关闭此标签重试", "", "");
 		if (price == null || price == -1)
 			return BJUI.ajaxDoneInfo("300", "请先填写价格", "", "");
 		if (count == null || count == -1)
@@ -687,19 +683,19 @@ public class AdminServiceImpl implements AdminService {
 
 		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
 	}
-	
+
 	@Override
 	public void productClassEditInit(Model model, String tabid, Integer id) {
 		// 商品基本信息
 		Map<String, Object> productMap = adminMapper.queryProductClassById(id);
-		
+
 		model.addAttribute("tabid", tabid);
 		model.addAttribute("item", productMap);
 	}
-	
+
 	@Override
-	public Map<String, Object> productClassEdit(String tabid, Long id, String className, String productImage, Double price,
-			Integer count) {
+	public Map<String, Object> productClassEdit(String tabid, Long id, String className, String productImage,
+			Double price, Integer count) {
 		id = PamarParse.getParseLong(id);
 		className = PamarParse.getParseString(className);
 		productImage = PamarParse.getParseString(productImage);
@@ -712,7 +708,7 @@ public class AdminServiceImpl implements AdminService {
 		if (productImage == null || productImage.equals(""))
 			return BJUI.ajaxDoneInfo("300", "请先上传商品分类图", "", "");
 		if (id == null || id == -1)
-			return BJUI.ajaxDoneInfo("300", "参数为空，请重试", "", "");
+			return BJUI.ajaxDoneInfo("300", "参数为空，请关闭此标签重试", "", "");
 		if (price == null || price == -1)
 			return BJUI.ajaxDoneInfo("300", "请先填写价格", "", "");
 		if (count == null || count == -1)
@@ -731,6 +727,180 @@ public class AdminServiceImpl implements AdminService {
 			throw new RuntimeException("修改失败");
 
 		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
+	}
+
+	@Override
+	public void productParam(Model model, String tabid, Integer pageNum, Integer pageSize, Integer id) {
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
+
+		List<Map<String, Object>> list = adminMapper.productParam(page.getPageBeginNum(), page.getPageSize(), id);
+		Integer pageTotalCount = adminMapper.productParamCount(id);
+
+		page.setPage(list);
+		page.setPageTotalCount(pageTotalCount);
+
+		model.addAttribute("id", id);
+		model.addAttribute("page", page);
+		model.addAttribute("tabid", tabid);
+
+	}
+
+	@Override
+	public Map<String, Object> productParamAdd(String tabid, Long productId, String key, String detail) {
+		productId = PamarParse.getParseLong(productId);
+		key = PamarParse.getParseString(key);
+		detail = PamarParse.getParseString(detail);
+
+		// 参数校验
+		if (key == null || key.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写参数名称", "", "");
+		if (detail == null || detail.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写参数描述", "", "");
+		if (productId == null || productId == -1)
+			return BJUI.ajaxDoneInfo("300", "参数为空，请关闭此标签重试", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("productId", productId);
+		productMap.put("paramKey", key);
+		productMap.put("detail", detail);
+
+		long result = adminMapper.productParamAdd(productMap);
+		if (result <= 0)
+			throw new RuntimeException("添加失败");
+
+		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
+	}
+
+	@Override
+	public void productParamEditInit(Model model, String tabid, Integer id) {
+		// 商品基本信息
+		Map<String, Object> productMap = adminMapper.queryProductParamById(id);
+
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("item", productMap);
+	}
+
+	@Override
+	public Map<String, Object> productParamEdit(String tabid, Long id, String key, String detail) {
+		id = PamarParse.getParseLong(id);
+		key = PamarParse.getParseString(key);
+		detail = PamarParse.getParseString(detail);
+
+		// 参数校验
+		if (key == null || key.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写参数名称", "", "");
+		if (detail == null || detail.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写参数描述", "", "");
+		if (id == null || id == -1)
+			return BJUI.ajaxDoneInfo("300", "参数为空，请关闭此标签重试", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("id", id);
+		productMap.put("paramKey", key);
+		productMap.put("detail", detail);
+
+		long result = adminMapper.productParamEdit(productMap);
+		if (result <= 0)
+			throw new RuntimeException("修改失败");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
+	}
+
+	@Override
+	public Map<String, Object> productParamDel(Long id) {
+		long result = adminMapper.productParamDel(id);
+		if (result <= 0)
+			throw new RuntimeException("修改失败");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "", "");
+	}
+
+	@Override
+	public void productImageText(Model model, String tabid, Integer pageNum, Integer pageSize, Integer id) {
+		Page page = new Page();
+		page.setPageNum(pageNum == null ? 1 : pageNum);
+		if (pageSize != null)
+			page.setPageSize(pageSize);
+
+		List<Map<String, Object>> list = adminMapper.productImageText(page.getPageBeginNum(), page.getPageSize(), id);
+		Integer pageTotalCount = adminMapper.productImageTextCount(id);
+
+		page.setPage(list);
+		page.setPageTotalCount(pageTotalCount);
+
+		model.addAttribute("id", id);
+		model.addAttribute("page", page);
+		model.addAttribute("tabid", tabid);
+
+	}
+
+	@Override
+	public Map<String, Object> productImageTextAdd(String tabid, Long productId, String detail, String image) {
+		productId = PamarParse.getParseLong(productId);
+		detail = PamarParse.getParseString(detail);
+		image = PamarParse.getParseString(image);
+
+		if ((detail == null || detail.equals("")) && (image == null || image.equals("")))
+			return BJUI.ajaxDoneInfo("300", "文字描述与图片至少填写其中一项", "", "");
+		if (productId == null || productId == -1)
+			return BJUI.ajaxDoneInfo("300", "参数为空，请关闭此标签重试", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("productId", productId);
+		productMap.put("detail", detail);
+		productMap.put("image", image);
+
+		// 将基本信息写入商品信息表
+		long result = adminMapper.productImageTextAdd(productMap);
+		if (result <= 0)
+			throw new RuntimeException("添加失败，请重试");
+
+		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
+	}
+
+	@Override
+	public void productImageTextEditInit(Model model, String tabid, Integer id) {
+		// 商品基本信息
+		Map<String, Object> productMap = adminMapper.queryProductImageTextById(id);
+
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("item", productMap);
+	}
+
+	@Override
+	public Map<String, Object> productImageTextEdit(String tabid, Long id, String detail, String image) {
+		id = PamarParse.getParseLong(id);
+		image = PamarParse.getParseString(image);
+		detail = PamarParse.getParseString(detail);
+
+		// 参数校验
+		if ((detail == null || detail.equals("")) && (image == null || image.equals("")))
+			return BJUI.ajaxDoneInfo("300", "文字描述与图片至少填写其中一项", "", "");
+		if (id == null || id == -1)
+			return BJUI.ajaxDoneInfo("300", "参数为空，请关闭此标签重试", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("id", id);
+		productMap.put("image", image);
+		productMap.put("detail", detail);
+
+		long result = adminMapper.productImageTextEdit(productMap);
+		if (result <= 0)
+			throw new RuntimeException("修改失败");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
+	}
+
+	@Override
+	public Map<String, Object> productImageTextDel(Long id) {
+		long result = adminMapper.productImageTextDel(id);
+		if (result <= 0)
+			throw new RuntimeException("修改失败");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "", "");
 	}
 
 }

@@ -7,7 +7,6 @@ package com.wechat.shop.utils;
  *
  */
 public class PamarParse {
-
 	public static String getParseString(Object strObj) {
 		String parseStr = null;
 		if (strObj != null) {

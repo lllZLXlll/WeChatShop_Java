@@ -7,7 +7,7 @@
 
 <!-- 表单 -->
 <div class="bjui-pageHeader">
-    <form id="pagerForm" data-toggle="ajaxsearch" action="${path }/admin/productClass" method="post">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${path }/admin/productImageText" method="post">
         <input type="hidden" name="pageSize" value="${page.pageSize }">
         <input type="hidden" name="pageCurrent" value="${page.pageNum }">
         <input type="hidden" name="tabid" value="${tabid }">
@@ -15,7 +15,7 @@
         
         <div class="bjui-searchBar">
         	<!-- 添加 -->
-        	<a class="btn btn-blue" href="${path }/admin/productClassAddInit?tabid=${tabid}&productId=${id }" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加分类">添加分类</a>
+        	<a class="btn btn-blue" href="${path }/admin/productImageTextAddInit?tabid=${tabid}&productId=${id }" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="添加图文详情">添加图文详情</a>
         </div>
     </form>
 </div>
@@ -27,10 +27,8 @@
 	    <thead>
 	        <tr height="35">
 	            <th title="编号" align="center">NO</th>
-	            <th title="类型图片" align="center">类型图片</th>
-	            <th title="类型名称" align="center">类型名称</th>
-	            <th title="价格" align="center">价格</th>
-	            <th title="库存" align="center">库存</th>
+	            <th title="文字描述" align="center">文字描述</th>
+	            <th title="图片" align="center">图片</th>
 	            <th title="操作" align="center">操作</th>
 	        </tr>
 	    </thead>
@@ -39,24 +37,25 @@
 	    	<c:choose>
 	            <c:when test="${page.page == null or page.page == '[]' }">
 		           	<tr>
-	            		<td align="center" colspan="6">暂无数据</td>
+	            		<td align="center" colspan="4">暂无数据</td>
 	            	</tr>
 		        </c:when>
 	           	<c:otherwise>
 		     		<!-- 循环输出数据  -->
 			    	<c:forEach items="${page.page }" var="item" varStatus="status">
-				        <tr height="30">
+				        <tr height="80">
 				        	<td align="center">${status.index + 1 + count }</td>
+				        	<td align="center">${item.detail }</td>
 				        	<td align="center">
-				            	<a href="${item.productImage }" target="_blank">
-				            		<img src="${item.productImage }" width="80" height="80"/>
-			            		</a>
+				        		<c:if test="${item.image != null && item.image != '' }">
+				        			<a href="${item.image }" target="_blank">
+					            		<img src="${item.image }" width="80" height="80"/>
+				            		</a>
+				        		</c:if>
 			            	</td>
-				            <td align="center">${item.className }</td>
-				            <td align="center">${item.price }</td>
-				            <td align="center">${item.count }</td>
 				            <td align="center">
-			            		<a class="btn btn-default" href="${path }/admin/productClassEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="分类编辑">编辑</a>
+			            		<a class="btn btn-default" href="${path }/admin/productImageTextEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-title="图文详情编辑">编辑</a>
+								<a class="btn btn-red" href="${path }/admin/productImageTextDel?id=${item.id }" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a>
 							</td>
 				        </tr>
 			        </c:forEach>

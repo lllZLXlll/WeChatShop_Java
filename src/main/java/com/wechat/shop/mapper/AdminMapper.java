@@ -85,4 +85,28 @@ public interface AdminMapper {
 
 	long editProductClass(Map<String, Object> productMap);
 
+	List<Map<String, Object>> productParam(Integer pageBeginNum, Integer pageSize, Integer id);
+
+	Integer productParamCount(Integer id);
+
+	long productParamAdd(Map<String, Object> productMap);
+
+	Map<String, Object> queryProductParamById(Integer id);
+
+	long productParamEdit(Map<String, Object> productMap);
+
+	long productParamDel(Long id);
+
+	List<Map<String, Object>> productImageText(Integer pageBeginNum, Integer pageSize, Integer id);
+
+	Integer productImageTextCount(Integer id);
+
+	long productImageTextAdd(Map<String, Object> productMap);
+
+	Map<String, Object> queryProductImageTextById(Integer id);
+
+	long productImageTextEdit(Map<String, Object> productMap);
+
+	long productImageTextDel(Long id);
+
 }
