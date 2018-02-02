@@ -81,4 +81,8 @@ public interface AdminMapper {
 
 	long addProductClass(Map<String, Object> productMap);
 
+	Map<String, Object> queryProductClassById(Integer id);
+
+	long editProductClass(Map<String, Object> productMap);
+
 }

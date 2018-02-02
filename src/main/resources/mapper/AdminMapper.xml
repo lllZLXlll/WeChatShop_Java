@@ -281,5 +281,15 @@
 			#{productId}, #{class}, #{productImage}, #{price}, #{count}, NOW()
 		)
 	</insert>
+	
+	<select id="queryProductClassById" resultType="map">
+		SELECT *, class className FROM t_product_class WHERE id = #{param1}
+	</select>
+	
+	<update id="editProductClass">
+		UPDATE t_product_class
+		SET class = #{class}, productImage = #{productImage}, price = #{price}, count = #{count}
+		WHERE id = #{id}
+	</update>
 
 </mapper>

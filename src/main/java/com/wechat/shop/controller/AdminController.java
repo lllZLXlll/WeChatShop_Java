@@ -478,5 +478,30 @@ public class AdminController {
 			return BJUI.ajaxDoneInfo("300", "添加分类异常", "", "");
 		}
 	}
+	
+	/**
+	 * 编辑分类，页面跳转
+	 */
+	@RequestMapping("/productClassEditInit")
+	public String productClassEditInit(Model model, String tabid, Integer id) {
+		adminService.productClassEditInit(model, tabid, id);
+		return "/product/product-class-edit";
+	}
+
+	/**
+	 * 修改分类信息
+	 */
+	@RequestMapping("/productClassEdit")
+	@ResponseBody
+	public Map<String, Object> productClassEdit(String tabid, Long id, String className, String productImage,
+			Double price, Integer count) {
+		try {
+			return adminService.productClassEdit(tabid, id, className, productImage, price, count);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productClassEdit 修改分类信息 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
 
 }

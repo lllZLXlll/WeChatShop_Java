@@ -74,4 +74,9 @@ public interface AdminService {
 	Map<String, Object> productClassAdd(String tabid, Long productId, String className, String productImage,
 			Double price, Integer count);
 
+	void productClassEditInit(Model model, String tabid, Integer id);
+
+	Map<String, Object> productClassEdit(String tabid, Long id, String className, String productImage, Double price,
+			Integer count);
+
 }

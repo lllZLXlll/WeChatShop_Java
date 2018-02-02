@@ -687,5 +687,50 @@ public class AdminServiceImpl implements AdminService {
 
 		return BJUI.ajaxDoneInfo("200", "添加成功", "dialog", tabid);
 	}
+	
+	@Override
+	public void productClassEditInit(Model model, String tabid, Integer id) {
+		// 商品基本信息
+		Map<String, Object> productMap = adminMapper.queryProductClassById(id);
+		
+		model.addAttribute("tabid", tabid);
+		model.addAttribute("item", productMap);
+	}
+	
+	@Override
+	public Map<String, Object> productClassEdit(String tabid, Long id, String className, String productImage, Double price,
+			Integer count) {
+		id = PamarParse.getParseLong(id);
+		className = PamarParse.getParseString(className);
+		productImage = PamarParse.getParseString(productImage);
+		price = PamarParse.getParseDouble(price);
+		count = PamarParse.getParseInteger(count);
+
+		// 参数校验
+		if (className == null || className.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先填写商品名称", "", "");
+		if (productImage == null || productImage.equals(""))
+			return BJUI.ajaxDoneInfo("300", "请先上传商品分类图", "", "");
+		if (id == null || id == -1)
+			return BJUI.ajaxDoneInfo("300", "参数为空，请重试", "", "");
+		if (price == null || price == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写价格", "", "");
+		if (count == null || count == -1)
+			return BJUI.ajaxDoneInfo("300", "请先填写库存", "", "");
+
+		Map<String, Object> productMap = new HashMap<>();
+		productMap.put("id", id);
+		productMap.put("class", className);
+		productMap.put("productImage", productImage);
+		productMap.put("price", price);
+		productMap.put("count", count);
+
+		// 将基本信息写入商品信息表
+		long result = adminMapper.editProductClass(productMap);
+		if (result <= 0)
+			throw new RuntimeException("修改失败");
+
+		return BJUI.ajaxDoneInfo("200", "修改成功", "dialog", tabid);
+	}
 
 }

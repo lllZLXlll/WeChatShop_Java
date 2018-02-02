@@ -56,9 +56,7 @@
 				            <td align="center">${item.price }</td>
 				            <td align="center">${item.count }</td>
 				            <td align="center">
-			            		<a class="btn btn-default" href="${path }/admin/productTypeEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-id="homeBannerEditInit" data-title="类型编辑">编辑</a>
-								&nbsp;|&nbsp;
-								<a class="btn btn-red" href="${path }/admin/productTypeUpdateStatus?id=${item.id }&status=3" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a>
+			            		<a class="btn btn-default" href="${path }/admin/productClassEditInit?id=${item.id }&tabid=${tabid}" data-toggle="dialog" data-width="800" data-height="600" data-mask="true" data-id="homeBannerEditInit" data-title="分类编辑">编辑</a>
 							</td>
 				        </tr>
 			        </c:forEach>
