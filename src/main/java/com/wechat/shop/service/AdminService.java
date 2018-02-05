@@ -99,4 +99,6 @@ public interface AdminService {
 
 	Map<String, Object> productImageTextDel(Long id);
 
+	Map<String, Object> productUpDownShelves(Long id, Long downShelves);
+
 }

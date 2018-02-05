@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : wechat
+Source Server         : 微信小程序数据库
 Source Server Version : 50628
 Source Host           : gz-cdb-0uw0wmgs.sql.tencentcdb.com:63535
 Source Database       : wechatshop
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-02-02 16:42:29
+Date: 2018-02-05 18:55:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -205,7 +205,7 @@ CREATE TABLE `t_product_imageText` (
   `detail` varchar(255) NOT NULL COMMENT '文字说明',
   `image` varchar(255) NOT NULL COMMENT '图片',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='商品图文详情表';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='商品图文详情表';
 
 -- ----------------------------
 -- Records of t_product_imageText
@@ -229,6 +229,8 @@ INSERT INTO `t_product_imageText` VALUES ('16', '12', '', 'https://img.alicdn.co
 INSERT INTO `t_product_imageText` VALUES ('17', '13', '', 'https://img.alicdn.com/imgextra/i1/1714128138/TB2ZLfDpVXXXXXmXXXXXXXXXXXX-1714128138.jpg');
 INSERT INTO `t_product_imageText` VALUES ('18', '14', '', 'https://img.alicdn.com/imgextra/i1/1714128138/TB2ZLfDpVXXXXXmXXXXXXXXXXXX-1714128138.jpg');
 INSERT INTO `t_product_imageText` VALUES ('19', '15', '', 'https://img.alicdn.com/imgextra/i1/1714128138/TB2ZLfDpVXXXXXmXXXXXXXXXXXX-1714128138.jpg');
+INSERT INTO `t_product_imageText` VALUES ('20', '26', '113', 'http://localhost:8080/zlx/resources/admin/upload/product/imageText/20180202172224709.jpg');
+INSERT INTO `t_product_imageText` VALUES ('21', '26', '223', 'http://localhost:8080/zlx/resources/admin/upload/product/imageText/20180202172233670.jpg');
 
 -- ----------------------------
 -- Table structure for t_product_info

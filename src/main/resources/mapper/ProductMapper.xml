@@ -70,7 +70,7 @@
 	</select>
 
 	<select id="queryProductDetailParamsById" resultType="map">
-		SELECT *, paramKey key FROM t_product_param WHERE productId = #{0}
+		SELECT * FROM t_product_param WHERE productId = #{0}
 	</select>
 
 	<select id="queryProductDetailImgTextById" resultType="map">
