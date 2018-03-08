@@ -109,4 +109,6 @@ public interface AdminMapper {
 
 	long productImageTextDel(Long id);
 
+	long productUpDownShelves(Long id, Long downShelves);
+
 }

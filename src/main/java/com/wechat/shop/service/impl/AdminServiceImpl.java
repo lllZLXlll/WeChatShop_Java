@@ -903,4 +903,28 @@ public class AdminServiceImpl implements AdminService {
 		return BJUI.ajaxDoneInfo("200", "修改成功", "", "");
 	}
 
+	@Override
+	public Map<String, Object> productUpDownShelves(Long id, Long downShelves) {
+		id = PamarParse.getParseLong(id);
+		downShelves = PamarParse.getParseLong(downShelves);
+
+		// 参数校验
+		if (id == null || id == -1 || downShelves == null || downShelves == -1)
+			return BJUI.ajaxDoneInfo("300", "参数为空，请关闭此标签重试", "", "");
+
+		String message = "上";
+		if (downShelves == 0) {
+			downShelves = 1l;
+			message = "下";
+		} else {
+			downShelves = 0l;
+		}
+
+		long result = adminMapper.productUpDownShelves(id, downShelves);
+		if (result <= 0)
+			throw new RuntimeException("修改失败");
+
+		return BJUI.ajaxDoneInfo("200", "商品" + message + "架成功", "", "");
+	}
+
 }

@@ -101,6 +101,12 @@
 								<a class="btn ${item.classCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productClass?id=${item.id }&tabid=productClassNavtab-${item.id }" data-toggle="navtab" data-tabid="productClassNavtab-${item.id }" data-id="productClassNavtab-${item.id }" data-title="${item.name }-分类">分类</a>
 								<a class="btn ${item.paramCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productParam?id=${item.id }&tabid=productParamNavtab-${item.id }" data-toggle="navtab" data-tabid="productParamNavtab-${item.id }" data-id="productParamNavtab-${item.id }" data-title="${item.name }-参数">参数</a>
 								<a class="btn ${item.imageTextCount > 0 ? 'btn-default' : 'btn-red' }" href="${path }/admin/productImageText?id=${item.id }&tabid=productImageTextNavtab-${item.id }" data-toggle="navtab" data-tabid="productImageTextNavtab-${item.id }" data-id="productImageTextNavtab-${item.id }" data-title="${item.name }-图文详情">图文详情</a>
+								<c:if test="${item.downShelves == 1 && item.classCount > 0 && item.paramCount > 0 && item.imageTextCount > 0 }">
+									<a class="btn btn-red" href="${path }/admin/productUpDownShelves?id=${item.id }&downShelves=${item.downShelves }" data-toggle="doajax" data-confirm-msg="商品上架前请先检查信息是否有误哦！确定上架？">上架</a>
+								</c:if>
+								<c:if test="${item.downShelves == 0 }">
+									<a class="btn btn-red" href="${path }/admin/productUpDownShelves?id=${item.id }&downShelves=${item.downShelves }" data-toggle="doajax" data-confirm-msg="确定要下架吗？">下架</a>
+								</c:if>
 								<%-- <a class="btn btn-red" href="${path }/admin/productInfoUpdateStatus?id=${item.id }" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除</a> --%>
 							</td>
 				        </tr>

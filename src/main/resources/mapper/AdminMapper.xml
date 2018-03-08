@@ -354,4 +354,10 @@
 		DELETE FROM t_product_imageText WHERE id = #{param1}
 	</delete>
 	
+	<update id="productUpDownShelves">
+		UPDATE t_product_info
+		SET downShelves = #{param2}
+		where id = #{param1}
+	</update>
+	
 </mapper>

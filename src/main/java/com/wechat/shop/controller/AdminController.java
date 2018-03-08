@@ -661,4 +661,20 @@ public class AdminController {
 			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
 		}
 	}
+	
+	/**
+	 * 商品上下架
+	 */
+	@RequestMapping("/productUpDownShelves")
+	@ResponseBody
+	public Map<String, Object> productUpDownShelves(Long id, Long downShelves) {
+		try {
+			return adminService.productUpDownShelves(id, downShelves);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("---!!!--- productUpDownShelves 商品上下架 异常" + e.toString());
+			return BJUI.ajaxDoneInfo("300", e.getMessage(), "", "");
+		}
+	}
+
 }
